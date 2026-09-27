@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【画面4】予約カルテ・参加者書類提出台帳 | Minatowa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-950: #070e1b;
+      --navy-900: #0a192f;
+      --navy-850: #0d213f;
+      --navy-800: #102a4e;
+      --navy-700: #173866;
+      --blue-600: #0284c7;
+      --blue-500: #0ea5e9;
+      --blue-100: #e0f2fe;
+      --blue-50: #f0f9ff;
+      --emerald-600: #059669;
+      --emerald-500: #10b981;
+      --emerald-100: #d1fae5;
+      --emerald-50: #ecfdf5;
+      --amber-600: #d97706;
+      --amber-500: #f59e0b;
+      --amber-100: #fef3c7;
+      --amber-50: #fffbeb;
+      --crimson-600: #dc2626;
+      --crimson-500: #ef4444;
+      --crimson-100: #fee2e2;
+      --crimson-50: #fef2f2;
+      --purple-600: #7c3aed;
+      --purple-100: #ede9fe;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+      --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: #f1f5f9;
+      color: var(--slate-800);
+      line-height: 1.5;
+      padding-bottom: 90px;
+    }
+
+    /* Top Guidance Banner */
+    .role-guidance-banner {
+      background: linear-gradient(135deg, #0f2744, #1b3a5b);
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #0284c7;
+    }
+    .role-guidance-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .role-guidance-tag {
+      background: #0284c7;
+      color: #e0f2fe;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .role-guidance-text {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .role-guidance-desc {
+      font-size: 0.8rem;
+      color: #bae6fd;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: var(--navy-900);
+      color: var(--white);
+      height: 64px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .brand-logo span { color: var(--blue-500); }
+    .port-badge {
+      background-color: var(--navy-700);
+      color: #93c5fd;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-item {
+      color: var(--slate-300);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .nav-item:hover {
+      color: var(--white);
+      background-color: var(--navy-800);
+    }
+    .nav-item.active {
+      color: var(--white);
+      background-color: var(--blue-600);
+    }
+
+    /* Metric Summary Strip */
+    .summary-strip {
+      background: white;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 16px 24px;
+    }
+    .summary-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+    .date-control {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-right: 1px solid var(--slate-200);
+      padding-right: 24px;
+    }
+    .date-badge {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--navy-900);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .quick-date-btns {
+      display: flex;
+      gap: 6px;
+    }
+    .btn-quick-date {
+      border: 1px solid var(--slate-200);
+      background: var(--slate-50);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--slate-700);
+    }
+    .btn-quick-date.active {
+      background: var(--navy-900);
+      border-color: var(--navy-900);
+      color: white;
+    }
+
+    .kpi-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+    .kpi-card {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .kpi-card.alert {
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+    .kpi-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--slate-500);
+      text-transform: uppercase;
+    }
+    .kpi-val-row {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    .kpi-number {
+      font-size: 1.45rem;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--slate-900);
+      line-height: 1.1;
+    }
+    .kpi-unit {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--slate-500);
+    }
+
+    /* Filter & Action Toolbar */
+    .toolbar-bar {
+      background: #fafafa;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+    }
+    .toolbar-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .filter-chips {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .chip-filter {
+      border: 1px solid var(--slate-200);
+      background: white;
+      padding: 5px 12px;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--slate-600);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .chip-filter.active {
+      background: var(--navy-900);
+      border-color: var(--navy-900);
+      color: white;
+    }
+    .chip-filter.alert-active {
+      background: var(--amber-500);
+      border-color: var(--amber-500);
+      color: var(--slate-900);
+    }
+
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .search-input {
+      border: 1px solid var(--slate-300);
+      border-radius: var(--radius-sm);
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      width: 220px;
+    }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--blue-600);
+    }
+    .btn-create-booking {
+      background: var(--blue-600);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 7px 14px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn-create-booking:hover {
+      background: #0369a1;
+    }
+
+    /* Main Booking List Container */
+    .main-container {
+      max-width: 1400px;
+      margin: 24px auto;
+      padding: 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Booking Group Card */
+    .booking-group-card {
+      background: white;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: all 0.15s;
+    }
+    .booking-group-card.has-pending-doc {
+      border-left: 5px solid var(--amber-500);
+    }
+    .booking-group-card.all-qualified {
+      border-left: 5px solid var(--emerald-500);
+    }
+
+    /* Group Header */
+    .group-header {
+      padding: 14px 20px;
+      background: var(--slate-50);
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .group-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .booking-id-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: white;
+      border: 1px solid var(--slate-300);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: var(--slate-700);
+    }
+    .channel-badge {
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+    .channel-jalan { background: #fee2e2; color: #b91c1c; }
+    .channel-asoview { background: #e0f2fe; color: #0369a1; }
+    .channel-direct { background: #dcfce7; color: #15803d; }
+    .channel-b2b { background: #ede9fe; color: #6d28d9; }
+
+    .rep-name {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--slate-900);
+    }
+    .boat-assign-badge {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1d4ed8;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Guest Rows Inside Group */
+    .guest-items-list {
+      display: flex;
+      flex-direction: column;
+    }
+    .guest-item-row {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--slate-200);
+      display: grid;
+      grid-template-columns: 240px 1fr 180px auto;
+      gap: 18px;
+      align-items: center;
+      transition: background 0.15s;
+    }
+    .guest-item-row:last-child {
+      border-bottom: none;
+    }
+    .guest-item-row:hover {
+      background: #fafbfc;
+    }
+    .guest-item-row.row-alert {
+      background: #fffdf5;
+    }
+
+    .guest-primary-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .guest-name-text {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+    .guest-name-text:hover {
+      color: var(--blue-600);
+      text-decoration: underline;
+    }
+    .guest-sub-meta {
+      font-size: 0.75rem;
+      color: var(--slate-500);
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Document Status Badges */
+    .doc-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .doc-pill.qualified {
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+    }
+    .doc-pill.pending-cert {
+      background: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fde68a;
+      animation: pulseAlert 2s infinite;
+    }
+    .doc-pill.guaranteed {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+    @keyframes pulseAlert {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .doc-detail-text {
+      font-size: 0.78rem;
+      color: var(--slate-600);
+      line-height: 1.4;
+    }
+
+    /* Gear & Measurements */
+    .gear-spec-info {
+      font-size: 0.78rem;
+      color: var(--slate-700);
+      line-height: 1.4;
+    }
+
+    /* Action Buttons in Row */
+    .row-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-table-action {
+      background: white;
+      border: 1px solid var(--slate-300);
+      color: var(--slate-700);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .btn-table-action:hover {
+      background: var(--slate-100);
+      border-color: var(--slate-400);
+    }
+    .btn-table-action.btn-guarantee {
+      background: #eff6ff;
+      border-color: #93c5fd;
+      color: #1d4ed8;
+    }
+    .btn-table-action.btn-guarantee:hover {
+      background: #dbeafe;
+    }
+
+    /* Slide-in Drawer (Screen 4-D) */
+    .drawer-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.4);
+      backdrop-filter: blur(3px);
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s ease;
+    }
+    .drawer-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .drawer-panel {
+      position: fixed;
+      top: 0; right: -560px; bottom: 0;
+      width: 540px;
+      max-width: 90vw;
+      background: white;
+      box-shadow: -8px 0 24px rgba(0,0,0,0.18);
+      z-index: 101;
+      transition: right 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    .drawer-overlay.open .drawer-panel {
+      right: 0;
+    }
+    .drawer-header {
+      padding: 18px 24px;
+      background: var(--navy-900);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .drawer-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .drawer-section-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--slate-500);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .drawer-card-box {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      font-size: 0.85rem;
+    }
+
+    /* Modal Form */
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 120;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      width: 90%;
+      max-width: 600px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    .modal-header {
+      padding: 16px 24px;
+      background: var(--navy-900);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-body {
+      padding: 20px 24px;
+      max-height: 75vh;
+      overflow-y: auto;
+    }
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      margin-bottom: 5px;
+      display: block;
+    }
+    .form-input, .form-select {
+      width: 100%;
+      border: 1px solid var(--slate-300);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      font-family: inherit;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--slate-900);
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+    .toast.show { display: flex; animation: fadeIn 0.2s ease-out; }
+    @keyframes fadeIn {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Guidance Banner -->
+  <aside class="role-guidance-banner">
+    <div class="role-guidance-left">
+      <span class="role-guidance-tag">店舗スタッフ・予約管理担当向け</span>
+      <div>
+        <div class="role-guidance-text">【画面4】予約カルテ・参加者書類提出台帳（メディカル・免責書類・器材管理）</div>
+        <div class="role-guidance-desc">
+          💡 自社予約および他社委託客の「メディカル問診・医師診断書・Cカード・器材サイズ」の回収進捗を管理する画面です。<br>
+          代表者だけでなく参加者全員の健康適格を管理し、未提出者へのワンタップ催促や、店舗での紙カルテ確認に基づく「ショップ保証」を行います。
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 0.75rem; color: #bae6fd; text-align: right;">
+      出航18時間前アラート連動<br>安全引率基準（1:2 / 1:4）自動判定
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" class="brand-logo" title="ポータルTOPへ">Mina<span>towa</span></a>
+      <div class="port-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a4 4 0 0 0-4 4c0 2 2 3 4 6 2-3 4-4 4-6a4 4 0 0 0-4-4z"/><circle cx="12" cy="18" r="4"/></svg>
+        宜野湾港 寄り合い協議会
+      </div>
+    </div>
+
+    <!-- Navigation between Screens -->
+    <nav class="nav-links">
+      <a href="1-A_運航デッキ・乗船チーム編成ボード.html" class="nav-item">画面1-A: 運航デッキ</a>
+      <a href="1-B_月間配船＆ゲスト手配ダッシュボード.html" class="nav-item">画面1-B: 月間手配</a>
+      <a href="1-C_マイスケジュール＆オファー受付ボード.html" class="nav-item">画面1-C: マイスケジュール</a>
+      <a href="2_港内シェア要請・公募ボード.html" class="nav-item">画面2: 港内シェア公募</a>
+      <a href="3_直前変更・二者間合意ロック管理.html" class="nav-item">画面3: 合意ロック</a>
+      <a href="4_予約カルテ・参加者書類提出台帳.html" class="nav-item active">画面4: 予約台帳</a>
+      <a href="5_ボート運航ダイヤ＆段階的開放設定.html" class="nav-item">画面5: 運航ダイヤ・開放設定</a>
+      <a href="6_スタッフシフト＆フリーランス稼働管理.html" class="nav-item">画面6: スタッフ＆ガイド</a>
+      <a href="7_月末相殺・インボイス精算ダッシュボード.html" class="nav-item">画面7: 月末相殺・精算</a>
+      <a href="8_港・寄り合いガバナンス設定.html" class="nav-item">画面8: 港ガバナンス</a>
+      <a href="9_ゲスト専用_事前チェックイン・Web問診.html" class="nav-item" target="_blank" style="color:#34d399; border:1px solid rgba(52,211,153,0.3);">📱画面9: ゲスト問診 ↗</a>
+    </nav>
+
+    <div class="user-profile">
+      <div style="width:32px; height:32px; border-radius:50%; background:#0284c7; color:white; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem;">北谷</div>
+      <div>
+        <div style="font-weight: 700; font-size: 0.85rem; line-height: 1.1;">北谷マリン 本店</div>
+        <div style="font-size: 0.7rem; color: var(--slate-400);">予約・フロント担当: 宮城</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Metric Summary Strip -->
+  <section class="summary-strip">
+    <div class="summary-container">
+      
+      <!-- Date Selector -->
+      <div class="date-control">
+        <div>
+          <span style="font-size:0.7rem; font-weight:700; color:var(--slate-500); text-transform:uppercase;">対象運航日:</span>
+          <div class="date-badge">2026/09/27 (明日)</div>
+        </div>
+        <div class="quick-date-btns">
+          <button class="btn-quick-date" onclick="showToast('本日 9/26の台帳を表示します')">今日</button>
+          <button class="btn-quick-date active">明日 (段取り中)</button>
+          <button class="btn-quick-date" onclick="showToast('明後日 9/28の台帳を表示します')">明後日</button>
+        </div>
+      </div>
+
+      <!-- KPI Summary Numbers -->
+      <div class="kpi-cards-grid">
+        <div class="kpi-card">
+          <span class="kpi-label">総予約組数 / 乗船者数</span>
+          <div class="kpi-val-row">
+            <span class="kpi-number">4</span><span class="kpi-unit">組 /</span>
+            <span class="kpi-number">8</span><span class="kpi-unit">名</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <span class="kpi-label" style="color:var(--emerald-600);">✓ 書類適格済 (出航OK)</span>
+          <div class="kpi-val-row">
+            <span class="kpi-number" style="color:var(--emerald-600);" id="countQualified">6</span>
+            <span class="kpi-unit">名 (75%)</span>
+          </div>
+        </div>
+
+        <div class="kpi-card alert" id="cardPendingKpi">
+          <span class="kpi-label" style="color:var(--amber-700);">⚠️ 書類待ち仮押さえ (要対応)</span>
+          <div class="kpi-val-row">
+            <span class="kpi-number" style="color:var(--amber-600);" id="countPendingDocs">1</span>
+            <span class="kpi-unit">名 (喘息診断書未着)</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <span class="kpi-label" style="color:var(--blue-600);">🛡️ ショップ保証済</span>
+          <div class="kpi-val-row">
+            <span class="kpi-number" style="color:var(--blue-600);" id="countGuaranteed">1</span>
+            <span class="kpi-unit">名 (他社委託保証)</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Filter & Action Toolbar -->
+  <section class="toolbar-bar">
+    <div class="toolbar-container">
+      
+      <!-- Filter Chips -->
+      <div class="filter-chips">
+        <span style="font-size:0.75rem; font-weight:700; color:var(--slate-500); text-transform:uppercase;">絞り込み:</span>
+        <button class="chip-filter active" onclick="filterDocs('all', this)">全員表示 (8名)</button>
+        <button class="chip-filter alert-active" onclick="filterDocs('pending', this)">⚠️ 書類待ち・要対応 (1名)</button>
+        <button class="chip-filter" onclick="filterDocs('qualified', this)">🟢 適格完了 (6名)</button>
+        <button class="chip-filter" onclick="filterDocs('guaranteed', this)">🛡️ 保証済 (1名)</button>
+      </div>
+
+      <!-- Search & Import Actions -->
+      <div class="toolbar-actions">
+        <input type="text" class="search-input" placeholder="🔍 氏名・予約番号で検索..." oninput="searchGuests(this.value)">
+        <button class="btn-create-booking" onclick="openModal('modalBooking')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          新規予約を手動登録
+        </button>
+        <button class="btn-table-action" onclick="showToast('じゃらん・アソビュー等の予約自動取込を実行しました（新着0件）')">
+          🔄 OTA自動同期
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Main Booking Groups Container -->
+  <main class="main-container">
+
+    <!-- Group 1: じゃらんnet経由 / 田中様ご夫婦 (2名・適格) -->
+    <section class="booking-group-card all-qualified" data-group="jalan-tanaka">
+      <div class="group-header">
+        <div class="group-left">
+          <span class="booking-id-tag">#JL-20260927-01</span>
+          <span class="channel-badge channel-jalan">じゃらんnet</span>
+          <span class="rep-name">代表者: 田中 健一 様 (計2名)</span>
+          <div class="boat-assign-badge">
+            🚢 美ら海丸 [チームA：ファン中級] 配船済
+          </div>
+        </div>
+        <div style="font-size:0.78rem; color:var(--slate-600);">
+          予約受付: 2026/09/20 18:22 ｜ 決済: 事前カード決済済
+        </div>
+      </div>
+
+      <div class="guest-items-list">
+        
+        <!-- Guest 1: 田中 健一 -->
+        <div class="guest-item-row" data-status="qualified">
+          <div class="guest-primary-info">
+            <div class="guest-name-text" onclick="openDrawer('tanaka-kenichi')">
+              田中 健一 様 (42歳・男性)
+              <span style="font-size:0.68rem; color:var(--blue-600); background:#eff6ff; padding:1px 6px; border-radius:4px;">🔍 カルテ詳細</span>
+            </div>
+            <div class="guest-sub-meta">
+              <span>PADI AOW / 45本</span>
+              <span>最終潜水: 1ヶ月前</span>
+            </div>
+          </div>
+
+          <div class="doc-detail-text">
+            <span class="doc-pill qualified">✓ 書類適格 (QUALIFIED)</span>
+            <div style="margin-top:4px;">Web問診: 全項目NO (クリア) ｜ 免責同意書: 署名済 (09/21 Web提出)</div>
+          </div>
+
+          <div class="gear-spec-info">
+            <strong>フルレンタル希望</strong><br>
+            身長172cm / 体重65kg / 足26.5cm
+          </div>
+
+          <div class="row-actions-group">
+            <button class="btn-table-action" onclick="openDrawer('tanaka-kenichi')">カルテ確認</button>
+          </div>
+        </div>
+
+        <!-- Guest 2: 田中 恵子 -->
+        <div class="guest-item-row" data-status="qualified">
+          <div class="guest-primary-info">
+            <div class="guest-name-text" onclick="openDrawer('tanaka-keiko')">
+              田中 恵子 様 (39歳・女性)
+              <span style="font-size:0.68rem; color:var(--blue-600); background:#eff6ff; padding:1px 6px; border-radius:4px;">🔍 カルテ詳細</span>
+            </div>
+            <div class="guest-sub-meta">
+              <span>PADI AOW / 40本</span>
+              <span>最終潜水: 1ヶ月前</span>
+            </div>
+          </div>
+
+          <div class="doc-detail-text">
+            <span class="doc-pill qualified">✓ 書類適格 (QUALIFIED)</span>
+            <div style="margin-top:4px;">Web問診: 全項目NO (クリア) ｜ 免責同意書: 署名済 (09/21 Web提出)</div>
+          </div>
+
+          <div class="gear-spec-info">
+            <strong>重器材のみレンタル</strong><br>
+            軽器材持参 / 身長160cm / 50kg / 24.0cm
+          </div>
+
+          <div class="row-actions-group">
+            <button class="btn-table-action" onclick="openDrawer('tanaka-keiko')">カルテ確認</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Group 2: 自社Web経由 / 山田様カップル (2名・1名書類不備要対応！) -->
+    <section class="booking-group-card has-pending-doc" id="groupYamada" data-group="direct-yamada">
+      <div class="group-header">
+        <div class="group-left">
+          <span class="booking-id-tag">#DIR-20260927-04</span>
+          <span class="channel-badge channel-direct">自社公式Web</span>
+          <span class="rep-name">代表者: 山田 太郎 様 (計2名)</span>
+          <div class="boat-assign-badge" style="background:#fffbeb; border-color:#fde68a; color:#b45309;">
+            🚢 美ら海丸 [チームB：体験ダイビング] ※要対応書類あり
+          </div>
+        </div>
+        <div style="font-size:0.78rem; color:var(--slate-600);">
+          予約受付: 2026/09/25 11:40 ｜ 現地精算予定 (¥26,000)
+        </div>
+      </div>
+
+      <div class="guest-items-list">
+
+        <!-- Guest 1: 山田 太郎 -->
+        <div class="guest-item-row" data-status="qualified">
+          <div class="guest-primary-info">
+            <div class="guest-name-text" onclick="openDrawer('yamada-taro')">
+              山田 太郎 様 (28歳・男性)
+              <span style="font-size:0.68rem; color:var(--blue-600); background:#eff6ff; padding:1px 6px; border-radius:4px;">🔍 カルテ詳細</span>
+            </div>
+            <div class="guest-sub-meta">
+              <span>体験ダイビング (初回)</span>
+              <span>健康状態: 良好</span>
+            </div>
+          </div>
+
+          <div class="doc-detail-text">
+            <span class="doc-pill qualified">✓ 書類適格 (QUALIFIED)</span>
+            <div style="margin-top:4px;">Web問診: 全項目NO ｜ 免責同意書: 署名済 (09/25 スマホ提出)</div>
+          </div>
+
+          <div class="gear-spec-info">
+            <strong>体験フルレンタル</strong><br>
+            身長175cm / 体重68kg / 足27.0cm
+          </div>
+
+          <div class="row-actions-group">
+            <button class="btn-table-action" onclick="openDrawer('yamada-taro')">カルテ確認</button>
+          </div>
+        </div>
+
+        <!-- Guest 2: 山田 花子 (PROBLEM CHILD: 喘息問診 ➔ 診断書未着) -->
+        <div class="guest-item-row row-alert" id="rowYamadaHanako" data-status="pending">
+          <div class="guest-primary-info">
+            <div class="guest-name-text" style="color:var(--amber-700);" onclick="openDrawer('yamada-hanako')">
+              山田 花子 様 (26歳・女性)
+              <span style="font-size:0.68rem; color:var(--crimson-600); background:#fee2e2; padding:1px 6px; border-radius:4px; font-weight:700;">⚠️ 診断書未提出</span>
+            </div>
+            <div class="guest-sub-meta">
+              <span>体験ダイビング (初回)</span>
+              <span style="color:var(--crimson-600); font-weight:700;">既往歴: 喘息あり</span>
+            </div>
+          </div>
+
+          <div class="doc-detail-text" id="hanakoDocCell">
+            <span class="doc-pill pending-cert" id="hanakoStatusPill">⚠️ 書類待ち仮押さえ (出航18時間前)</span>
+            <div style="margin-top:4px; color:var(--crimson-600); font-weight:600;">
+              Web問診で「喘息の既往歴」に該当。医師の評価証明書がアップロードされていません！
+            </div>
+            <div style="font-size:0.72rem; color:var(--slate-500); margin-top:2px;">
+              提出締切: <strong>本日 18:00 (あと1時間42分)</strong> ── 提出されない場合、乗船できません
+            </div>
+          </div>
+
+          <div class="gear-spec-info">
+            <strong>体験フルレンタル</strong><br>
+            身長158cm / 体重48kg / 足23.5cm
+          </div>
+
+          <div class="row-actions-group" id="hanakoActionCell">
+            <button class="btn-table-action" style="background:#fef2f2; border-color:#fca5a5; color:#b91c1c;" onclick="sendReminderToGuest('山田 花子')">
+              📱 催促LINE・SMS送信
+            </button>
+            <button class="btn-table-action btn-guarantee" onclick="applyShopGuaranteeDirect('山田 花子')" title="店舗に紙の診断書原本がある場合、自社の責任で乗船適格にします">
+              🛡️ ショップ保証を付与
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Group 3: 他社委託受託 (画面2成約分) / オーシャンズ様委託 (1名・自社保証済) -->
+    <section class="booking-group-card all-qualified" data-group="b2b-oceans">
+      <div class="group-header">
+        <div class="group-left">
+          <span class="booking-id-tag">#B2B-20260927-99</span>
+          <span class="channel-badge channel-b2b">他社委託受託</span>
+          <span class="rep-name">委託元: マリンショップ オーシャンズ (担当: 金城)</span>
+          <div class="boat-assign-badge">
+            🚢 美ら海丸 [チームA：ファン中級] 乗り合い受託
+          </div>
+        </div>
+        <div style="font-size:0.78rem; color:var(--slate-600);">
+          港内シェア成約済 (受託売上: ¥13,000 / 月末相殺)
+        </div>
+      </div>
+
+      <div class="guest-items-list">
+        
+        <!-- Guest: Smith John -->
+        <div class="guest-item-row" data-status="guaranteed">
+          <div class="guest-primary-info">
+            <div class="guest-name-text" onclick="openDrawer('smith-john')">
+              Smith John 様 (35歳・男性)
+              <span style="font-size:0.68rem; color:var(--purple-600); background:#f3e8ff; padding:1px 6px; border-radius:4px; font-weight:700;">🛡️ 委託元保証</span>
+            </div>
+            <div class="guest-sub-meta">
+              <span>PADI Rescue Diver / 120本</span>
+              <span>言語: 英語対応</span>
+            </div>
+          </div>
+
+          <div class="doc-detail-text">
+            <span class="doc-pill guaranteed">🛡️ 委託元ショップ保証適格</span>
+            <div style="margin-top:4px;">
+              保証元: オーシャンズ様 (過去利用多数・対面確認済) ｜ 免責同意: 委託元にて紙カルテ電磁保管
+            </div>
+            <div style="font-size:0.72rem; color:var(--slate-500); margin-top:2px;">
+              🔒 顧客引き抜き防止: 私用連絡先・販売価格は自動マスキング保護されています
+            </div>
+          </div>
+
+          <div class="gear-spec-info">
+            <strong>My器材フル持参</strong><br>
+            ショップ準備不要 / 182cm 78kg 28cm
+          </div>
+
+          <div class="row-actions-group">
+            <button class="btn-table-action" onclick="openDrawer('smith-john')">詳細カルテ (4-D)</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Group 4: アソビュー経由 / 鈴木様ご友人 (計2名・適格) -->
+    <section class="booking-group-card all-qualified" data-group="asoview-suzuki">
+      <div class="group-header">
+        <div class="group-left">
+          <span class="booking-id-tag">#ASO-20260927-12</span>
+          <span class="channel-badge channel-asoview">アソビュー!</span>
+          <span class="rep-name">代表者: 鈴木 一郎 様 (計2名)</span>
+          <div class="boat-assign-badge">
+            🚢 美ら海丸 [チームA：ファン中級] 配船済
+          </div>
+        </div>
+        <div style="font-size:0.78rem; color:var(--slate-600);">
+          予約受付: 2026/09/24 19:15 ｜ 事前ポイント決済済
+        </div>
+      </div>
+
+      <div class="guest-items-list">
+        
+        <!-- Guest 1: 鈴木 一郎 -->
+        <div class="guest-item-row" data-status="qualified">
+          <div class="guest-primary-info">
+            <div class="guest-name-text" onclick="openDrawer('suzuki-ichiro')">
+              鈴木 一郎 様 (29歳・男性)
+              <span style="font-size:0.68rem; color:var(--blue-600); background:#eff6ff; padding:1px 6px; border-radius:4px;">🔍 カルテ詳細</span>
+            </div>
+            <div class="guest-sub-meta">
+              <span>PADI OW / 12本</span>
+              <span>最終潜水: 3ヶ月前</span>
+            </div>
+          </div>
+
+          <div class="doc-detail-text">
+            <span class="doc-pill qualified">✓ 書類適格 (QUALIFIED)</span>
+            <div style="margin-top:4px;">Web問診: 全項目NO ｜ 免責同意書: 署名済</div>
+          </div>
+
+          <div class="gear-spec-info">
+            <strong>持参(なし)</strong><br>
+            My器材持参 / 170cm 62kg 26.0cm
+          </div>
+
+          <div class="row-actions-group">
+            <button class="btn-table-action" onclick="openDrawer('suzuki-ichiro')">カルテ確認</button>
+          </div>
+        </div>
+
+        <!-- Guest 2: 高橋 雅人 -->
+        <div class="guest-item-row" data-status="qualified">
+          <div class="guest-primary-info">
+            <div class="guest-name-text" onclick="openDrawer('takahashi-masato')">
+              高橋 雅人 様 (31歳・男性)
+              <span style="font-size:0.68rem; color:var(--blue-600); background:#eff6ff; padding:1px 6px; border-radius:4px;">🔍 カルテ詳細</span>
+            </div>
+            <div class="guest-sub-meta">
+              <span>PADI OW / 15本</span>
+              <span>最終潜水: 半年前</span>
+            </div>
+          </div>
+
+          <div class="doc-detail-text">
+            <span class="doc-pill qualified">✓ 書類適格 (QUALIFIED)</span>
+            <div style="margin-top:4px;">Web問診: 全項目NO ｜ 免責同意書: 署名済</div>
+          </div>
+
+          <div class="gear-spec-info">
+            <strong>フルレンタル希望</strong><br>
+            176cm 72kg 27.5cm
+          </div>
+
+          <div class="row-actions-group">
+            <button class="btn-table-action" onclick="openDrawer('takahashi-masato')">カルテ確認</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Slide-in Drawer: Screen 4-D ゲスト個別安全カルテシート -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer(event)">
+    <div class="drawer-panel" onclick="event.stopPropagation()">
+      <div class="drawer-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span style="font-weight:800; font-size:1.05rem;">【画面4-D】ゲスト個別安全カルテ</span>
+        </div>
+        <button class="btn-table-action" style="color:white; background:transparent; border-color:rgba(255,255,255,0.3);" onclick="closeDrawer()">✕ 閉じる</button>
+      </div>
+
+      <div class="drawer-body" id="drawerContent">
+        <!-- Dynamic content filled via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: 新規予約手動登録 -->
+  <div class="modal-backdrop" id="modalBooking">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span style="font-weight:800;">＋ 自社予約の新規登録</span>
+        <button class="btn-table-action" style="color:white; background:transparent; border:none;" onclick="closeModal('modalBooking')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">予約チャネル</label>
+          <select class="form-select" id="newChannel">
+            <option value="direct">自社公式Web / 電話受付</option>
+            <option value="jalan">じゃらんnet</option>
+            <option value="asoview">アソビュー!</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">代表者氏名</label>
+          <input type="text" class="form-input" id="newRepName" placeholder="例: 沖縄 太郎">
+        </div>
+        <div class="form-group">
+          <label class="form-label">参加日程 / 便</label>
+          <input type="date" class="form-input" value="2026-09-27">
+        </div>
+        <div class="form-group">
+          <label class="form-label">参加人数</label>
+          <input type="number" class="form-input" value="2" min="1" max="10">
+        </div>
+        <div style="font-size:0.75rem; color:var(--slate-500);">
+          ※登録完了後、参加者全員へ事前Web問診URL（画面9）の招待リンクを発行できます。
+        </div>
+      </div>
+      <div style="padding:14px 24px; background:var(--slate-50); border-top:1px solid var(--slate-200); display:flex; justify-content:flex-end; gap:8px;">
+        <button class="btn-table-action" onclick="closeModal('modalBooking')">キャンセル</button>
+        <button class="btn-create-booking" onclick="saveNewBooking()">登録する</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerHTML = `<span>📋</span> <span>${msg}</span>`;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    // Filter by Document Status
+    function filterDocs(status, btn) {
+      document.querySelectorAll('.chip-filter').forEach(b => b.classList.remove('active', 'alert-active'));
+      if (status === 'pending') {
+        btn.classList.add('alert-active');
+      } else {
+        btn.classList.add('active');
+      }
+
+      const rows = document.querySelectorAll('.guest-item-row');
+      rows.forEach(row => {
+        if (status === 'all') {
+          row.style.display = 'grid';
+        } else if (status === 'pending') {
+          row.style.display = (row.dataset.status === 'pending') ? 'grid' : 'none';
+        } else if (status === 'qualified') {
+          row.style.display = (row.dataset.status === 'qualified') ? 'grid' : 'none';
+        } else if (status === 'guaranteed') {
+          row.style.display = (row.dataset.status === 'guaranteed') ? 'grid' : 'none';
+        }
+      });
+    }
+
+    // Search guests by name
+    function searchGuests(query) {
+      const term = query.trim().toLowerCase();
+      const rows = document.querySelectorAll('.guest-item-row');
+      rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(term) ? 'grid' : 'none';
+      });
+    }
+
+    // Action: Send reminder to guest
+    function sendReminderToGuest(guestName) {
+      showToast(`📲 ${guestName} 様の携帯電話番号へ「事前問診・医師診断書提出のお願い」SMS/LINEを送信しました。`);
+    }
+
+    // Action: Apply Shop Guarantee directly on this screen
+    function applyShopGuaranteeDirect(guestName) {
+      const row = document.getElementById('rowYamadaHanako');
+      const group = document.getElementById('groupYamada');
+
+      // Update Row
+      row.classList.remove('row-alert');
+      row.dataset.status = 'guaranteed';
+
+      document.getElementById('hanakoDocCell').innerHTML = `
+        <span class="doc-pill guaranteed">🛡️ 自社ショップ保証済 (適格)</span>
+        <div style="margin-top:4px; color:var(--emerald-700); font-weight:700;">
+          当店スタッフ（宮城）が店舗にて紙の医師評価書を確認・自社責任で承認済
+        </div>
+        <div style="font-size:0.72rem; color:var(--slate-500); margin-top:2px;">
+          出航適格ログ記録済 (2026/09/26 16:40) ｜ 運航デッキ【画面1-A】へ適格反映
+        </div>
+      `;
+
+      document.getElementById('hanakoActionCell').innerHTML = `
+        <button class="btn-table-action" onclick="openDrawer('yamada-hanako')">カルテ確認</button>
+      `;
+
+      // Update Group Border
+      group.classList.remove('has-pending-doc');
+      group.classList.add('all-qualified');
+
+      // Update KPI
+      document.getElementById('countPendingDocs').innerText = '0';
+      document.getElementById('countGuaranteed').innerText = '2';
+      document.getElementById('countQualified').innerText = '6';
+      document.getElementById('cardPendingKpi').classList.remove('alert');
+
+      showToast(`🎉 ${guestName} 様に「ショップ保証」を付与しました！乗船適格となり、運航デッキ（画面1-A）に反映されました。`);
+    }
+
+    // Slide-in Drawer (Screen 4-D) Logic
+    function openDrawer(guestKey) {
+      const overlay = document.getElementById('drawerOverlay');
+      const content = document.getElementById('drawerContent');
+
+      if (guestKey === 'smith-john') {
+        // Dispatched Guest (Privacy Masked)
+        content.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="background:#ede9fe; color:#6d28d9; font-weight:800; font-size:0.75rem; padding:3px 8px; border-radius:4px;">🚢 オーシャンズ様委託 (乗り合い受託)</span>
+            <span class="doc-pill guaranteed">🛡️ 委託元ショップ保証適格</span>
+          </div>
+
+          <div>
+            <h2 style="font-size:1.3rem; font-weight:800; color:var(--slate-900);">Smith John 様 (35歳・男性)</h2>
+            <div style="font-size:0.8rem; color:var(--slate-500);">国籍: アメリカ合衆国 ｜ 言語: 英語対応必須 (ブリーフィング英語)</div>
+          </div>
+
+          <div>
+            <div class="drawer-section-title">🤿 Cカード＆経験本数</div>
+            <div class="drawer-card-box">
+              <strong>PADI Rescue Diver (RED)</strong> ｜ 経験本数: 120本<br>
+              最終潜水日: 2026/08/15 (ブランクなし・良好) ｜ ナイトロックスSP保持
+            </div>
+          </div>
+
+          <div>
+            <div class="drawer-section-title">📋 メディカル＆委託元保証内容</div>
+            <div class="drawer-card-box" style="background:#f0fdf4; border-color:#bbf7d0;">
+              <strong style="color:#166534;">🛡️ 委託元ショップ保証済 (紙カルテ保管)</strong><br>
+              保証ショップ: マリンショップ オーシャンズ (担当: 金城)<br>
+              保証根拠: 「当店にて過去3回利用・病歴該当なしを対面問診済。免責同意書原本は当店にて保管」
+            </div>
+          </div>
+
+          <div>
+            <div class="drawer-section-title">🎒 器材＆体格スペック</div>
+            <div class="drawer-card-box">
+              <strong>My器材持参 (フルセット)</strong> ── ショップ側レンタルパッキング不要<br>
+              身長182cm / 体重78kg / 足28.0cm
+            </div>
+          </div>
+
+          <div>
+            <div class="drawer-section-title" style="color:var(--crimson-600);">🔒 顧客引き抜き防止保護 (BtoBガバナンス)</div>
+            <div class="drawer-card-box" style="background:#fffcfc; border-color:#fecaca; color:var(--slate-600);">
+              ・私用メールアドレス・国内携帯番号: <strong>[ 委託元保護のため非開示 ]</strong><br>
+              ・個人直接販売価格: <strong>[ 非開示 (乗り合いBtoB精算 ¥13,000 のみ適用) ]</strong><br>
+              ・緊急連絡先: Mary Smith (配偶者・同行) / +1-555-0199
+            </div>
+          </div>
+        `;
+      } else if (guestKey === 'yamada-hanako') {
+        // Internal Guest with Pending Document
+        content.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="background:#dcfce7; color:#15803d; font-weight:800; font-size:0.75rem; padding:3px 8px; border-radius:4px;">自社公式Web予約客</span>
+            <span class="doc-pill pending-cert">⚠️ 診断書未提出 (要対応)</span>
+          </div>
+
+          <div>
+            <h2 style="font-size:1.3rem; font-weight:800; color:var(--slate-900);">山田 花子 様 (26歳・女性)</h2>
+            <div style="font-size:0.8rem; color:var(--slate-500);">参加コース: 体験ダイビング ｜ 代表者: 山田 太郎 様の同行者</div>
+          </div>
+
+          <div>
+            <div class="drawer-section-title">📋 メディカルチェック回答履歴</div>
+            <div class="drawer-card-box" style="background:#fffbeb; border-color:#fde68a;">
+              <strong style="color:var(--amber-700);">⚠️ WRSTC問診 質問4に該当: 「喘息または呼吸器系の病歴」</strong><br>
+              本人回答: 「小児喘息があり、現在も季節の変わり目にたまに吸入器を使用」<br>
+              現状: 医師のダイビング許可評価証明書がアップロードされていません。
+            </div>
+          </div>
+
+          <div>
+            <div class="drawer-section-title">🎒 器材サイズ</div>
+            <div class="drawer-card-box">
+              身長158cm / 体重48kg / 足23.5cm ｜ 視力: コンタクト使用 (度なしマスクOK)
+            </div>
+          </div>
+
+          <div>
+            <div class="drawer-section-title">📞 連絡先 (自社客のため全開示)</div>
+            <div class="drawer-card-box">
+              電話番号: 090-1234-5678<br>
+              メール: hanako.yamada@example.com<br>
+              滞在先: ベッセルホテルカンパーナ沖縄 (北谷町)
+            </div>
+          </div>
+        `;
+      } else {
+        // Standard Qualified Guest
+        content.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="background:#fee2e2; color:#b91c1c; font-weight:800; font-size:0.75rem; padding:3px 8px; border-radius:4px;">じゃらんnet予約客</span>
+            <span class="doc-pill qualified">✓ 書類適格 (QUALIFIED)</span>
+          </div>
+
+          <div>
+            <h2 style="font-size:1.3rem; font-weight:800; color:var(--slate-900);">田中 健一 様 (42歳・男性)</h2>
+            <div style="font-size:0.8rem; color:var(--slate-500);">コース: ケラマ・ファンダイビング 2ボート</div>
+          </div>
+
+          <div>
+            <div class="drawer-section-title">🤿 Cカード＆スキル</div>
+            <div class="drawer-card-box">
+              PADI Advanced Open Water Diver ｜ 経験本数: 45本 ｜ 最終潜水: 2026/08/20
+            </div>
+          </div>
+
+          <div>
+            <div class="drawer-section-title">📋 メディカル回答</div>
+            <div class="drawer-card-box" style="background:#f0fdf4; border-color:#bbf7d0;">
+              全項目「いいえ」回答済 ｜ 免責同意書 Web電子署名済 (2026/09/21)
+            </div>
+          </div>
+
+          <div>
+            <div class="drawer-section-title">🎒 器材レンタルサイズ</div>
+            <div class="drawer-card-box">
+              身長172cm / 体重65kg / 足26.5cm (フルレンタルパッキング準備済)
+            </div>
+          </div>
+        `;
+      }
+
+      overlay.classList.add('open');
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawerOverlay').classList.remove('open');
+    }
+
+    function saveNewBooking() {
+      closeModal('modalBooking');
+      const rep = document.getElementById('newRepName').value || '新規お客様';
+      showToast(`📝 ${rep} 様の予約を台帳に登録しました。事前問診URLを発行しました。`);
+    }
+  </script>
+</body>
+</html>

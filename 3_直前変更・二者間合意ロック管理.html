@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【画面3】直前変更・二者間合意ロック管理 | Minatowa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-950: #070e1b;
+      --navy-900: #0a192f;
+      --navy-850: #0d213f;
+      --navy-800: #102a4e;
+      --navy-700: #173866;
+      --blue-600: #0284c7;
+      --blue-500: #0ea5e9;
+      --blue-100: #e0f2fe;
+      --blue-50: #f0f9ff;
+      --emerald-600: #059669;
+      --emerald-500: #10b981;
+      --emerald-100: #d1fae5;
+      --emerald-50: #ecfdf5;
+      --amber-600: #d97706;
+      --amber-500: #f59e0b;
+      --amber-100: #fef3c7;
+      --amber-50: #fffbeb;
+      --crimson-600: #dc2626;
+      --crimson-500: #ef4444;
+      --crimson-100: #fee2e2;
+      --crimson-50: #fef2f2;
+      --purple-600: #7c3aed;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+      --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: #f1f5f9;
+      color: var(--slate-800);
+      line-height: 1.5;
+      padding-bottom: 90px;
+    }
+
+    /* Top Guidance Banner */
+    .role-guidance-banner {
+      background: linear-gradient(135deg, #1e1b4b, #312e81);
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #6366f1;
+    }
+    .role-guidance-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .role-guidance-tag {
+      background: #4f46e5;
+      color: #e0e7ff;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .role-guidance-text {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .role-guidance-desc {
+      font-size: 0.8rem;
+      color: #c7d2fe;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: var(--navy-900);
+      color: var(--white);
+      height: 64px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .brand-logo span { color: var(--blue-500); }
+    .port-badge {
+      background-color: var(--navy-700);
+      color: #93c5fd;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-item {
+      color: var(--slate-300);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .nav-item:hover {
+      color: var(--white);
+      background-color: var(--navy-800);
+    }
+    .nav-item.active {
+      color: var(--white);
+      background-color: #6366f1;
+    }
+
+    /* Subheader Tabs */
+    .subheader-bar {
+      background: white;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 24px;
+    }
+    .subheader-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .case-selector {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .case-btn {
+      border: 1px solid var(--slate-200);
+      background: var(--slate-50);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .case-btn.active {
+      background: var(--navy-900);
+      border-color: var(--navy-900);
+      color: white;
+    }
+    .case-badge {
+      font-size: 0.7rem;
+      padding: 1px 6px;
+      border-radius: 9999px;
+      background: var(--amber-100);
+      color: var(--amber-600);
+      font-weight: 800;
+    }
+    .case-btn.active .case-badge {
+      background: var(--amber-500);
+      color: white;
+    }
+
+    /* Main Container Grid */
+    .main-grid {
+      max-width: 1400px;
+      margin: 24px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 24px;
+    }
+
+    /* Agreement Card */
+    .lock-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .lock-card-header {
+      padding: 18px 24px;
+      background: var(--slate-900);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .contract-id-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .contract-id-pill {
+      background: rgba(255, 255, 255, 0.15);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: #93c5fd;
+    }
+    .contract-status-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .status-pending-agreement {
+      background: var(--amber-500);
+      color: var(--slate-900);
+    }
+    .status-locked {
+      background: var(--emerald-500);
+      color: white;
+    }
+
+    /* Original Contract Bar */
+    .contract-summary-strip {
+      background: var(--slate-100);
+      padding: 14px 24px;
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 0.85rem;
+    }
+    .parties-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+    .party-tag {
+      background: white;
+      border: 1px solid var(--slate-300);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.78rem;
+    }
+
+    /* Change Request Body */
+    .lock-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .alert-banner-change {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 5px solid var(--amber-500);
+      padding: 16px;
+      border-radius: var(--radius-sm);
+    }
+    .alert-banner-change.cancel-free {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      border-left-color: var(--emerald-500);
+    }
+
+    .change-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .change-desc {
+      font-size: 0.85rem;
+      color: var(--slate-700);
+      line-height: 1.6;
+    }
+
+    /* Clause Rule Box */
+    .clause-box {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+    }
+    .clause-header {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--slate-500);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .clause-applied {
+      font-weight: 800;
+      color: var(--slate-900);
+      font-size: 0.95rem;
+      margin-bottom: 4px;
+    }
+    .clause-formula {
+      font-size: 0.8rem;
+      color: var(--slate-600);
+    }
+
+    /* Financial Settlement Table */
+    .settlement-card {
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .settlement-head {
+      background: var(--slate-100);
+      padding: 10px 18px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      display: flex;
+      justify-content: space-between;
+    }
+    .settlement-row {
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+    .settlement-row:last-child {
+      border-bottom: none;
+    }
+    .settlement-row.total-row {
+      background: #fafafa;
+      font-weight: 800;
+      font-size: 0.95rem;
+    }
+    .badge-fee-100 {
+      background: var(--amber-100);
+      color: var(--amber-800);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 6px;
+    }
+    .badge-fee-0 {
+      background: var(--emerald-100);
+      color: var(--emerald-800);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 6px;
+    }
+
+    /* Dual Signature & Lock Area */
+    .signatures-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      background: var(--slate-50);
+      border: 1.5px dashed var(--slate-300);
+      border-radius: var(--radius-md);
+      padding: 18px;
+    }
+    .sig-box {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sig-box.signed {
+      border-color: #86efac;
+      background: #f0fdf4;
+    }
+    .sig-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--slate-500);
+    }
+    .sig-user-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sig-name {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--slate-900);
+    }
+    .sig-status-ok {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--emerald-700);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .sig-time {
+      font-size: 0.72rem;
+      color: var(--slate-500);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Action Footer */
+    .lock-footer {
+      padding: 16px 24px;
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn-agree-lock {
+      background: linear-gradient(135deg, var(--emerald-600), #047857);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 10px 22px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(5, 150, 105, 0.3);
+      transition: all 0.15s;
+    }
+    .btn-agree-lock:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.4);
+    }
+    .btn-locked-done {
+      background: var(--slate-200);
+      color: var(--slate-600);
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 10px 22px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: not-allowed;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Sidebar Policies */
+    .sidebar-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-sm);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .sidebar-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .policy-rule-item {
+      padding: 10px 12px;
+      background: var(--slate-50);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--slate-300);
+      font-size: 0.78rem;
+    }
+    .policy-rule-item.active-rule {
+      background: #fffbeb;
+      border-left-color: var(--amber-500);
+    }
+    .rule-timing {
+      font-weight: 800;
+      color: var(--slate-900);
+      margin-bottom: 2px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .rule-rate {
+      color: var(--crimson-600);
+      font-weight: 800;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--slate-900);
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+    .toast.show { display: flex; animation: fadeIn 0.2s ease-out; }
+    @keyframes fadeIn {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Guidance Banner -->
+  <aside class="role-guidance-banner">
+    <div class="role-guidance-left">
+      <span class="role-guidance-tag">両ショップ担当者・船長向け</span>
+      <div>
+        <div class="role-guidance-text">【画面3】直前変更・二者間合意ロック管理（言った言わない・ドタキャン保全）</div>
+        <div class="role-guidance-desc">
+          💡 前日夕方〜当日の人数変更・ドタキャンに対し、港共通BtoBルールに基づきキャンセル料を機械的算定し、二者間で電磁ロック（言った言わない防止＆売上保全）を行う画面です。
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 0.75rem; color: #c7d2fe; text-align: right;">
+      宜野湾港 寄り合い協議会規約準拠<br>改ざん防止ハッシュログ自動記録
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" class="brand-logo" title="ポータルTOPへ">Mina<span>towa</span></a>
+      <div class="port-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a4 4 0 0 0-4 4c0 2 2 3 4 6 2-3 4-4 4-6a4 4 0 0 0-4-4z"/><circle cx="12" cy="18" r="4"/></svg>
+        宜野湾港 寄り合い協議会
+      </div>
+    </div>
+
+    <!-- Navigation between Screens -->
+    <nav class="nav-links">
+      <a href="1-A_運航デッキ・乗船チーム編成ボード.html" class="nav-item">画面1-A: 運航デッキ</a>
+      <a href="1-B_月間配船＆ゲスト手配ダッシュボード.html" class="nav-item">画面1-B: 月間手配</a>
+      <a href="1-C_マイスケジュール＆オファー受付ボード.html" class="nav-item">画面1-C: マイスケジュール</a>
+      <a href="2_港内シェア要請・公募ボード.html" class="nav-item">画面2: 港内シェア公募</a>
+      <a href="3_直前変更・二者間合意ロック管理.html" class="nav-item active">画面3: 合意ロック</a>
+      <a href="4_予約カルテ・参加者書類提出台帳.html" class="nav-item">画面4: 予約台帳</a>
+      <a href="5_ボート運航ダイヤ＆段階的開放設定.html" class="nav-item">画面5: 運航ダイヤ・開放設定</a>
+      <a href="6_スタッフシフト＆フリーランス稼働管理.html" class="nav-item">画面6: スタッフ＆ガイド</a>
+      <a href="7_月末相殺・インボイス精算ダッシュボード.html" class="nav-item">画面7: 月末相殺・精算</a>
+      <a href="8_港・寄り合いガバナンス設定.html" class="nav-item">画面8: 港ガバナンス</a>
+      <a href="9_ゲスト専用_事前チェックイン・Web問診.html" class="nav-item" target="_blank" style="color:#34d399; border:1px solid rgba(52,211,153,0.3);">📱画面9: ゲスト問診 ↗</a>
+    </nav>
+
+    <div class="user-profile">
+      <div class="user-avatar" style="background:#0284c7;">美海</div>
+      <div>
+        <div style="font-weight: 700; font-size: 0.85rem; line-height: 1.1;">美ら海ダイビング</div>
+        <div style="font-size: 0.7rem; color: var(--slate-400);">受託側 (ボート所有店 / 美ら海丸)</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Subheader: Case Selector -->
+  <section class="subheader-bar">
+    <div class="subheader-container">
+      <div class="case-selector">
+        <span style="font-size: 0.8rem; font-weight: 800; color: var(--slate-500); margin-right: 6px;">直前変更案件:</span>
+        
+        <!-- Case 1 (Active) -->
+        <button class="case-btn active" id="btnCase1" onclick="switchCase(1)">
+          <span>MC-20260927-004 (サンライズ様 1名減員)</span>
+          <span class="case-badge">合意待ち</span>
+        </button>
+
+        <!-- Case 2 -->
+        <button class="case-btn" id="btnCase2" onclick="switchCase(2)">
+          <span>MC-20260927-002 (シーフレンド様 海況免責)</span>
+          <span class="case-badge" style="background:#d1fae5; color:#065f46;">ロック済</span>
+        </button>
+      </div>
+
+      <!-- Simulator Switch: Weather Captain Cancellation -->
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font-size: 0.78rem; font-weight: 700; color: var(--slate-600);">⚡ 船長判断シミュレーター:</span>
+        <button class="case-btn" id="btnSimulateWeather" onclick="toggleWeatherCancel()" style="border-color:#38bdf8; background:#f0f9ff; color:#0369a1;">
+          🌊 台風・海況中止（不可抗力免責0円）に切替
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Workboard Area -->
+  <main class="main-grid">
+
+    <!-- Left Main: Agreement Lock Workspace -->
+    <div class="lock-card">
+      
+      <!-- Card Header -->
+      <div class="lock-card-header">
+        <div class="contract-id-row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span style="font-weight: 800; font-size: 1.05rem;" id="headerContractTitle">直前変更・キャンセル合意調書</span>
+          <span class="contract-id-pill" id="headerContractId">MC-20260927-004</span>
+        </div>
+        <span class="contract-status-tag status-pending-agreement" id="headerStatusBadge">
+          ⏳ 二者間合意待ち（受託側の承認待ち）
+        </span>
+      </div>
+
+      <!-- Original Contract Strip -->
+      <div class="contract-summary-strip">
+        <div class="parties-display">
+          <span class="party-tag" style="background:#eff6ff; color:#1e40af; border-color:#bfdbfe;">委託元: サンライズダイブ (担当: 比嘉)</span>
+          <span style="color:var(--slate-400);">──▶</span>
+          <span class="party-tag" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">受託先: 北谷マリン (ボート: 美ら海丸 / 船長: 金城)</span>
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace; color:var(--slate-600);">
+          対象便: <strong>2026/09/27 (明日) ケラマ便</strong> | 元約定: 2名分 (¥26,000)
+        </div>
+      </div>
+
+      <!-- Body Content -->
+      <div class="lock-body">
+
+        <!-- Change Banner -->
+        <div class="alert-banner-change" id="changeAlertBox">
+          <div class="change-title" id="changeTitle">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/></svg>
+            前日16:30 減員申請：2名のうち 1名キャンセル（同行者1名のみ乗船）
+          </div>
+          <div class="change-desc" id="changeDesc">
+            委託元（サンライズダイブ様）より、参加予定だった「佐藤 雅 様」の体調不良（発熱）によるキャンセル申請が届いています。<br>
+            もう1名の「佐藤 隆 様」は予定通り明日乗船されます。
+          </div>
+        </div>
+
+        <!-- Applicable BtoB Policy Rule -->
+        <div class="clause-box">
+          <div class="clause-header">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            適用される港共通BtoBキャンセル規定
+          </div>
+          <div class="clause-applied" id="clauseAppliedTitle">
+            【宜野湾港 寄り合い協議会 共通BtoB規約 第4条（前日午後〜当日取消）】
+          </div>
+          <div class="clause-formula" id="clauseFormulaText">
+            申請時刻: <strong>前日 16:30（出航16時間前・前日午後区分）</strong> ➔ 適用料率: <strong style="color:var(--crimson-600);">100%（受託ボート売上全額保全）</strong><br>
+            ※受託側（美ら海丸）は直前の他客埋め戻しが不可能なため、約定乗船料が全額キープされます。
+          </div>
+        </div>
+
+        <!-- Financial Breakdown Table -->
+        <div class="settlement-card">
+          <div class="settlement-head">
+            <span>相殺精算明細（月末インボイスへ自動反映）</span>
+            <span>金額 (税込)</span>
+          </div>
+
+          <!-- Item 1: Attending Guest -->
+          <div class="settlement-row">
+            <div>
+              <strong>1. 佐藤 隆 様 (32歳)</strong>
+              <span style="font-size:0.75rem; color:var(--slate-500); margin-left:6px;">乗船・体験ダイブ受託（通常実施）</span>
+            </div>
+            <div style="font-family:'JetBrains Mono'; font-weight:700;">
+              ¥13,000
+            </div>
+          </div>
+
+          <!-- Item 2: Cancelled Guest -->
+          <div class="settlement-row" id="rowCancelledGuest">
+            <div>
+              <strong style="color:var(--slate-700);">2. 佐藤 雅 様 (29歳)</strong>
+              <span class="badge-fee-100" id="badgeCancelRate">規定キャンセル料 100%保全</span>
+            </div>
+            <div style="font-family:'JetBrains Mono'; font-weight:700;" id="valCancelFee">
+              ¥13,000
+            </div>
+          </div>
+
+          <!-- Total Calculation -->
+          <div class="settlement-row total-row" style="background:#f8fafc;">
+            <div>
+              <span>受託先（北谷マリン / 美ら海丸）請求額（売上全額確保）:</span>
+            </div>
+            <div style="font-family:'JetBrains Mono'; font-size:1.25rem; color:var(--emerald-600);" id="valTotalPayout">
+              ¥26,000
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size:0.75rem; color:var(--slate-500); line-height:1.5;">
+          ※委託元ショップとゲスト（個人顧客）との間のキャンセル料収受は、委託元独自の規約に基づき直接請求してください。<br>
+          ※Minatowa上での本BtoB契約は、上記金額にて月末の「港内相殺インボイス（画面7）」で自動的に受託側の売掛金として計上されます。
+        </div>
+
+        <!-- Dual Signature Box -->
+        <div class="signatures-grid">
+          
+          <!-- Party A Signature (Requester) -->
+          <div class="sig-box signed" id="sigBoxA">
+            <span class="sig-label">委託元 (減員申請者)</span>
+            <div class="sig-user-row">
+              <span class="sig-name">サンライズダイブ (比嘉 健)</span>
+              <span class="sig-status-ok">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                規定合意・申請済
+              </span>
+            </div>
+            <span class="sig-time">タイムスタンプ: 2026/09/26 16:32:18 JST</span>
+          </div>
+
+          <!-- Party B Signature (Receiver) -->
+          <div class="sig-box" id="sigBoxB">
+            <span class="sig-label">受託先 (ボート側責任者)</span>
+            <div class="sig-user-row">
+              <span class="sig-name">北谷マリン (金城 恵 / 船長)</span>
+              <span id="sigBStatusText" style="font-size:0.72rem; color:var(--amber-600); font-weight:700;">
+                ⏳ 合意確認待ち
+              </span>
+            </div>
+            <span class="sig-time" id="sigBTimestamp">タイムスタンプ: 未署名</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Action Footer -->
+      <div class="lock-footer">
+        <div style="font-size:0.78rem; color:var(--slate-500);" id="footerLockInfo">
+          双方が合意すると電磁署名が施され、合意内容の改変は永久にロックされます。
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button class="case-btn" onclick="showToast('委託元の比嘉様との直接協議チャットを開きます')">
+            💬 理由を確認・チャット
+          </button>
+          <button class="btn-agree-lock" id="btnAgreeLock" onclick="executeAgreementLock()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            上記内容で相殺合意・電磁ロックする
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Sidebar: Rules & Audit Log -->
+    <div style="display:flex; flex-direction:column; gap:20px;">
+      
+      <!-- Card: Port Rules Quick Reference -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          宜野湾港 共通BtoBキャンセル規定
+        </div>
+        
+        <div class="policy-rule-item">
+          <div class="rule-timing">
+            <span>3日前〜前日 12:00まで</span>
+            <span style="color:var(--emerald-600);">無料 (0%)</span>
+          </div>
+          <div>他社への再公開・残席補填が可能なため、キャンセル料は発生しません。</div>
+        </div>
+
+        <div class="policy-rule-item active-rule" id="sidebarRuleAfternoon">
+          <div class="rule-timing">
+            <span>前日 12:00〜18:00 (前日午後)</span>
+            <span class="rule-rate">100% 保全</span>
+          </div>
+          <div>受託ボート側の燃料・ガイド手配が確定しているため、約定料を全額キープします。</div>
+        </div>
+
+        <div class="policy-rule-item">
+          <div class="rule-timing">
+            <span>前日 18:00以降〜当日朝・無断</span>
+            <span class="rule-rate">100% 保全</span>
+          </div>
+          <div>合意ロック締結後の取消は、理由を問わず全額請求・相殺されます。</div>
+        </div>
+
+        <div class="policy-rule-item" id="sidebarRuleWeather">
+          <div class="rule-timing">
+            <span>台風・海況悪化（船長判断欠航）</span>
+            <span style="color:var(--emerald-600);">免責 (0%)</span>
+          </div>
+          <div>不可抗力による出航中止の場合、キャンセル料は一切発生しません。</div>
+        </div>
+      </div>
+
+      <!-- Card: Audit Log -->
+      <div class="sidebar-card">
+        <div class="sidebar-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          合意証跡ログ（監査トレース）
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:0.75rem;">
+          <div style="border-left:2px solid var(--slate-300); padding-left:10px;">
+            <div style="color:var(--slate-500); font-family:'JetBrains Mono';">09/25 14:10</div>
+            <div style="font-weight:700;">BtoB手配成立（画面2より成約）</div>
+          </div>
+          <div style="border-left:2px solid var(--amber-500); padding-left:10px;">
+            <div style="color:var(--slate-500); font-family:'JetBrains Mono';">09/26 16:30</div>
+            <div style="font-weight:700;">サンライズダイブより減員申請受領</div>
+          </div>
+          <div style="border-left:2px solid #86efac; padding-left:10px;" id="logItemLocked">
+            <div style="color:var(--slate-500); font-family:'JetBrains Mono';">未完了</div>
+            <div style="color:var(--slate-500);">受託側の合意ロック待ち</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    let isWeatherCancel = false;
+    let isLocked = false;
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerHTML = `<span>🔒</span> <span>${msg}</span>`;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+
+    function executeAgreementLock() {
+      if (isLocked) return;
+      isLocked = true;
+
+      // Update Header Badge
+      const badge = document.getElementById('headerStatusBadge');
+      badge.className = 'contract-status-tag status-locked';
+      badge.innerHTML = `🔒 電磁ロック完了（双方が合意済）`;
+
+      // Update Receiver Signature Box
+      const sigBoxB = document.getElementById('sigBoxB');
+      sigBoxB.className = 'sig-box signed';
+      document.getElementById('sigBStatusText').innerHTML = `
+        <span class="sig-status-ok">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          相殺合意・ロック済
+        </span>
+      `;
+      const now = new Date();
+      const timeStr = `タイムスタンプ: 2026/09/26 16:35:12 JST (HASH: #e9a2b8c)`;
+      document.getElementById('sigBTimestamp').innerText = timeStr;
+
+      // Update Action Button
+      const btn = document.getElementById('btnAgreeLock');
+      btn.className = 'btn-locked-done';
+      btn.innerHTML = `✓ 二者間電磁ロック完了済`;
+      btn.disabled = true;
+
+      // Update Footer Info
+      document.getElementById('footerLockInfo').innerHTML = `
+        <strong style="color:var(--emerald-700);">🔒 2026/09/26 16:35 電磁ロック締結完了</strong>（月末相殺インボイスへ売上 ¥26,000 が確定反映されました）
+      `;
+
+      // Update Audit Log
+      const log = document.getElementById('logItemLocked');
+      log.style.borderLeftColor = 'var(--emerald-500)';
+      log.innerHTML = `
+        <div style="color:var(--slate-500); font-family:'JetBrains Mono';">09/26 16:35</div>
+        <div style="font-weight:700; color:var(--emerald-700);">北谷マリン合意 ➔ 電磁ロック締結完了</div>
+      `;
+
+      showToast('二者間合意ロックが完了しました。言った言わないを防ぐ電磁記録が作成され、月末相殺に反映されました。');
+    }
+
+    function toggleWeatherCancel() {
+      if (isLocked) {
+        alert('既に合意ロックが締結されています。条件を変更する場合は再協議申請を行ってください。');
+        return;
+      }
+      isWeatherCancel = !isWeatherCancel;
+      const simBtn = document.getElementById('btnSimulateWeather');
+
+      if (isWeatherCancel) {
+        simBtn.style.background = '#fee2e2';
+        simBtn.style.borderColor = '#fca5a5';
+        simBtn.style.color = '#b91c1c';
+        simBtn.innerText = '↺ 通常の自己都合キャンセルに戻す';
+
+        // Apply Weather Cancellation (Force Majeure 0%)
+        document.getElementById('changeAlertBox').className = 'alert-banner-change cancel-free';
+        document.getElementById('changeTitle').innerHTML = `
+          🌊 船長判断：台風接近に伴う海況悪化（美ら海丸 全便欠航決定）
+        `;
+        document.getElementById('changeDesc').innerHTML = `
+          気象庁波浪注意報および宜野湾港基準に基づき、船長判断により明日の運航を全便中止としました。<br>
+          <strong>不可抗力免責条項が適用され、受託料およびキャンセル料は全額0円となります。</strong>
+        `;
+
+        document.getElementById('clauseAppliedTitle').innerText = '【規約 第7条（海況悪化・不可抗力による免責）】';
+        document.getElementById('clauseFormulaText').innerHTML = `
+          判定事由: <strong>船長による安全判断欠航</strong> ➔ 適用料率: <strong style="color:var(--emerald-600);">0%（不可抗力免責）</strong><br>
+          ※双方にキャンセル料負担は発生せず、乗船予定枠は相殺対象から除外されます。
+        `;
+
+        document.getElementById('badgeCancelRate').className = 'badge-fee-0';
+        document.getElementById('badgeCancelRate').innerText = '不可抗力免責 0%';
+        document.getElementById('valCancelFee').innerText = '¥0';
+        document.getElementById('valTotalPayout').innerText = '¥0 (中止免責)';
+        document.getElementById('valTotalPayout').style.color = 'var(--slate-600)';
+
+        document.getElementById('sidebarRuleAfternoon').classList.remove('active-rule');
+        document.getElementById('sidebarRuleWeather').classList.add('active-rule');
+
+        showToast('海況悪化シミュレーション：船長判断による欠航（不可抗力免責 0円）を適用しました。');
+      } else {
+        simBtn.style.background = '#f0f9ff';
+        simBtn.style.borderColor = '#38bdf8';
+        simBtn.style.color = '#0369a1';
+        simBtn.innerText = '🌊 台風・海況中止（不可抗力免責0円）に切替';
+
+        // Revert to 100% Policy
+        document.getElementById('changeAlertBox').className = 'alert-banner-change';
+        document.getElementById('changeTitle').innerHTML = `
+          前日16:30 減員申請：2名のうち 1名キャンセル（同行者1名のみ乗船）
+        `;
+        document.getElementById('changeDesc').innerHTML = `
+          委託元（サンライズダイブ様）より、参加予定だった「佐藤 雅 様」の体調不良（発熱）によるキャンセル申請が届いています。<br>
+          もう1名の「佐藤 隆 様」は予定通り明日乗船されます。
+        `;
+
+        document.getElementById('clauseAppliedTitle').innerText = '【宜野湾港 寄り合い協議会 共通BtoB規約 第4条（前日午後〜当日取消）】';
+        document.getElementById('clauseFormulaText').innerHTML = `
+          申請時刻: <strong>前日 16:30（出航16時間前・前日午後区分）</strong> ➔ 適用料率: <strong style="color:var(--crimson-600);">100%（受託ボート売上全額保全）</strong><br>
+          ※受託側（美ら海丸）は直前の他客埋め戻しが不可能なため、約定乗船料が全額キープされます。
+        `;
+
+        document.getElementById('badgeCancelRate').className = 'badge-fee-100';
+        document.getElementById('badgeCancelRate').innerText = '規定キャンセル料 100%保全';
+        document.getElementById('valCancelFee').innerText = '¥13,000';
+        document.getElementById('valTotalPayout').innerText = '¥26,000';
+        document.getElementById('valTotalPayout').style.color = 'var(--emerald-600)';
+
+        document.getElementById('sidebarRuleAfternoon').classList.add('active-rule');
+        document.getElementById('sidebarRuleWeather').classList.remove('active-rule');
+
+        showToast('通常モードに戻しました：前日午後キャンセル（規定料率100%保全）が適用されています。');
+      }
+    }
+
+    function switchCase(caseNum) {
+      if (caseNum === 1) {
+        document.getElementById('btnCase1').classList.add('active');
+        document.getElementById('btnCase2').classList.remove('active');
+        if (isWeatherCancel) toggleWeatherCancel();
+      } else {
+        document.getElementById('btnCase1').classList.remove('active');
+        document.getElementById('btnCase2').classList.add('active');
+        if (!isWeatherCancel) toggleWeatherCancel();
+        showToast('過去案件「MC-20260927-002: シーフレンド様 海況免責完了分」のアーカイブを表示しています。');
+      }
+    }
+  </script>
+</body>
+</html>

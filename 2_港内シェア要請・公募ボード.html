@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【画面2】港内シェア要請・公募ボード (ボート席＆ガイドマッチング) | Minatowa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-950: #070e1b;
+      --navy-900: #0a192f;
+      --navy-850: #0d213f;
+      --navy-800: #102a4e;
+      --navy-700: #173866;
+      --blue-600: #0284c7;
+      --blue-500: #0ea5e9;
+      --blue-100: #e0f2fe;
+      --blue-50: #f0f9ff;
+      --emerald-600: #059669;
+      --emerald-500: #10b981;
+      --emerald-100: #d1fae5;
+      --emerald-50: #ecfdf5;
+      --amber-600: #d97706;
+      --amber-500: #f59e0b;
+      --amber-100: #fef3c7;
+      --amber-50: #fffbeb;
+      --crimson-600: #dc2626;
+      --crimson-500: #ef4444;
+      --crimson-100: #fee2e2;
+      --crimson-50: #fef2f2;
+      --purple-600: #7c3aed;
+      --purple-500: #8b5cf6;
+      --purple-100: #ede9fe;
+      --purple-50: #f5f3ff;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+      --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: #f1f5f9;
+      color: var(--slate-800);
+      line-height: 1.5;
+      padding-bottom: 90px;
+    }
+
+    /* Top Guidance Banner */
+    .role-guidance-banner {
+      background: linear-gradient(135deg, #064e3b, #047857);
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #10b981;
+    }
+    .role-guidance-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .role-guidance-tag {
+      background: #059669;
+      color: #d1fae5;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .role-guidance-text {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .role-guidance-desc {
+      font-size: 0.8rem;
+      color: #a7f3d0;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: var(--navy-900);
+      color: var(--white);
+      height: 64px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .brand-logo span { color: var(--blue-500); }
+    .port-badge {
+      background-color: var(--navy-700);
+      color: #93c5fd;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-item {
+      color: var(--slate-300);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .nav-item:hover {
+      color: var(--white);
+      background-color: var(--navy-800);
+    }
+    .nav-item.active {
+      color: var(--white);
+      background-color: var(--blue-600);
+    }
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+    }
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: var(--blue-600);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.8rem;
+    }
+
+    /* Timeline & Control Sub-header */
+    .timeline-bar {
+      background: white;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 14px 24px;
+    }
+    .timeline-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    /* Phase Tabs (4 Lifecycle Phases) */
+    .phase-tabs {
+      display: flex;
+      align-items: center;
+      background: var(--slate-100);
+      padding: 4px;
+      border-radius: 10px;
+      gap: 4px;
+    }
+    .phase-tab {
+      border: none;
+      background: transparent;
+      padding: 7px 14px;
+      border-radius: 7px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--slate-600);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .phase-tab:hover {
+      color: var(--slate-900);
+      background: rgba(255, 255, 255, 0.6);
+    }
+    .phase-tab.active {
+      background: white;
+      color: var(--navy-900);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .phase-count {
+      font-size: 0.72rem;
+      padding: 1px 6px;
+      border-radius: 9999px;
+      background: var(--slate-200);
+      color: var(--slate-700);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .phase-tab.active .phase-count {
+      background: var(--blue-100);
+      color: var(--blue-600);
+    }
+    .phase-count.urgent {
+      background: var(--crimson-100);
+      color: var(--crimson-600);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .btn-create-offer {
+      background: linear-gradient(135deg, var(--blue-600), #2563eb);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 9px 18px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(2, 132, 199, 0.25);
+      transition: all 0.15s;
+    }
+    .btn-create-offer:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);
+    }
+
+    /* Filter Strip */
+    .filter-strip {
+      background: #fafafa;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 10px 24px;
+    }
+    .filter-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .filter-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--slate-500);
+      text-transform: uppercase;
+    }
+    .chip-btn {
+      border: 1px solid var(--slate-200);
+      background: white;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--slate-600);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .chip-btn:hover {
+      border-color: var(--slate-400);
+      color: var(--slate-900);
+    }
+    .chip-btn.active {
+      background: var(--navy-900);
+      border-color: var(--navy-900);
+      color: white;
+    }
+
+    /* Main Container */
+    .main-layout {
+      max-width: 1400px;
+      margin: 24px auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+
+    /* Section Cards */
+    .board-section {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .section-header {
+      padding: 16px 22px;
+      background: var(--slate-50);
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-sub {
+      font-size: 0.8rem;
+      color: var(--slate-500);
+      margin-left: 8px;
+      font-weight: 500;
+    }
+
+    /* Offers List */
+    .offers-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Single Offer Card */
+    .offer-card {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--slate-200);
+      transition: background 0.15s;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+    .offer-card:last-child {
+      border-bottom: none;
+    }
+    .offer-card:hover {
+      background: #fafbfc;
+    }
+    .offer-card.highlight-advance {
+      border-left: 4px solid var(--blue-500);
+    }
+    .offer-card.highlight-cutoff {
+      border-left: 4px solid var(--amber-500);
+      background: #fffdfa;
+    }
+    .offer-card.highlight-urgent {
+      border-left: 4px solid var(--crimson-500);
+      background: #fefafa;
+    }
+    .offer-card.state-contracted {
+      background: #f0fdf4 !important;
+      border-left: 4px solid var(--emerald-500);
+    }
+
+    /* Date & Target Badge */
+    .offer-date-box {
+      width: 86px;
+      background: var(--slate-100);
+      border-radius: var(--radius-sm);
+      padding: 8px 6px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--slate-200);
+    }
+    .offer-date-box.advance {
+      background: var(--blue-50);
+      border-color: #bae6fd;
+      color: #0369a1;
+    }
+    .offer-date-box.cutoff {
+      background: var(--amber-50);
+      border-color: #fde68a;
+      color: #b45309;
+    }
+    .offer-date-box.urgent {
+      background: var(--crimson-50);
+      border-color: #fecaca;
+      color: #b91c1c;
+    }
+    .date-month {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .date-day {
+      font-size: 1.4rem;
+      font-weight: 800;
+      line-height: 1.1;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .date-dow {
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    /* Offer Details Column */
+    .offer-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .offer-top-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* Contract Type Badges */
+    .contract-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+    .badge-boat-only {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+    .badge-full-package {
+      background: #f3e8ff;
+      color: #7e22ce;
+      border: 1px solid #e9d5ff;
+    }
+    .badge-staff-only {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+
+    .phase-pill-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 9999px;
+    }
+    .tag-advance {
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #bfdbfe;
+    }
+    .tag-cutoff {
+      background: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+    .tag-urgent {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    /* Availability Match Badges */
+    .match-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      letter-spacing: 0.02em;
+    }
+    .match-status-badge.match-ok {
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+    }
+    .match-status-badge.match-warn {
+      background: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+    .match-status-badge.match-ng {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    /* Availability Filter Toggle Box */
+    .availability-filter-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #ecfdf5;
+      border: 1.5px solid #10b981;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s;
+    }
+    .availability-filter-box:hover {
+      background: #d1fae5;
+    }
+    .availability-filter-box input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #059669;
+      cursor: pointer;
+    }
+    .availability-filter-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #065f46;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .offer-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--slate-900);
+    }
+    .offer-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.8rem;
+      color: var(--slate-600);
+      flex-wrap: wrap;
+    }
+    .offer-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .offer-meta-item strong {
+      color: var(--slate-900);
+    }
+
+    /* Application / Responses Area inside card */
+    .responses-box {
+      margin-top: 8px;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .response-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.82rem;
+    }
+    .applicant-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .applicant-avatar {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #0284c7;
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Action Buttons */
+    .offer-action-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      min-width: 170px;
+    }
+    .price-display {
+      text-align: right;
+    }
+    .price-value {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--navy-900);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .price-sub {
+      font-size: 0.72rem;
+      color: var(--slate-500);
+    }
+    .btn-action-primary {
+      background: var(--blue-600);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-action-primary:hover {
+      background: #0369a1;
+    }
+    .btn-action-success {
+      background: var(--emerald-600);
+      color: white;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 7px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-action-success:hover {
+      background: #047857;
+    }
+    .btn-secondary {
+      background: white;
+      border: 1px solid var(--slate-300);
+      color: var(--slate-700);
+      border-radius: var(--radius-sm);
+      padding: 7px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-secondary:hover {
+      background: var(--slate-100);
+      border-color: var(--slate-400);
+    }
+
+    /* Modal Styles */
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .modal-backdrop.active {
+      display: flex;
+    }
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      width: 90%;
+      max-width: 620px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      animation: modalSlide 0.2s ease-out;
+    }
+    @keyframes modalSlide {
+      from { transform: translateY(16px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .modal-header {
+      padding: 16px 24px;
+      background: var(--navy-900);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-title {
+      font-weight: 800;
+      font-size: 1.05rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .modal-body {
+      padding: 20px 24px;
+      max-height: 78vh;
+      overflow-y: auto;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .form-select, .form-input, .form-textarea {
+      width: 100%;
+      border: 1px solid var(--slate-300);
+      border-radius: var(--radius-sm);
+      padding: 8px 12px;
+      font-size: 0.88rem;
+      color: var(--slate-800);
+      font-family: inherit;
+    }
+    .form-select:focus, .form-input:focus {
+      outline: none;
+      border-color: var(--blue-600);
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+    .radio-card-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    .radio-card {
+      border: 2px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .radio-card.active {
+      border-color: var(--blue-600);
+      background: var(--blue-50);
+    }
+    .radio-card-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      margin-bottom: 2px;
+    }
+    .radio-card-desc {
+      font-size: 0.68rem;
+      color: var(--slate-500);
+    }
+    .modal-footer {
+      padding: 14px 24px;
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--slate-900);
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      animation: fadeIn 0.2s ease-out;
+    }
+    .toast.show { display: flex; }
+    @keyframes fadeIn {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Guidance Banner -->
+  <aside class="role-guidance-banner">
+    <div class="role-guidance-left">
+      <span class="role-guidance-tag">全ショップ・船長・フリーランス向け</span>
+      <div>
+        <div class="role-guidance-text">【画面2】港内シェア要請・公募ボード（ボート席＆ガイドマッチング市場）</div>
+        <div class="role-guidance-desc">
+          💡 港の仲間ショップ間で「ボート席」「ゲスト引率」「助っ人ガイド」を相互融通するBtoBリソース市場です。<br>
+          数ヶ月先の繁忙期先行ブロックから、日々の予約調整、前日18:00合意ロック前の直前マッチング、当日朝の緊急レスキューまで通年で稼働します。
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 0.75rem; color: #a7f3d0; text-align: right;">
+      相互扶助・公式寄り合い規約準拠<br>規定手数料 15% / 相殺インボイス対応
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" class="brand-logo" title="ポータルTOPへ">Mina<span>towa</span></a>
+      <div class="port-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a4 4 0 0 0-4 4c0 2 2 3 4 6 2-3 4-4 4-6a4 4 0 0 0-4-4z"/><circle cx="12" cy="18" r="4"/></svg>
+        宜野湾港 寄り合い協議会
+      </div>
+    </div>
+
+    <!-- Navigation between Screens -->
+    <nav class="nav-links">
+      <a href="1-A_運航デッキ・乗船チーム編成ボード.html" class="nav-item">画面1-A: 運航デッキ</a>
+      <a href="1-B_月間配船＆ゲスト手配ダッシュボード.html" class="nav-item">画面1-B: 月間手配</a>
+      <a href="1-C_マイスケジュール＆オファー受付ボード.html" class="nav-item">画面1-C: マイスケジュール</a>
+      <a href="2_港内シェア要請・公募ボード.html" class="nav-item active">画面2: 港内シェア公募</a>
+      <a href="3_直前変更・二者間合意ロック管理.html" class="nav-item">画面3: 合意ロック</a>
+      <a href="4_予約カルテ・参加者書類提出台帳.html" class="nav-item">画面4: 予約台帳</a>
+      <a href="5_ボート運航ダイヤ＆段階的開放設定.html" class="nav-item">画面5: 運航ダイヤ・開放設定</a>
+      <a href="6_スタッフシフト＆フリーランス稼働管理.html" class="nav-item">画面6: スタッフ＆ガイド</a>
+      <a href="7_月末相殺・インボイス精算ダッシュボード.html" class="nav-item">画面7: 月末相殺・精算</a>
+      <a href="8_港・寄り合いガバナンス設定.html" class="nav-item">画面8: 港ガバナンス</a>
+      <a href="9_ゲスト専用_事前チェックイン・Web問診.html" class="nav-item" target="_blank" style="color:#34d399; border:1px solid rgba(52,211,153,0.3);">📱画面9: ゲスト問診 ↗</a>
+    </nav>
+
+    <div class="user-profile">
+      <div class="user-avatar">美海</div>
+      <div>
+        <div style="font-weight: 700; font-size: 0.85rem; line-height: 1.1;">美ら海ダイビング</div>
+        <div style="font-size: 0.7rem; color: var(--slate-400);">ボート所有店 / 船長: 金城</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Lifecycle Phase Filter Subheader -->
+  <section class="timeline-bar">
+    <div class="timeline-container">
+      
+      <!-- Phase Selection Tabs -->
+      <div class="phase-tabs">
+        <button class="phase-tab active" onclick="switchPhaseTab('all', this)">
+          すべて
+          <span class="phase-count" id="countAll">6件</span>
+        </button>
+        <button class="phase-tab" onclick="switchPhaseTab('advance', this)">
+          📅 早期先行ブロック (1〜3ヶ月先・連休)
+          <span class="phase-count">3件</span>
+        </button>
+        <button class="phase-tab" onclick="switchPhaseTab('cutoff', this)">
+          ⏰ 直前・合意ロック前 (明日 9/27)
+          <span class="phase-count">2件</span>
+        </button>
+        <button class="phase-tab" onclick="switchPhaseTab('urgent', this)">
+          🚨 当日緊急レスキュー (本日 9/26)
+          <span class="phase-count urgent">1件</span>
+        </button>
+      </div>
+
+      <!-- Action Button: Create New Request -->
+      <button class="btn-create-offer" onclick="openCreateModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        ＋ 新規シェア要請を出す
+      </button>
+
+    </div>
+  </section>
+
+  <!-- Filter Strip (Contract Type, Areas & Availability Match) -->
+  <section class="filter-strip">
+    <div class="filter-container">
+      <div class="filter-group">
+        <span class="filter-label">手配形態:</span>
+        <button class="chip-btn active" onclick="filterType('all', this)">すべて</button>
+        <button class="chip-btn" onclick="filterType('BOAT_ONLY', this)">⛵ ボート席のみ (自社ガイド同乗)</button>
+        <button class="chip-btn" onclick="filterType('FULL_PACKAGE', this)">🤝 ゲスト丸投げ (席＋ガイド引率)</button>
+        <button class="chip-btn" onclick="filterType('STAFF_ONLY', this)">👤 助っ人ガイド派遣 (人手不足)</button>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">エリア:</span>
+        <button class="chip-btn active" onclick="filterArea('all', this)">全海域</button>
+        <button class="chip-btn" onclick="filterArea('kerama', this)">ケラマ諸島</button>
+        <button class="chip-btn" onclick="filterArea('chibishi', this)">チービシ環礁</button>
+        <button class="chip-btn" onclick="filterArea('coast', this)">本島沿岸</button>
+      </div>
+
+      <!-- Smart Availability Toggle Filter -->
+      <div class="filter-group" style="margin-left: auto;">
+        <label class="availability-filter-box" title="自社ボート（美ら海丸）の空席やスタッフ予定と照合し、今すぐ受入・エントリー可能な案件のみを絞り込みます">
+          <input type="checkbox" id="filterAvailableOnly" onchange="toggleAvailableOnly(this.checked)">
+          <span class="availability-filter-label">
+            <span>🟢</span>
+            <span>自社の予定で受入可能な案件のみ表示</span>
+            <span class="phase-count" id="countAvailableOnly" style="background:#a7f3d0; color:#065f46; font-size:0.7rem;">2件</span>
+          </span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Workboard Area -->
+  <main class="main-layout">
+
+    <!-- Section 1: 自社が出している要請（他社からの応募を承認・成約する） -->
+    <section class="board-section">
+      <div class="section-header">
+        <div class="section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0284c7" stroke-width="2.5"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+          📢 自社が出しているシェア要請
+          <span class="section-sub">（港の他店・フリーランスからの応募を確認し、成約させます）</span>
+        </div>
+        <span style="font-size: 0.78rem; color: var(--slate-500); font-weight: 600;">掲載中: <strong>2件</strong></span>
+      </div>
+
+      <div class="offers-list">
+        
+        <!-- Offer 1 (直前・丸投げ) -->
+        <article class="offer-card highlight-cutoff" data-phase="cutoff" data-type="FULL_PACKAGE" data-area="kerama" id="myOffer104">
+          <div class="offer-date-box cutoff">
+            <span class="date-month">9月 (明日)</span>
+            <span class="date-day">27</span>
+            <span class="date-dow">(日)</span>
+          </div>
+
+          <div class="offer-info-col">
+            <div class="offer-top-line">
+              <span class="contract-badge badge-full-package">🤝 ゲスト丸投げ委託</span>
+              <span class="phase-pill-tag tag-cutoff">⏰ 前日18:00合意ロック対象 (あと1時間42分)</span>
+              <span style="font-size: 0.75rem; color: var(--slate-500);">要請#104</span>
+            </div>
+            <div class="offer-title">ケラマ便 | 体験ダイビング 1名 (女性・20代 / 初心者) の丸投げ引率受託先</div>
+            <div class="offer-meta-row">
+              <div class="offer-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>出航: <strong>08:30発 (宜野湾港)</strong></span>
+              </div>
+              <div class="offer-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>希望内容: <strong>ボート席1席 ＋ 体験ガイド引率（ランチ込）</strong></span>
+              </div>
+              <div class="offer-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>書類状況: <strong>Web問診回答済・適格クリア</strong></span>
+              </div>
+            </div>
+
+            <!-- Current Applicants for this request -->
+            <div class="responses-box">
+              <div style="font-size: 0.72rem; font-weight: 700; color: var(--slate-700); display: flex; align-items: center; justify-content: space-between;">
+                <span>現在の応募状況 (2件エントリーあり):</span>
+                <span style="color: var(--amber-600);">18:00までに成約しない場合は自動取り下げとなります</span>
+              </div>
+
+              <!-- Applicant A -->
+              <div class="response-row" style="background: white; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--slate-200);">
+                <div class="applicant-info">
+                  <div class="applicant-avatar" style="background:#0284c7;">誠</div>
+                  <div>
+                    <strong style="color: var(--slate-900);">🚢 誠海丸 (マリンサポート様)</strong>
+                    <span style="font-size: 0.75rem; color: var(--slate-500); margin-left: 6px;">『体験ダイブチームに空き枠あり。女性スタッフが引率担当可能です』</span>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <button class="btn-action-success" onclick="contractMyOffer('myOffer104', '誠海丸 (マリンサポート様)', 'FULL_PACKAGE')">
+                    ✓ 承認して成約 (画面1-Aへ自動反映)
+                  </button>
+                </div>
+              </div>
+
+              <!-- Applicant B -->
+              <div class="response-row" style="background: white; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--slate-200); opacity: 0.85;">
+                <div class="applicant-info">
+                  <div class="applicant-avatar" style="background:#059669;">屋</div>
+                  <div>
+                    <strong style="color: var(--slate-900);">👤 屋良 朝徳 (フリーランス / 潜水士)</strong>
+                    <span style="font-size: 0.75rem; color: var(--slate-500); margin-left: 6px;">『ガイドのみ担当可能（※ボート席は別途手配が必要です）』</span>
+                  </div>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                  <button class="btn-secondary" style="font-size: 0.75rem;" onclick="showToast('屋良様へのメッセージを開きます')">保留・相談</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="offer-action-col">
+            <div class="price-display">
+              <div class="price-value">¥13,000</div>
+              <div class="price-sub">支払提示額 (席¥8,000 + ガイド¥5,000)</div>
+            </div>
+            <button class="btn-secondary" style="font-size: 0.75rem;" onclick="openEditOfferModal('要請#104')">条件変更 / 取消</button>
+          </div>
+        </article>
+
+        <!-- Offer 2 (早期先行ブロック・ボート席のみ) -->
+        <article class="offer-card highlight-advance" data-phase="advance" data-type="BOAT_ONLY" data-area="kerama" id="myOffer088">
+          <div class="offer-date-box advance">
+            <span class="date-month">10月 (秋連休)</span>
+            <span class="date-day">11</span>
+            <span class="date-dow">(日)</span>
+          </div>
+
+          <div class="offer-info-col">
+            <div class="offer-top-line">
+              <span class="contract-badge badge-boat-only">⛵ 乗合ボート席のみ</span>
+              <span class="phase-pill-tag tag-advance">📅 早期先行ブロック (連休中日)</span>
+              <span style="font-size: 0.75rem; color: var(--slate-500);">要請#088</span>
+            </div>
+            <div class="offer-title">ケラマ便 | 連休中日のボート席 4席先行キープ希望 (自社ガイド同乗)</div>
+            <div class="offer-meta-row">
+              <div class="offer-meta-item">
+                <span>出航予定: <strong>08:30発 (ケラマ3ダイブ便)</strong></span>
+              </div>
+              <div class="offer-meta-item">
+                <span>引率体制: <strong>自社イントラ金城が4名を引率 (船の席のみ希望)</strong></span>
+              </div>
+              <div class="offer-meta-item">
+                <span>キャンセル規定: <strong>港共通BtoB早期規定（3日前まで無料）</strong></span>
+              </div>
+            </div>
+
+            <!-- Current Applicants -->
+            <div class="responses-box">
+              <div style="font-size: 0.72rem; font-weight: 700; color: var(--slate-700);">受入エントリー (1件):</div>
+              <div class="response-row" style="background: white; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--slate-200);">
+                <div class="applicant-info">
+                  <div class="applicant-avatar" style="background:#7c3aed;">オ</div>
+                  <div>
+                    <strong style="color: var(--slate-900);">🚢 オーシャンズII号 (オーシャンズ様 / 定員30名)</strong>
+                    <span style="font-size: 0.75rem; color: var(--slate-500); margin-left: 6px;">『10/11ケラマ便、4席の受入確保可能です。大型デッキ・温水シャワー完備』</span>
+                  </div>
+                </div>
+                <button class="btn-action-success" onclick="contractMyOffer('myOffer088', 'オーシャンズII号 (オーシャンズ様)', 'BOAT_ONLY')">
+                  ✓ 承認して成約 (カレンダー1-Bへ反映)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="offer-action-col">
+            <div class="price-display">
+              <div class="price-value">¥34,000</div>
+              <div class="price-sub">乗船料 ¥8,500 × 4名 (ランチ付)</div>
+            </div>
+            <button class="btn-secondary" style="font-size: 0.75rem;" onclick="openEditOfferModal('要請#088')">条件変更 / 取消</button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Section 2: 港の仲間ショップからの公募・ヘルプ要請（受託して売上を立てる） -->
+    <section class="board-section">
+      <div class="section-header">
+        <div class="section-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          📥 港の仲間ショップからの公募要請
+          <span class="section-sub">（自社ボート『美ら海丸』の空き席や空きスタッフを活用して売上を獲得します）</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="font-size: 0.78rem; color: var(--slate-500); font-weight: 600;">募集中: <strong id="publicOfferTotalCount">4件</strong>（うち受入可能: <strong style="color:var(--emerald-600);">2件</strong>）</span>
+        </div>
+      </div>
+
+      <div class="offers-list">
+
+        <!-- Public Offer 1 (直前・ボート空き席受託で売上) -->
+        <article class="offer-card highlight-cutoff" data-phase="cutoff" data-type="BOAT_ONLY" data-area="kerama" data-match="ok" id="pubOffer105">
+          <div class="offer-date-box cutoff">
+            <span class="date-month">9月 (明日)</span>
+            <span class="date-day">27</span>
+            <span class="date-dow">(日)</span>
+          </div>
+
+          <div class="offer-info-col">
+            <div class="offer-top-line">
+              <span class="contract-badge badge-boat-only">⛵ 乗合ボート席のみ</span>
+              <span class="match-status-badge match-ok">🟢 自社受入可（美ら海丸: 残り17席あり）</span>
+              <span class="phase-pill-tag tag-cutoff">⏰ 明日直前手配 (18:00合意ロック対象)</span>
+              <span style="font-size: 0.75rem; color: var(--slate-500);">公募#105</span>
+            </div>
+            <div class="offer-title">ケラマ便 | ファン中級 2名 (ご夫婦・AOW所持) のボート乗合枠募集</div>
+            <div class="offer-meta-row">
+              <div class="offer-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>依頼元: <strong>シーフレンド宜野湾 (担当: 比嘉)</strong></span>
+              </div>
+              <div class="offer-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <span>引率体制: <strong>シーフレンド様スタッフが同乗引率 (席とタンクのみ提供)</strong></span>
+              </div>
+              <div class="offer-meta-item" style="color: var(--blue-600); font-weight: 700;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M2 20a2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1 2.4 2.4 0 0 1 2-1 2.4 2.4 0 0 1 2 1 2.4 2.4 0 0 0 2 1 2.4 2.4 0 0 0 2-1"/></svg>
+                <span>美ら海丸状況: <strong>空き17席あり（受入推奨 👍）</strong></span>
+              </div>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--slate-500); margin-top: 4px;">
+              ※受入が成約すると、明日の【画面1-A】運航デッキの乗船者名簿および座席ゲージに自動加算されます。
+            </div>
+          </div>
+
+          <div class="offer-action-col">
+            <div class="price-display">
+              <div class="price-value" style="color: var(--emerald-600);">+¥17,000</div>
+              <div class="price-sub">自社売上 (乗船料 ¥8,500 × 2名)</div>
+            </div>
+            <button class="btn-action-primary" style="background: var(--emerald-600);" onclick="acceptPublicOffer('pubOffer105', 'シーフレンド宜野湾 様 (2名)', 17000)">
+              ✋ 美ら海丸で受入エントリー
+            </button>
+          </div>
+        </article>
+
+        <!-- Public Offer 2 (当日緊急レスキュー) -->
+        <article class="offer-card highlight-urgent" data-phase="urgent" data-type="STAFF_ONLY" data-area="chibishi" data-match="ok" id="pubOffer099">
+          <div class="offer-date-box urgent">
+            <span class="date-month">9月 (本日)</span>
+            <span class="date-day">26</span>
+            <span class="date-dow">(土)</span>
+          </div>
+
+          <div class="offer-info-col">
+            <div class="offer-top-line">
+              <span class="contract-badge badge-staff-only">👤 助っ人ガイド派遣</span>
+              <span class="match-status-badge match-ok">🟢 自社受入可（午後空きスタッフ1名あり）</span>
+              <span class="phase-pill-tag tag-urgent">🚨 本日午後便 緊急レスキュー</span>
+              <span style="font-size: 0.75rem; color: var(--slate-500);">公募#099</span>
+            </div>
+            <div class="offer-title">チービシ午後便 | ガイド1名急募 (体験ダイブ引率 / スタッフ急病による欠員)</div>
+            <div class="offer-meta-row">
+              <div class="offer-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>依頼元: <strong>パシフィックダイブ (担当: 宮城)</strong></span>
+              </div>
+              <div class="offer-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>集合時間: <strong>本日 12:30 宜野湾マリーナ集合 (出航13:00)</strong></span>
+              </div>
+              <div class="offer-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <span>待遇: <strong>当日緊急特別日当 ¥18,000 (即時精算対象)</strong></span>
+              </div>
+            </div>
+            <div style="font-size: 0.75rem; color: #b91c1c; font-weight: 600; margin-top: 4px;">
+              ⚠️ ボート（パシフィック号）は手配済。潜水士・OWSI以上の有資格ガイド1名のみ求めています。
+            </div>
+          </div>
+
+          <div class="offer-action-col">
+            <div class="price-display">
+              <div class="price-value" style="color: var(--crimson-600);">+¥18,000</div>
+              <div class="price-sub">午後半日 緊急日当</div>
+            </div>
+            <button class="btn-action-primary" style="background: var(--crimson-600);" onclick="acceptPublicOffer('pubOffer099', 'パシフィックダイブ様 (午後急募)', 18000)">
+              🚨 自社スタッフを緊急派遣
+            </button>
+          </div>
+        </article>
+
+        <!-- Public Offer 3 (早期先行手配・秋の連休ガイド公募) -->
+        <article class="offer-card highlight-advance" data-phase="advance" data-type="STAFF_ONLY" data-area="kerama" data-match="warn" id="pubOffer091">
+          <div class="offer-date-box advance">
+            <span class="date-month">10月 (秋連休)</span>
+            <span class="date-day">10-12</span>
+            <span class="date-dow">(3連休)</span>
+          </div>
+
+          <div class="offer-info-col">
+            <div class="offer-top-line">
+              <span class="contract-badge badge-staff-only">👤 助っ人ガイド派遣</span>
+              <span class="match-status-badge match-warn">🟡 要調整（10/11のみ自社予約多め・10/10と12は受入可）</span>
+              <span class="phase-pill-tag tag-advance">📅 早期繁忙期手配 (3連休通し)</span>
+              <span style="font-size: 0.75rem; color: var(--slate-500);">公募#091</span>
+            </div>
+            <div class="offer-title">ケラマ便 | 秋の3連休 (10/10〜10/12) 応援ガイド 2名公募 (ファンダイブ引率)</div>
+            <div class="offer-meta-row">
+              <div class="offer-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>依頼元: <strong>マリンクラブ宜野湾 (予約殺到につき事前増員)</strong></span>
+              </div>
+              <div class="offer-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+                <span>期間: <strong>10/10(土), 10/11(日), 10/12(月祝) の3日間</strong></span>
+              </div>
+              <div class="offer-meta-item">
+                <span>日当: <strong>¥16,000/日 × 3日間 ＝ ¥48,000 / 1名</strong></span>
+              </div>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--slate-500); margin-top: 4px;">
+              ※1日のみのエントリーも可能。成約すると相手方の予約枠とガイドスケジュールに自動登録されます。
+            </div>
+          </div>
+
+          <div class="offer-action-col">
+            <div class="price-display">
+              <div class="price-value" style="color: var(--blue-600);">+¥48,000</div>
+              <div class="price-sub">3日間通し日当 (1名あたり)</div>
+            </div>
+            <button class="btn-action-primary" onclick="acceptPublicOffer('pubOffer091', 'マリンクラブ宜野湾 様 (3連休ガイド)', 48000)">
+              エントリー相談
+            </button>
+          </div>
+        </article>
+
+        <!-- Public Offer 4 (受入不可サンプル: 満席のため受託不能) -->
+        <article class="offer-card highlight-advance" data-phase="advance" data-type="BOAT_ONLY" data-area="kerama" data-match="ng" id="pubOffer084" style="opacity: 0.78; background: #fffcfc;">
+          <div class="offer-date-box" style="background:#fef2f2; border-color:#fecaca; color:#b91c1c;">
+            <span class="date-month">10月</span>
+            <span class="date-day">18</span>
+            <span class="date-dow">(日)</span>
+          </div>
+
+          <div class="offer-info-col">
+            <div class="offer-top-line">
+              <span class="contract-badge badge-boat-only">⛵ 乗合ボート席のみ</span>
+              <span class="match-status-badge match-ng">🔴 受入不可（美ら海丸: 当日チャーター貸切のため満席）</span>
+              <span class="phase-pill-tag tag-advance">📅 早期手配</span>
+              <span style="font-size: 0.75rem; color: var(--slate-500);">公募#084</span>
+            </div>
+            <div class="offer-title" style="color: var(--slate-700);">ケラマ便 | ボート席 6名募集 (ショップツアー相乗り希望)</div>
+            <div class="offer-meta-row">
+              <div class="offer-meta-item">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span>依頼元: <strong>サンセットダイブ (担当: 与那嶺)</strong></span>
+              </div>
+              <div class="offer-meta-item">
+                <span>出航: <strong>08:30発 (ケラマ3便) / 6名分</strong></span>
+              </div>
+              <div class="offer-meta-item" style="color: var(--crimson-600); font-weight:700;">
+                <span>美ら海丸状況: <strong>満席 (自社ショップツアー25席完売済)</strong></span>
+              </div>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--crimson-600); margin-top: 4px;">
+              ※美ら海丸は既に定員に達しているため、この要請を受託することはできません。
+            </div>
+          </div>
+
+          <div class="offer-action-col">
+            <div class="price-display">
+              <div class="price-value" style="color: var(--slate-400);">+¥51,000</div>
+              <div class="price-sub">乗船料 ¥8,500 × 6名</div>
+            </div>
+            <button class="btn-secondary" style="opacity: 0.5; cursor: not-allowed; font-size: 0.8rem;" disabled title="この日は美ら海丸が貸切満席のため受入できません">
+              受入不可 (満席)
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal 1: 新規シェア要請作成モーダル -->
+  <div class="modal-backdrop" id="modalCreate">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          港内シェア要請・公募を新規作成
+        </div>
+        <button class="btn-secondary" style="color:white; border-color:rgba(255,255,255,0.3); background:transparent; padding:2px 8px;" onclick="closeModal('modalCreate')">✕</button>
+      </div>
+
+      <div class="modal-body">
+        
+        <!-- Step 1: 委託形態 -->
+        <div class="form-group">
+          <label class="form-label">1. 委託・手配の形態を選択してください <span style="color:var(--crimson-500);">*</span></label>
+          <div class="radio-card-grid">
+            <div class="radio-card active" onclick="selectContractRadio(this, 'BOAT_ONLY')">
+              <div class="radio-card-title" style="color: #0369a1;">⛵ ボート席のみ</div>
+              <div class="radio-card-desc">自社ガイドが同乗。<br>船の席だけ確保</div>
+            </div>
+            <div class="radio-card" onclick="selectContractRadio(this, 'FULL_PACKAGE')">
+              <div class="radio-card-title" style="color: #7e22ce;">🤝 ゲスト丸投げ</div>
+              <div class="radio-card-desc">席＋水中ガイド引率を<br>まるごと他社にお願い</div>
+            </div>
+            <div class="radio-card" onclick="selectContractRadio(this, 'STAFF_ONLY')">
+              <div class="radio-card-title" style="color: #15803d;">👤 ガイド応援派遣</div>
+              <div class="radio-card-desc">船はあるが人が不足。<br>助っ人イントラを募集</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: 対象日（早期〜直前まで対応） -->
+        <div class="form-group">
+          <label class="form-label">2. 対象日時（数ヶ月先の早期先行から明日・当日まで指定可） <span style="color:var(--crimson-500);">*</span></label>
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px;">
+            <input type="date" class="form-input" id="newOfferDate" value="2026-10-18">
+            <select class="form-select" id="newOfferTime">
+              <option value="morning">朝ケラマ便 (08:30発)</option>
+              <option value="afternoon">午後チービシ便 (13:00発)</option>
+              <option value="allday">終日便</option>
+            </select>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--slate-500); margin-top: 4px;">
+            💡 1ヶ月以上先の日程でも早期先行ブロックとして港全体へ募集が公開されます。
+          </div>
+        </div>
+
+        <!-- Step 3: 対象ゲスト/人数/ダイビング種別 -->
+        <div class="form-group">
+          <label class="form-label">3. 募集人数とダイビング種別 <span style="color:var(--crimson-500);">*</span></label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <select class="form-select" id="newOfferType">
+              <option value="fun">ファンダイビング (中級/AOW)</option>
+              <option value="exp">体験ダイビング (1:2基準)</option>
+              <option value="snork">スノーケリング</option>
+              <option value="guide_only">助っ人イントラ派遣</option>
+            </select>
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <input type="number" class="form-input" id="newOfferCount" value="2" min="1" max="20" style="text-align: right;">
+              <span style="font-size: 0.85rem; font-weight: 700;">名</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: 提示金額 -->
+        <div class="form-group">
+          <label class="form-label">4. 提示金額（受託ショップ/イントラへ支払う金額） <span style="color:var(--crimson-500);">*</span></label>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 1rem; font-weight: 700;">¥</span>
+            <input type="number" class="form-input" id="newOfferPrice" value="17000" step="500" style="font-family:'JetBrains Mono'; font-weight:700;">
+            <span style="font-size: 0.75rem; color: var(--slate-500);">(1人あたり ¥8,500 想定)</span>
+          </div>
+        </div>
+
+        <!-- Step 5: 特記事項 -->
+        <div class="form-group">
+          <label class="form-label">5. 備考・特記事項（器材レンタル状況・要望など）</label>
+          <textarea class="form-textarea" rows="2" placeholder="例: ご夫婦2名、フルレンタル希望。船上ランチ込でお願いします。"></textarea>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('modalCreate')">キャンセル</button>
+        <button class="btn-action-primary" onclick="submitNewOffer()">
+          🚀 港内シェア要請を公開する
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerHTML = `<span>🔔</span> <span>${msg}</span>`;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    function openCreateModal() {
+      openModal('modalCreate');
+    }
+
+    function selectContractRadio(el, type) {
+      document.querySelectorAll('.radio-card').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    let currentPhase = 'all';
+    let currentType = 'all';
+    let currentArea = 'all';
+    let isAvailableOnly = false;
+
+    function applyCombinedFilters() {
+      const cards = document.querySelectorAll('.offer-card');
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const matchPhase = (currentPhase === 'all' || card.dataset.phase === currentPhase);
+        const matchType = (currentType === 'all' || card.dataset.type === currentType);
+        const matchArea = (currentArea === 'all' || card.dataset.area === currentArea);
+        
+        // If isAvailableOnly is true, only show public offers that have data-match="ok"
+        const isMyOffer = card.id.startsWith('myOffer');
+        const matchAvailability = (!isAvailableOnly || isMyOffer || card.dataset.match === 'ok');
+
+        if (matchPhase && matchType && matchArea && matchAvailability) {
+          card.style.display = 'grid';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Switch between 4 phases (Advance, Cutoff, Urgent, All)
+    function switchPhaseTab(phase, btn) {
+      document.querySelectorAll('.phase-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentPhase = phase;
+      applyCombinedFilters();
+    }
+
+    // Filter by Contract Type
+    function filterType(type, btn) {
+      btn.parentElement.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentType = type;
+      applyCombinedFilters();
+    }
+
+    // Filter by Sea Area
+    function filterArea(area, btn) {
+      btn.parentElement.querySelectorAll('.chip-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentArea = area;
+      applyCombinedFilters();
+    }
+
+    // Toggle: Available Only
+    function toggleAvailableOnly(isChecked) {
+      isAvailableOnly = isChecked;
+      applyCombinedFilters();
+      if (isChecked) {
+        showToast('🟢 自社リソース（美ら海丸・スタッフ予定）で今すぐ受入可能な案件のみに絞り込みました');
+      } else {
+        showToast('すべての公募案件を表示しています');
+      }
+    }
+
+    // Action: Approve applicant on My Offer
+    function contractMyOffer(offerId, applicantName, contractType) {
+      const card = document.getElementById(offerId);
+      if (!card) return;
+
+      card.classList.remove('highlight-cutoff', 'highlight-advance');
+      card.classList.add('state-contracted');
+
+      const responsesBox = card.querySelector('.responses-box');
+      if (responsesBox) {
+        responsesBox.style.background = '#dcfce7';
+        responsesBox.style.borderColor = '#86efac';
+        responsesBox.innerHTML = `
+          <div style="font-weight:700; color:#15803d; font-size:0.85rem; display:flex; align-items:center; gap:8px;">
+            <span>🎉 成約完了：${applicantName} と合意しました！</span>
+          </div>
+          <div style="font-size:0.75rem; color:#166534;">
+            契約データが電磁ロックされ、運航デッキ【画面1-A】または月間手配【画面1-B】に自動同期されました。<br>
+            ※前日18:00以降のキャンセルには規定BtoBキャンセル料が100%保全されます。
+          </div>
+        `;
+      }
+
+      const actionCol = card.querySelector('.offer-action-col');
+      if (actionCol) {
+        actionCol.innerHTML = `
+          <span style="background:#10b981; color:white; font-size:0.75rem; font-weight:800; padding:4px 10px; border-radius:4px;">成約済 ✅</span>
+          <span style="font-size:0.7rem; color:var(--emerald-600); font-weight:700;">自動連携完了</span>
+        `;
+      }
+
+      showToast(`${applicantName} とのシェア手配が成約しました！運航デッキ/月間手配へ反映されました。`);
+    }
+
+    // Action: Accept public offer (Earn revenue)
+    function acceptPublicOffer(offerId, requesterName, amount) {
+      const card = document.getElementById(offerId);
+      if (!card) return;
+
+      card.classList.remove('highlight-cutoff', 'highlight-urgent', 'highlight-advance');
+      card.classList.add('state-contracted');
+
+      const actionCol = card.querySelector('.offer-action-col');
+      if (actionCol) {
+        actionCol.innerHTML = `
+          <div class="price-display">
+            <div class="price-value" style="color:var(--emerald-600);">+¥${amount.toLocaleString()}</div>
+            <div class="price-sub">売上確定 (月末相殺)</div>
+          </div>
+          <span style="background:#10b981; color:white; font-size:0.75rem; font-weight:800; padding:4px 10px; border-radius:4px;">受託成約済 ✅</span>
+        `;
+      }
+
+      showToast(`🎉 ${requesterName} の要請を受託成約しました！美ら海丸の乗船名簿・配船へ自動登録されました。`);
+    }
+
+    function openEditOfferModal(offerCode) {
+      showToast(`${offerCode} の条件編集画面を開きます`);
+    }
+
+    function submitNewOffer() {
+      closeModal('modalCreate');
+      const dateVal = document.getElementById('newOfferDate').value;
+      const count = document.getElementById('newOfferCount').value;
+      const price = document.getElementById('newOfferPrice').value;
+
+      showToast(`📢 ${dateVal} のシェア要請 (${count}名 / ¥${parseInt(price).toLocaleString()}) を港全体へ公募公開しました！`);
+    }
+  </script>
+</body>
+</html>

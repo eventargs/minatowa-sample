@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【画面8】港・寄り合いガバナンス設定 | Minatowa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-950: #070e1b;
+      --navy-900: #0a192f;
+      --navy-850: #0d213f;
+      --navy-800: #102a4e;
+      --navy-700: #173866;
+      --blue-600: #0284c7;
+      --blue-500: #0ea5e9;
+      --blue-100: #e0f2fe;
+      --blue-50: #f0f9ff;
+      --emerald-600: #059669;
+      --emerald-500: #10b981;
+      --emerald-100: #d1fae5;
+      --emerald-50: #ecfdf5;
+      --amber-600: #d97706;
+      --amber-500: #f59e0b;
+      --amber-100: #fef3c7;
+      --amber-50: #fffbeb;
+      --crimson-600: #dc2626;
+      --crimson-500: #ef4444;
+      --crimson-100: #fee2e2;
+      --crimson-50: #fef2f2;
+      --purple-600: #7c3aed;
+      --purple-500: #8b5cf6;
+      --purple-100: #ede9fe;
+      --purple-50: #f5f3ff;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+      --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: #f1f5f9;
+      color: var(--slate-800);
+      line-height: 1.5;
+      padding-bottom: 90px;
+    }
+
+    /* Top Guidance Banner */
+    .role-guidance-banner {
+      background: linear-gradient(135deg, #0f2744, #1b3a5b);
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #0284c7;
+    }
+    .role-guidance-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .role-guidance-tag {
+      background: #7c3aed;
+      color: #ede9fe;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .role-guidance-text {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .role-guidance-desc {
+      font-size: 0.8rem;
+      color: #bae6fd;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: var(--navy-900);
+      color: var(--white);
+      height: 64px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .brand-logo span { color: var(--blue-500); }
+    .port-badge {
+      background-color: var(--navy-700);
+      color: #93c5fd;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-item {
+      color: var(--slate-300);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .nav-item:hover {
+      color: var(--white);
+      background-color: var(--navy-800);
+    }
+    .nav-item.active {
+      color: var(--white);
+      background-color: var(--blue-600);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Governance Header Card */
+    .gov-header-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .gov-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .gov-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .gov-meta {
+      font-size: 0.82rem;
+      color: var(--slate-500);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .gov-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-action-primary {
+      background: var(--blue-600);
+      color: white;
+      border: none;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .btn-action-primary:hover { background: #0369a1; }
+    .btn-action-outline {
+      background: white;
+      border: 1px solid var(--slate-300);
+      color: var(--slate-700);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn-action-outline:hover { background: var(--slate-50); border-color: var(--blue-500); }
+
+    /* Rules Grid */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 28px;
+    }
+    .rule-section-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .rule-card-header {
+      padding: 14px 20px;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .rule-card-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .rule-card-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
+
+    .rule-item-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .rule-item-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .rule-info-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .rule-name {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: var(--slate-800);
+    }
+    .rule-desc {
+      font-size: 0.75rem;
+      color: var(--slate-500);
+      line-height: 1.4;
+    }
+    .rule-control-col {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .input-control {
+      padding: 6px 10px;
+      border: 1px solid var(--slate-300);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--slate-900);
+      text-align: right;
+      width: 110px;
+    }
+
+    /* Shops Table Card */
+    .shops-table-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+    .table-header-strip {
+      padding: 16px 20px;
+      background: #f8fafc;
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .shops-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .shops-table th, .shops-table td {
+      border-bottom: 1px solid var(--slate-200);
+      padding: 12px 18px;
+      vertical-align: middle;
+      text-align: left;
+    }
+    .shops-table th {
+      background: white;
+      font-weight: 800;
+      color: var(--slate-600);
+      font-size: 0.78rem;
+    }
+    .shops-table tr:hover { background: #fafafa; }
+
+    .role-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .role-badge.leader { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .role-badge.member { background: var(--slate-100); color: var(--slate-600); }
+    .role-badge.pending { background: #fffbeb; color: #b45309; border: 1px solid #fde68a; }
+
+    /* Audit Log Card */
+    .audit-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-sm);
+      padding: 20px;
+    }
+    .audit-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .audit-item {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      font-size: 0.8rem;
+      color: var(--slate-700);
+      border-left: 2px solid var(--slate-200);
+      padding-left: 12px;
+    }
+    .audit-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--slate-500);
+      font-size: 0.78rem;
+      min-width: 90px;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 120;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      width: 90%;
+      max-width: 600px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    .modal-header {
+      padding: 16px 24px;
+      background: var(--navy-900);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-body {
+      padding: 24px;
+      max-height: 75vh;
+      overflow-y: auto;
+    }
+    .modal-footer {
+      padding: 16px 24px;
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+    .form-group { margin-bottom: 16px; }
+    .form-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .form-input, .form-select {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid var(--slate-300);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--slate-900);
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+    .toast.show { display: flex; animation: fadeIn 0.2s ease-out; }
+    @keyframes fadeIn {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Guidance Banner -->
+  <aside class="role-guidance-banner">
+    <div class="role-guidance-left">
+      <span class="role-guidance-tag">港寄り合い幹事・組合管理者向け</span>
+      <div>
+        <div class="role-guidance-text">【画面8】港・寄り合いガバナンス設定（共通運航ルール＆安全レギュレーション統括）</div>
+        <div class="role-guidance-desc">
+          💡 宜野湾港に加盟するショップ全体に適用される「前日締め切り時刻」「相互キャンセルポリシー」「安全引率比率」を一元管理します。<br>
+          設定値は全画面（出航デッキ、直前合意ロック、月末相殺）の自動バリデーションへ即座にカスケード反映されます。
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 0.75rem; color: #bae6fd; text-align: right;">
+      全会一致 電子合意ログ保全<br>法的適格コンプライアンス管理
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" class="brand-logo" title="ポータルTOPへ">Mina<span>towa</span></a>
+      <div class="port-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a4 4 0 0 0-4 4c0 2 2 3 4 6 2-3 4-4 4-6a4 4 0 0 0-4-4z"/><circle cx="12" cy="18" r="4"/></svg>
+        宜野湾港 寄り合い協議会
+      </div>
+    </div>
+
+    <!-- Navigation between Screens -->
+    <nav class="nav-links">
+      <a href="1-A_運航デッキ・乗船チーム編成ボード.html" class="nav-item">画面1-A: 運航デッキ</a>
+      <a href="1-B_月間配船＆ゲスト手配ダッシュボード.html" class="nav-item">画面1-B: 月間手配</a>
+      <a href="1-C_マイスケジュール＆オファー受付ボード.html" class="nav-item">画面1-C: マイスケジュール</a>
+      <a href="2_港内シェア要請・公募ボード.html" class="nav-item">画面2: 港内シェア公募</a>
+      <a href="3_直前変更・二者間合意ロック管理.html" class="nav-item">画面3: 合意ロック</a>
+      <a href="4_予約カルテ・参加者書類提出台帳.html" class="nav-item">画面4: 予約台帳</a>
+      <a href="5_ボート運航ダイヤ＆段階的開放設定.html" class="nav-item">画面5: 運航ダイヤ・開放設定</a>
+      <a href="6_スタッフシフト＆フリーランス稼働管理.html" class="nav-item">画面6: スタッフ＆ガイド</a>
+      <a href="7_月末相殺・インボイス精算ダッシュボード.html" class="nav-item">画面7: 月末相殺・精算</a>
+      <a href="8_港・寄り合いガバナンス設定.html" class="nav-item active">画面8: 港ガバナンス</a>
+      <a href="9_ゲスト専用_事前チェックイン・Web問診.html" class="nav-item" target="_blank" style="color:#34d399; border:1px solid rgba(52,211,153,0.3);">📱画面9: ゲスト問診 ↗</a>
+    </nav>
+  </header>
+
+  <!-- Container -->
+  <main class="container">
+
+    <!-- Governance Header Card -->
+    <div class="gov-header-card">
+      <div class="gov-title-group">
+        <div class="gov-title">
+          <span>🏛️ 宜野湾港寄り合い協議会 共通運航規約</span>
+          <span style="font-size: 0.75rem; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 2px 8px; border-radius: 9999px; font-weight: 700;">規約発効中 (2026年度版)</span>
+        </div>
+        <div class="gov-meta">
+          <span>主宰幹事店: <strong>北谷マリン (代表: 上原)</strong></span>
+          <span>｜</span>
+          <span>加盟店舗数: <strong>4店舗 (＋審査中 1店舗)</strong></span>
+          <span>｜</span>
+          <span>最終改定日: <strong>2026/06/15</strong></span>
+        </div>
+      </div>
+
+      <div class="gov-actions">
+        <button class="btn-action-outline" onclick="openRevisionDraftModal()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          規約改定ドラフト作成
+        </button>
+        <button class="btn-action-primary" onclick="saveSettings()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          現在の設定を保存・全画面へ適用
+        </button>
+      </div>
+    </div>
+
+    <!-- 4 Major Rule Categories Grid -->
+    <div class="rules-grid">
+
+      <!-- Category 1: Operational Timelines -->
+      <div class="rule-section-card">
+        <div class="rule-card-header">
+          <div class="rule-card-title">
+            <span>⏱️ 1. 運航タイムライン・前日締め切り規定</span>
+          </div>
+          <span style="font-size: 0.72rem; color: var(--slate-500);">画面1-A / 画面2連動</span>
+        </div>
+        <div class="rule-card-body">
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">前日無料キャンセル締め時刻</div>
+              <div class="rule-desc">この時刻を過ぎると前日午後扱いとなり、100%保全キャンセル料の対象となります。</div>
+            </div>
+            <div class="rule-control-col">
+              <input type="time" class="input-control" value="12:00" id="cutoffNoon">
+            </div>
+          </div>
+
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">前日配船確定・入稿締め切り時刻</div>
+              <div class="rule-desc">港全体の座席融通がロックされ、翌日デッキボード（画面1-A）へ乗船名簿が確定引き継ぎされます。</div>
+            </div>
+            <div class="rule-control-col">
+              <input type="time" class="input-control" value="18:00" id="cutoffDaily">
+            </div>
+          </div>
+
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">当日出航可否（海況判断）確定時刻</div>
+              <div class="rule-desc">船長による最終出航可否のアラート発令リミット。欠航時は全額返還免責となります。</div>
+            </div>
+            <div class="rule-control-col">
+              <input type="time" class="input-control" value="06:30" id="cutoffMorning">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 2: Mutual B2B Cancellation Policy -->
+      <div class="rule-section-card">
+        <div class="rule-card-header">
+          <div class="rule-card-title">
+            <span>🛡️ 2. BtoB相互キャンセルポリシー規定</span>
+          </div>
+          <span style="font-size: 0.72rem; color: var(--slate-500);">画面3 / 画面7連動</span>
+        </div>
+        <div class="rule-card-body">
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">前日正午以前の取消料率</div>
+              <div class="rule-desc">前日12:00までのキャンセルは違約金ゼロで席を解放。</div>
+            </div>
+            <div class="rule-control-col">
+              <input type="number" class="input-control" value="0" style="width: 70px;"> <span>%</span>
+            </div>
+          </div>
+
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">前日午後 (12:00〜18:00) 取消料率</div>
+              <div class="rule-desc">ボート席の空席損害を補填するため、不課税の損害賠償金として保全。</div>
+            </div>
+            <div class="rule-control-col">
+              <input type="number" class="input-control" value="100" style="width: 70px;"> <span>%</span>
+            </div>
+          </div>
+
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">参加者書類不備による当日乗船拒否</div>
+              <div class="rule-desc">メディカル問診・診断書未提出で乗船不可となった場合、送客元ショップが全額負担。</div>
+            </div>
+            <div class="rule-control-col">
+              <input type="number" class="input-control" value="100" style="width: 70px;"> <span>%</span>
+            </div>
+          </div>
+
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">海況悪化による船長判断欠航</div>
+              <div class="rule-desc">天変地異による運航停止。違約金は発生せず、乗船料・手数料を全額返金。</div>
+            </div>
+            <div class="rule-control-col">
+              <input type="number" class="input-control" value="0" style="width: 70px;" readonly style="background:var(--slate-100);"> <span>%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 3: Safety Ratios (Ratio Limits) -->
+      <div class="rule-section-card">
+        <div class="rule-card-header">
+          <div class="rule-card-title">
+            <span>🤿 3. 港内安全引率レギュレーション</span>
+          </div>
+          <span style="font-size: 0.72rem; color: #dc2626; font-weight: 700;">出航ブロック厳格連動</span>
+        </div>
+        <div class="rule-card-body">
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">体験ダイビング 引率上限比率</div>
+              <div class="rule-desc">未認定ダイバーの海中安全のため厳格適用。超過時は画面1-Aで出航不可となります。</div>
+            </div>
+            <div class="rule-control-col">
+              <span>ガイド 1 : </span>
+              <input type="number" class="input-control" value="2" style="width: 60px;"> <span>名</span>
+            </div>
+          </div>
+
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">ファンダイブ初級 (OW・50本未満)</div>
+              <div class="rule-desc">経験本数が少ないダイバーグループの引率上限。</div>
+            </div>
+            <div class="rule-control-col">
+              <span>ガイド 1 : </span>
+              <input type="number" class="input-control" value="4" style="width: 60px;"> <span>名</span>
+            </div>
+          </div>
+
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">ファンダイブ中級 (AOW・50本以上)</div>
+              <div class="rule-desc">自立ダイバーグループの標準引率比率。</div>
+            </div>
+            <div class="rule-control-col">
+              <span>ガイド 1 : </span>
+              <input type="number" class="input-control" value="6" style="width: 60px;"> <span>名</span>
+            </div>
+          </div>
+
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">スキンダイブ / スノーケリング</div>
+              <div class="rule-desc">水面監視・スノーケルツアーの引率上限。</div>
+            </div>
+            <div class="rule-control-col">
+              <span>ガイド 1 : </span>
+              <input type="number" class="input-control" value="8" style="width: 60px;"> <span>名</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category 4: Economic & Netting Rules -->
+      <div class="rule-section-card">
+        <div class="rule-card-header">
+          <div class="rule-card-title">
+            <span>💳 4. 経済・相殺決済ルール</span>
+          </div>
+          <span style="font-size: 0.72rem; color: var(--slate-500);">画面7連動</span>
+        </div>
+        <div class="rule-card-body">
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">標準仲介手数料率 (BtoB公募成約時)</div>
+              <div class="rule-desc">ボート席マッチング時に送客元・受託店間で適用される標準料率。</div>
+            </div>
+            <div class="rule-control-col">
+              <input type="number" class="input-control" value="15.0" step="0.5" style="width: 70px;"> <span>%</span>
+            </div>
+          </div>
+
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">相殺締め日 / 電子合意期日</div>
+              <div class="rule-desc">毎月月末に自動集計され、翌月25日までに双方の電子承認を義務化。</div>
+            </div>
+            <div class="rule-control-col">
+              <span style="font-size: 0.8rem; font-weight: 700;">毎月月末締め / 翌月25日合意</span>
+            </div>
+          </div>
+
+          <div class="rule-item-row">
+            <div class="rule-info-col">
+              <div class="rule-name">最終精算振込期日</div>
+              <div class="rule-desc">相殺後の純受取超過額を銀行振込で決済する最終期日。</div>
+            </div>
+            <div class="rule-control-col">
+              <span style="font-size: 0.8rem; font-weight: 700; color: #0284c7;">翌月末日 (30日/31日)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Member Shops Table -->
+    <div class="shops-table-card">
+      <div class="table-header-strip">
+        <div style="font-weight: 800; font-size: 0.95rem; color: var(--slate-900);">
+          👥 宜野湾港寄り合い 加盟ショップ一覧 (全5店舗)
+        </div>
+        <button class="btn-action-outline" style="font-size: 0.8rem;" onclick="openInviteModal()">
+          ➕ 新規ショップを招待・追加
+        </button>
+      </div>
+
+      <table class="shops-table">
+        <thead>
+          <tr>
+            <th>店舗名</th>
+            <th>寄り合い役割</th>
+            <th>インボイス登録番号 (T番号)</th>
+            <th>所有ボート / 定員</th>
+            <th>安全書類・保険審査</th>
+            <th>参加承認日</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>北谷マリン 本店</strong></td>
+            <td><span class="role-badge leader">主宰幹事店</span></td>
+            <td><code>T9876543210123</code></td>
+            <td>美ら海丸 (25名), 第2黒潮丸 (15名)</td>
+            <td><span style="color:#059669; font-weight:700;">認証済 ✅</span></td>
+            <td>2024/04/01</td>
+            <td><span style="color:var(--slate-400);">管理者</span></td>
+          </tr>
+          <tr>
+            <td><strong>サンライズダイブ</strong></td>
+            <td><span class="role-badge member">加盟店 (船持ち)</span></td>
+            <td><code>T1234567890123</code></td>
+            <td>サンライズ号 (12名)</td>
+            <td><span style="color:#059669; font-weight:700;">認証済 ✅</span></td>
+            <td>2024/04/01</td>
+            <td><button class="btn-action-outline" style="padding:2px 8px; font-size:0.75rem;" onclick="showToast('サンライズダイブの設定を表示')">詳細</button></td>
+          </tr>
+          <tr>
+            <td><strong>マリンサポート</strong></td>
+            <td><span class="role-badge member">加盟店 (船持ち)</span></td>
+            <td><code>T9876543210987</code></td>
+            <td>誠海丸 (20名)</td>
+            <td><span style="color:#059669; font-weight:700;">認証済 ✅</span></td>
+            <td>2024/05/10</td>
+            <td><button class="btn-action-outline" style="padding:2px 8px; font-size:0.75rem;" onclick="showToast('マリンサポートの設定を表示')">詳細</button></td>
+          </tr>
+          <tr>
+            <td><strong>那覇マリン</strong></td>
+            <td><span class="role-badge member">加盟店 (ガイド専業)</span></td>
+            <td><code>T5678901234567</code></td>
+            <td>(ボート非所有 / 乗船依頼専任)</td>
+            <td><span style="color:#059669; font-weight:700;">認証済 ✅</span></td>
+            <td>2024/06/01</td>
+            <td><button class="btn-action-outline" style="padding:2px 8px; font-size:0.75rem;" onclick="showToast('那覇マリンの設定を表示')">詳細</button></td>
+          </tr>
+          <tr style="background: #fffbeb;" id="rowIslandBlue">
+            <td><strong>アイランドブルー (新規申請)</strong></td>
+            <td><span class="role-badge pending">承認審査中 ⏳</span></td>
+            <td><code>T4432109876543</code></td>
+            <td>(ボート非所有)</td>
+            <td><span style="color:#b45309; font-weight:700;">賠責保険証確認中</span></td>
+            <td>—</td>
+            <td>
+              <button class="btn-action-primary" style="padding:3px 10px; font-size:0.75rem;" onclick="approveNewShop()">
+                承認して参加許可
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Audit Log Card -->
+    <div class="audit-card">
+      <div style="font-weight: 800; font-size: 0.95rem; color: var(--slate-900);">
+        📜 規約改定・合意監査ログ（電子署名履歴）
+      </div>
+      <ul class="audit-list">
+        <li class="audit-item">
+          <span class="audit-date">2026/06/15</span>
+          <div>
+            <strong>インボイス制度対応の規約改定（第8条追加）:</strong> 直前キャンセル違約金の不課税区分明記について、全加盟4店舗がオンライン電子合意を完了。
+          </div>
+        </li>
+        <li class="audit-item">
+          <span class="audit-date">2026/04/01</span>
+          <div>
+            <strong>安全引率レギュレーション改定（第4条）:</strong> 体験ダイビング比率を「1:3」から「1:2」へ厳格化。出航デッキ強制ロック機能を有効化。
+          </div>
+        </li>
+        <li class="audit-item">
+          <span class="audit-date">2024/04/01</span>
+          <div>
+            <strong>宜野湾港寄り合い協議会 発足:</strong> 北谷マリン、サンライズダイブ、マリンサポートの3社にて港内シェア規約を正式締結。
+          </div>
+        </li>
+      </ul>
+    </div>
+
+  </main>
+
+  <!-- Modal 1: Revision Draft Modal -->
+  <div class="modal-backdrop" id="draftModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size: 1rem; font-weight: 800;">📝 港規約 改定ドラフト作成 ＆ 一斉合意要請</h3>
+        <button onclick="closeModal('draftModal')" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">改定タイトル・目的</label>
+          <input type="text" class="form-input" value="台風警戒時における前日キャンセル無料特例条項の追加">
+        </div>
+        <div class="form-group">
+          <label class="form-label">改定対象条項</label>
+          <select class="form-select">
+            <option>第2条: BtoB相互キャンセルポリシー規定</option>
+            <option>第1条: 運航タイムライン規定</option>
+            <option>第3条: 安全引率レギュレーション</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">改定理由・通知メッセージ</label>
+          <textarea class="form-input" rows="4">気象庁より台風警報・注意報が発表された場合、前日18時まで無償キャンセルを認める特例措置を協議会合意として新設します。全加盟店舗のご確認と電子合意をお願いいたします。</textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-action-outline" onclick="closeModal('draftModal')">キャンセル</button>
+        <button class="btn-action-primary" onclick="submitDraft()">全加盟店へ承認要請を一斉送信</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Invite Modal -->
+  <div class="modal-backdrop" id="inviteModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size: 1rem; font-weight: 800;">➕ 新規ショップを宜野湾港グループへ招待</h3>
+        <button onclick="closeModal('inviteModal')" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">招待先ショップ名</label>
+          <input type="text" class="form-input" placeholder="例: シーガルダイバーズ">
+        </div>
+        <div class="form-group">
+          <label class="form-label">代表者メールアドレス（招待URL送信先）</label>
+          <input type="email" class="form-input" placeholder="owner@seagulldivers.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">必須提出書類（事前審査）</label>
+          <div style="font-size: 0.8rem; color: var(--slate-600); line-height: 1.6;">
+            ☑ 適格請求書発行事業者番号（T番号）<br>
+            ☑ 事業者賠償責任保険 証書PDF<br>
+            ☑ 小型船舶操縦免許 / 遊漁船業者登録票（ボート所有時）
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-action-outline" onclick="closeModal('inviteModal')">キャンセル</button>
+        <button class="btn-action-primary" onclick="sendInvite()">招待メールを送信する</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    <span id="toastMsg">通知メッセージ</span>
+  </div>
+
+  <script>
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3500);
+    }
+
+    function saveSettings() {
+      showToast('✅ 港ガバナンス設定を保存しました。画面1-A（運航デッキ）および各画面へ即時反映されました。');
+    }
+
+    function openRevisionDraftModal() {
+      document.getElementById('draftModal').classList.add('active');
+    }
+
+    function openInviteModal() {
+      document.getElementById('inviteModal').classList.add('active');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    function submitDraft() {
+      closeModal('draftModal');
+      showToast('📨 全加盟4店舗へ「規約改定の承認要請」を電子送信しました');
+    }
+
+    function sendInvite() {
+      closeModal('inviteModal');
+      showToast('✉️ 新規ショップへ港寄り合いへの参加招待状を送信しました');
+    }
+
+    function approveNewShop() {
+      const row = document.getElementById('rowIslandBlue');
+      row.style.background = 'white';
+      row.innerHTML = `
+        <td><strong>アイランドブルー</strong></td>
+        <td><span class="role-badge member">加盟店 (ガイド専業)</span></td>
+        <td><code>T4432109876543</code></td>
+        <td>(ボート非所有)</td>
+        <td><span style="color:#059669; font-weight:700;">認証済 ✅</span></td>
+        <td>2026/09/27 (本日)</td>
+        <td><button class="btn-action-outline" style="padding:2px 8px; font-size:0.75rem;" onclick="showToast('アイランドブルーの設定を表示')">詳細</button></td>
+      `;
+      showToast('🎉 アイランドブルー様の加盟を承認しました！宜野湾港寄り合いグループへ合流しました。');
+    }
+  </script>
+</body>
+</html>

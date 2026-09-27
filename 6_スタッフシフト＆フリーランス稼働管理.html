@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【画面6】スタッフシフト＆フリーランス稼働管理 | Minatowa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-950: #070e1b;
+      --navy-900: #0a192f;
+      --navy-850: #0d213f;
+      --navy-800: #102a4e;
+      --navy-700: #173866;
+      --blue-600: #0284c7;
+      --blue-500: #0ea5e9;
+      --blue-100: #e0f2fe;
+      --blue-50: #f0f9ff;
+      --emerald-600: #059669;
+      --emerald-500: #10b981;
+      --emerald-100: #d1fae5;
+      --emerald-50: #ecfdf5;
+      --amber-600: #d97706;
+      --amber-500: #f59e0b;
+      --amber-100: #fef3c7;
+      --amber-50: #fffbeb;
+      --crimson-600: #dc2626;
+      --crimson-500: #ef4444;
+      --crimson-100: #fee2e2;
+      --crimson-50: #fef2f2;
+      --purple-600: #7c3aed;
+      --purple-500: #8b5cf6;
+      --purple-100: #ede9fe;
+      --purple-50: #f5f3ff;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+      --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: #f1f5f9;
+      color: var(--slate-800);
+      line-height: 1.5;
+      padding-bottom: 90px;
+    }
+
+    /* Top Guidance Banner */
+    .role-guidance-banner {
+      background: linear-gradient(135deg, #0f2744, #1b3a5b);
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #0284c7;
+    }
+    .role-guidance-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .role-guidance-tag {
+      background: #0284c7;
+      color: #e0f2fe;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .role-guidance-text {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .role-guidance-desc {
+      font-size: 0.8rem;
+      color: #bae6fd;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: var(--navy-900);
+      color: var(--white);
+      height: 64px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .brand-logo span { color: var(--blue-500); }
+    .port-badge {
+      background-color: var(--navy-700);
+      color: #93c5fd;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-item {
+      color: var(--slate-300);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .nav-item:hover {
+      color: var(--white);
+      background-color: var(--navy-800);
+    }
+    .nav-item.active {
+      color: var(--white);
+      background-color: var(--blue-600);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Tab Controls */
+    .view-switcher-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .pill-tabs {
+      background: white;
+      padding: 4px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--slate-200);
+      display: flex;
+      gap: 4px;
+      box-shadow: var(--shadow-sm);
+    }
+    .pill-tab-btn {
+      padding: 8px 18px;
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--slate-600);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.15s;
+    }
+    .pill-tab-btn.active {
+      background: var(--navy-900);
+      color: white;
+    }
+    .badge-count {
+      font-size: 0.72rem;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      background: var(--slate-100);
+      color: var(--slate-600);
+    }
+    .pill-tab-btn.active .badge-count {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    /* Week Navigator */
+    .week-navigator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 6px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-sm);
+    }
+    .btn-nav-arrow {
+      background: none;
+      border: 1px solid var(--slate-300);
+      border-radius: 4px;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--slate-600);
+    }
+    .btn-nav-arrow:hover { background: var(--slate-100); }
+    .week-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--slate-900);
+    }
+
+    /* Section Header */
+    .section-title-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-badge {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      font-weight: 700;
+    }
+
+    /* Staff Shift Table Card */
+    .table-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+    .shift-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+    .shift-table th, .shift-table td {
+      border: 1px solid var(--slate-200);
+      padding: 12px 14px;
+      vertical-align: top;
+    }
+    .shift-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: var(--slate-700);
+      text-align: left;
+    }
+    .shift-table th.col-date {
+      width: 13.5%;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.15s;
+      position: relative;
+    }
+    .shift-table th.col-date:hover {
+      background: #eff6ff;
+    }
+    .shift-table th.col-date.selected {
+      background: #0284c7;
+      color: white;
+    }
+    .shift-table th.col-date.selected .th-date-num {
+      color: white;
+    }
+    .shift-table th.col-date.shortage {
+      background: #fffbeb;
+      border-top: 3px solid #f59e0b;
+    }
+    .shift-table th.col-date.shortage.selected {
+      background: #b45309;
+      color: white;
+      border-top: 3px solid #fde68a;
+    }
+    .date-alert-tag {
+      font-size: 0.65rem;
+      padding: 1px 5px;
+      border-radius: 9999px;
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+      font-weight: 800;
+      margin-top: 2px;
+      display: inline-block;
+    }
+    .shift-table th.col-date.selected .date-alert-tag {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    .th-date-num {
+      font-size: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--slate-900);
+    }
+    .th-date-weekday {
+      font-size: 0.72rem;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: 700;
+    }
+    .th-date-weekday.sat { background: #dbeafe; color: #1e40af; }
+    .th-date-weekday.sun { background: #fee2e2; color: #b91c1c; }
+
+    /* Staff Profile Col */
+    .staff-profile-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .staff-name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .staff-name {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--slate-900);
+    }
+    .staff-rank-tag {
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: #0284c7;
+      color: white;
+    }
+    .staff-meta-text {
+      font-size: 0.72rem;
+      color: var(--slate-500);
+      line-height: 1.4;
+    }
+    .skill-tags-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .skill-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 3px;
+      background: var(--slate-100);
+      color: var(--slate-600);
+      border: 1px solid var(--slate-200);
+    }
+
+    /* Shift Slot Cell Styles */
+    .shift-slot-cell {
+      border-radius: var(--radius-sm);
+      padding: 8px;
+      min-height: 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    /* Slot State 1: Locked / Assigned to Direct Guests */
+    .slot-locked {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+    }
+    .slot-locked-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #1e40af;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .slot-locked-desc {
+      font-size: 0.7rem;
+      color: #3b82f6;
+    }
+
+    /* Slot State 2: Available Surplus (Can Loan to Port) */
+    .slot-surplus {
+      background: #f0fdf4;
+      border: 1.5px dashed #86efac;
+    }
+    .slot-surplus-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #15803d;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .slot-surplus-desc {
+      font-size: 0.7rem;
+      color: #16a34a;
+    }
+    .btn-loan-out {
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      transition: background 0.15s;
+    }
+    .btn-loan-out:hover { background: #059669; }
+
+    /* Slot State 3: Loaning Active (Dispatched to Other Shop) */
+    .slot-loaned {
+      background: #faf5ff;
+      border: 1px solid #d8b4fe;
+    }
+    .slot-loaned-title {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #6b21a8;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .slot-loaned-desc {
+      font-size: 0.7rem;
+      color: #9333ea;
+    }
+
+    /* Slot State 4: Off / Holiday */
+    .slot-off {
+      background: var(--slate-100);
+      color: var(--slate-400);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.75rem;
+    }
+
+    /* Freelance Pool Grid */
+    .freelance-pool-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .freelancer-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-sm);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      position: relative;
+      transition: border-color 0.2s;
+    }
+    .freelancer-card:hover {
+      border-color: var(--blue-500);
+    }
+    .freelancer-card.suspended {
+      opacity: 0.7;
+      background: #fafafa;
+    }
+
+    .fl-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .fl-avatar-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .fl-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--navy-850);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 800;
+    }
+    .fl-name-col {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .fl-name {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--slate-900);
+    }
+    .fl-pro-rank {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--blue-600);
+    }
+
+    .compliance-shield {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 9999px;
+    }
+    .compliance-shield.alert {
+      background: #fef2f2;
+      color: #b91c1c;
+      border-color: #fecaca;
+    }
+
+    .fl-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .fl-slot-box {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      font-size: 0.78rem;
+    }
+    .fl-slot-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      color: var(--slate-700);
+    }
+    .fl-slot-row strong {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--slate-900);
+    }
+
+    .fl-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-offer-fl {
+      flex: 1;
+      background: var(--blue-600);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .btn-offer-fl:hover { background: #0369a1; }
+    .btn-offer-fl:disabled {
+      background: var(--slate-300);
+      cursor: not-allowed;
+    }
+
+    /* Modal Form */
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 120;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      width: 90%;
+      max-width: 580px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+    }
+    .modal-header {
+      padding: 16px 24px;
+      background: var(--navy-900);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .modal-body {
+      padding: 24px;
+      max-height: 75vh;
+      overflow-y: auto;
+    }
+    .modal-footer {
+      padding: 16px 24px;
+      background: var(--slate-50);
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--slate-700);
+      margin-bottom: 6px;
+      display: block;
+    }
+    .form-input, .form-select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--slate-300);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-family: inherit;
+      color: var(--slate-800);
+    }
+    .btn-secondary {
+      background: white;
+      border: 1px solid var(--slate-300);
+      color: var(--slate-700);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--blue-600);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--slate-900);
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+    .toast.show { display: flex; animation: fadeIn 0.2s ease-out; }
+    @keyframes fadeIn {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Guidance Banner -->
+  <aside class="role-guidance-banner">
+    <div class="role-guidance-left">
+      <span class="role-guidance-tag">店舗責任者・キャプテン向け</span>
+      <div>
+        <div class="role-guidance-text">【画面6】スタッフシフト ＆ フリーランス稼働管理（人的リソース需給マッチング）</div>
+        <div class="role-guidance-desc">
+          💡 自社スタッフの予約空き日を「港の他社へ応援派遣（日当外注費）」としてワンクリック開放し、遊休コストを収益化します。<br>
+          自社の予約がオーバーした際は、指導団体資格・潜水士・賠責保険の有効性が認証された港内フリーランスへ即時指名オファーが可能です。
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 0.75rem; color: #bae6fd; text-align: right;">
+      画面1-A 安全比率（1:4 / 1:2）連動<br>無資格オファー自動防止シールド搭載
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" class="brand-logo" title="ポータルTOPへ">Mina<span>towa</span></a>
+      <div class="port-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a4 4 0 0 0-4 4c0 2 2 3 4 6 2-3 4-4 4-6a4 4 0 0 0-4-4z"/><circle cx="12" cy="18" r="4"/></svg>
+        宜野湾港 寄り合い協議会
+      </div>
+    </div>
+
+    <!-- Navigation between Screens -->
+    <nav class="nav-links">
+      <a href="1-A_運航デッキ・乗船チーム編成ボード.html" class="nav-item">画面1-A: 運航デッキ</a>
+      <a href="1-B_月間配船＆ゲスト手配ダッシュボード.html" class="nav-item">画面1-B: 月間手配</a>
+      <a href="1-C_マイスケジュール＆オファー受付ボード.html" class="nav-item">画面1-C: マイスケジュール</a>
+      <a href="2_港内シェア要請・公募ボード.html" class="nav-item">画面2: 港内シェア公募</a>
+      <a href="3_直前変更・二者間合意ロック管理.html" class="nav-item">画面3: 合意ロック</a>
+      <a href="4_予約カルテ・参加者書類提出台帳.html" class="nav-item">画面4: 予約台帳</a>
+      <a href="5_ボート運航ダイヤ＆段階的開放設定.html" class="nav-item">画面5: 運航ダイヤ・開放設定</a>
+      <a href="6_スタッフシフト＆フリーランス稼働管理.html" class="nav-item active">画面6: スタッフ＆ガイド</a>
+      <a href="7_月末相殺・インボイス精算ダッシュボード.html" class="nav-item">画面7: 月末相殺・精算</a>
+      <a href="8_港・寄り合いガバナンス設定.html" class="nav-item">画面8: 港ガバナンス</a>
+      <a href="9_ゲスト専用_事前チェックイン・Web問診.html" class="nav-item" target="_blank" style="color:#34d399; border:1px solid rgba(52,211,153,0.3);">📱画面9: ゲスト問診 ↗</a>
+    </nav>
+  </header>
+
+  <!-- Container -->
+  <main class="container">
+
+    <!-- View Switcher & Week Navigator -->
+    <div class="view-switcher-bar">
+      <div class="pill-tabs">
+        <button class="pill-tab-btn active" id="tabBtn1" onclick="switchSection('all')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          自社スタッフ ＆ 港フリーランス全体
+        </button>
+        <button class="pill-tab-btn" id="tabBtn2" onclick="switchSection('staff')">
+          自社スタッフ週間シフト (3名)
+        </button>
+        <button class="pill-tab-btn" id="tabBtn3" onclick="switchSection('pool')">
+          港内フリーランス・応援プール
+          <span class="badge-count">3名待機</span>
+        </button>
+      </div>
+
+      <div class="week-navigator">
+        <button class="btn-nav-arrow" onclick="showToast('前の週のシフトを表示')">◀</button>
+        <span class="week-title">2026年 9月27日(日) 〜 10月3日(土)</span>
+        <button class="btn-nav-arrow" onclick="showToast('次の週のシフトを表示')">▶</button>
+      </div>
+    </div>
+
+    <!-- Section 1: Staff Weekly Shift Matrix -->
+    <section id="sectionStaff">
+      <div class="section-title-strip">
+        <div class="section-title">
+          <span>👥 自社スタッフ週間シフト ＆ 応援ガイド受付管理</span>
+          <span class="section-badge">北谷マリン (3名在籍)</span>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--slate-500);">
+          💡 自社客がつかない出勤日は「他社サポート可能」として港の仲間へ受付公開できます
+        </div>
+      </div>
+
+      <div class="table-card">
+        <table class="shift-table">
+          <thead>
+            <tr>
+              <th style="width: 22%;">スタッフ / 保持資格</th>
+              <th class="col-date selected" id="thDate_0927" onclick="selectDate('0927', '2026年9月27日(日)')">
+                <div class="th-date-num">09/27</div>
+                <div class="th-date-weekday sun">日 (充足)</div>
+              </th>
+              <th class="col-date" id="thDate_0928" onclick="selectDate('0928', '2026年9月28日(月)')">
+                <div class="th-date-num">09/28</div>
+                <div class="th-date-weekday">月 (余力)</div>
+              </th>
+              <th class="col-date" id="thDate_0929" onclick="selectDate('0929', '2026年9月29日(火)')">
+                <div class="th-date-num">09/29</div>
+                <div class="th-date-weekday">火 (充足)</div>
+              </th>
+              <th class="col-date" id="thDate_0930" onclick="selectDate('0930', '2026年9月30日(水)')">
+                <div class="th-date-num">09/30</div>
+                <div class="th-date-weekday">水 (充足)</div>
+              </th>
+              <th class="col-date shortage" id="thDate_1001" onclick="selectDate('1001', '2026年10月1日(木)')" title="予約増によりガイド1名が不足しています！クリックして手配">
+                <div class="th-date-num">10/01</div>
+                <div class="th-date-weekday">木</div>
+                <span class="date-alert-tag">⚠️ 1名不足</span>
+              </th>
+              <th class="col-date" id="thDate_1002" onclick="selectDate('1002', '2026年10月2日(金)')">
+                <div class="th-date-num">10/02</div>
+                <div class="th-date-weekday">金 (満席)</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Staff 1: Miyagi -->
+            <tr>
+              <td>
+                <div class="staff-profile-box">
+                  <div class="staff-name-row">
+                    <span class="staff-name">宮城 亮</span>
+                    <span class="staff-rank-tag">MSDT</span>
+                  </div>
+                  <div class="staff-meta-text">
+                    常勤チーフ ｜ PADI #824102<br>
+                    潜水士証: 済 ✅ ｜ 1級小型船舶操縦
+                  </div>
+                  <div class="skill-tags-group">
+                    <span class="skill-tag">ファン上級</span>
+                    <span class="skill-tag">ドリフト</span>
+                    <span class="skill-tag">英語対応</span>
+                  </div>
+                </div>
+              </td>
+              <!-- 09/27 (Sun) -->
+              <td>
+                <div class="shift-slot-cell slot-locked">
+                  <div>
+                    <div class="slot-locked-title">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                      自社美ら海丸
+                    </div>
+                    <div class="slot-locked-desc">チームA引率 (中級5名)</div>
+                  </div>
+                  <span style="font-size: 0.68rem; color: #1e40af; font-weight: 700;">🔒 保護中</span>
+                </div>
+              </td>
+              <!-- 09/28 (Mon) - Surplus! -->
+              <td>
+                <div class="shift-slot-cell slot-surplus" id="slotMiyagiMon">
+                  <div>
+                    <div class="slot-surplus-title">
+                      <span>🟢 出勤・予約なし</span>
+                    </div>
+                    <div class="slot-surplus-desc">自社客なし (余力あり)</div>
+                  </div>
+                  <button class="btn-loan-out" onclick="openLoanModal('宮城 亮', '2026/09/28')">
+                    <span>🤝 応援可能で受付</span>
+                  </button>
+                </div>
+              </td>
+              <!-- 09/29 (Tue) -->
+              <td>
+                <div class="shift-slot-cell slot-off">公休</div>
+              </td>
+              <!-- 09/30 (Wed) -->
+              <td>
+                <div class="shift-slot-cell slot-locked">
+                  <div>
+                    <div class="slot-locked-title">自社予約</div>
+                    <div class="slot-locked-desc">AOW講習 (2名)</div>
+                  </div>
+                  <span style="font-size: 0.68rem; color: #1e40af; font-weight: 700;">🔒 保護中</span>
+                </div>
+              </td>
+              <!-- 10/01 (Thu) -->
+              <td>
+                <div class="shift-slot-cell slot-locked">
+                  <div>
+                    <div class="slot-locked-title">美ら海丸 ケラマ</div>
+                    <div class="slot-locked-desc">チーフ引率</div>
+                  </div>
+                  <span style="font-size: 0.68rem; color: #1e40af; font-weight: 700;">🔒 保護中</span>
+                </div>
+              </td>
+              <!-- 10/02 (Fri) -->
+              <td>
+                <div class="shift-slot-cell slot-locked">
+                  <div>
+                    <div class="slot-locked-title">美ら海丸 ケラマ</div>
+                    <div class="slot-locked-desc">満席便 引率</div>
+                  </div>
+                  <span style="font-size: 0.68rem; color: #1e40af; font-weight: 700;">🔒 保護中</span>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Staff 2: Kinjo -->
+            <tr>
+              <td>
+                <div class="staff-profile-box">
+                  <div class="staff-name-row">
+                    <span class="staff-name">金城 恵</span>
+                    <span class="staff-rank-tag" style="background: #059669;">OWSI</span>
+                  </div>
+                  <div class="staff-meta-text">
+                    常勤インストラクター ｜ PADI #839912<br>
+                    潜水士証: 済 ✅ ｜ 救急EFRインストラクター
+                  </div>
+                  <div class="skill-tags-group">
+                    <span class="skill-tag">体験ダイブ特化</span>
+                    <span class="skill-tag">ファン初級</span>
+                    <span class="skill-tag">スキン</span>
+                  </div>
+                </div>
+              </td>
+              <!-- 09/27 (Sun) -->
+              <td>
+                <div class="shift-slot-cell slot-locked">
+                  <div>
+                    <div class="slot-locked-title">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                      自社美ら海丸
+                    </div>
+                    <div class="slot-locked-desc">体験チームB (2名)</div>
+                  </div>
+                  <span style="font-size: 0.68rem; color: #1e40af; font-weight: 700;">🔒 保護中</span>
+                </div>
+              </td>
+              <!-- 09/28 (Mon) -->
+              <td>
+                <div class="shift-slot-cell slot-locked">
+                  <div>
+                    <div class="slot-locked-title">自社講習</div>
+                    <div class="slot-locked-desc">OW海洋実習 (2名)</div>
+                  </div>
+                  <span style="font-size: 0.68rem; color: #1e40af; font-weight: 700;">🔒 保護中</span>
+                </div>
+              </td>
+              <!-- 09/29 (Tue) -->
+              <td>
+                <div class="shift-slot-cell slot-locked">
+                  <div>
+                    <div class="slot-locked-title">自社講習</div>
+                    <div class="slot-locked-desc">OW海洋実習 Day2</div>
+                  </div>
+                  <span style="font-size: 0.68rem; color: #1e40af; font-weight: 700;">🔒 保護中</span>
+                </div>
+              </td>
+              <!-- 09/30 (Wed) -->
+              <td>
+                <div class="shift-slot-cell slot-off">公休</div>
+              </td>
+              <!-- 10/01 (Thu) -->
+              <td>
+                <div class="shift-slot-cell slot-surplus">
+                  <div>
+                    <div class="slot-surplus-title">🟢 出勤・予約なし</div>
+                    <div class="slot-surplus-desc">自社客なし</div>
+                  </div>
+                  <button class="btn-loan-out" onclick="openLoanModal('金城 恵', '2026/10/01')">
+                    <span>🤝 応援可能で受付</span>
+                  </button>
+                </div>
+              </td>
+              <!-- 10/02 (Fri) -->
+              <td>
+                <div class="shift-slot-cell slot-locked">
+                  <div>
+                    <div class="slot-locked-title">美ら海丸 ケラマ</div>
+                    <div class="slot-locked-desc">体験チーム引率</div>
+                  </div>
+                  <span style="font-size: 0.68rem; color: #1e40af; font-weight: 700;">🔒 保護中</span>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Staff 3: Nakasone -->
+            <tr>
+              <td>
+                <div class="staff-profile-box">
+                  <div class="staff-name-row">
+                    <span class="staff-name">仲宗根 健</span>
+                    <span class="staff-rank-tag" style="background: #d97706;">DM</span>
+                  </div>
+                  <div class="staff-meta-text">
+                    非常勤ダイブマスター ｜ PADI #841005<br>
+                    潜水士証: 済 ✅ ｜ 船上アシスタント・充填
+                  </div>
+                  <div class="skill-tags-group">
+                    <span class="skill-tag">スノーケル引率</span>
+                    <span class="skill-tag">タンク積載</span>
+                  </div>
+                </div>
+              </td>
+              <!-- 09/27 (Sun) -->
+              <td>
+                <div class="shift-slot-cell slot-locked">
+                  <div>
+                    <div class="slot-locked-title">美ら海丸 船上</div>
+                    <div class="slot-locked-desc">ボートクルー・タンク</div>
+                  </div>
+                  <span style="font-size: 0.68rem; color: #1e40af; font-weight: 700;">🔒 保護中</span>
+                </div>
+              </td>
+              <!-- 09/28 (Mon) -->
+              <td>
+                <div class="shift-slot-cell slot-off">非出勤日</div>
+              </td>
+              <!-- 09/29 (Tue) -->
+              <td>
+                <div class="shift-slot-cell slot-loaned">
+                  <div>
+                    <div class="slot-loaned-title">🤝 他社応援派遣中</div>
+                    <div class="slot-loaned-desc">那覇マリン様 スノーケル</div>
+                  </div>
+                  <span style="font-size: 0.68rem; color: #6b21a8; font-weight: 700;">日当 ¥10,000 (売掛)</span>
+                </div>
+              </td>
+              <!-- 09/30 (Wed) -->
+              <td>
+                <div class="shift-slot-cell slot-off">非出勤日</div>
+              </td>
+              <!-- 10/01 (Thu) -->
+              <td>
+                <div class="shift-slot-cell slot-off">非出勤日</div>
+              </td>
+              <!-- 10/02 (Fri) -->
+              <td>
+                <div class="shift-slot-cell slot-locked">
+                  <div>
+                    <div class="slot-locked-title">美ら海丸 船上</div>
+                    <div class="slot-locked-desc">クルー乗船</div>
+                  </div>
+                  <span style="font-size: 0.68rem; color: #1e40af; font-weight: 700;">🔒 保護中</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Section 2: Port Freelance & Help Guide Pool -->
+    <section id="sectionPool">
+      <div class="section-title-strip">
+        <div class="section-title">
+          <span>🙋 港内フリーランス・応援ガイドプール</span>
+          <span class="section-badge" id="poolDateBadge" style="background: #e0f2fe; color: #0284c7; border-color: #bae6fd;">
+            選択中の日程: 2026年9月27日(日) 宜野湾港 稼働可能
+          </span>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--slate-500);">
+          💡 シフト表の日付をクリックすると、その日に稼働できるガイド一覧に瞬時に切り替わります
+        </div>
+      </div>
+
+      <!-- Shortage Alert Banner (dynamic) -->
+      <div id="shortageAlertBanner" style="display: none; background: #fffbeb; border: 1.5px solid #fde68a; border-radius: var(--radius-sm); padding: 12px 18px; margin-bottom: 16px; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 1.2rem;">⚠️</span>
+          <div>
+            <div style="font-size: 0.85rem; font-weight: 800; color: #b45309;" id="shortageAlertTitle">10/01(木) ガイド手配アラート</div>
+            <div style="font-size: 0.78rem; color: #92400e;">体験ダイビング予約が急増中のため、安全比率（1:2）を維持するための専任ガイドが<strong>「あと1名」</strong>不足しています。下記の有資格者へ先回りオファーを出してください。</div>
+          </div>
+        </div>
+        <button class="btn-primary" style="background: #d97706; padding: 6px 12px; font-size: 0.78rem;" onclick="openOfferModal('屋良 朝徳', 'PADI OWSI (体験特化)', '¥15,000/日')">
+          屋良 朝徳へ今すぐ指名オファー
+        </button>
+      </div>
+
+      <div class="freelance-pool-grid">
+
+        <!-- Freelancer 1: Yara -->
+        <article class="freelancer-card" id="cardFl1">
+          <div>
+            <div class="fl-header">
+              <div class="fl-avatar-box">
+                <div class="fl-avatar">屋良</div>
+                <div class="fl-name-col">
+                  <div class="fl-name">屋良 朝徳</div>
+                  <div class="fl-pro-rank">PADI OWSI #819200 (歴8年)</div>
+                </div>
+              </div>
+              <div class="compliance-shield">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                資格確認済 ✅
+              </div>
+            </div>
+
+            <div class="fl-skills" style="margin: 12px 0;">
+              <span class="skill-tag" style="background:#eff6ff; color:#1d4ed8;">体験ダイブ100回超</span>
+              <span class="skill-tag">一眼水中カメラ</span>
+              <span class="skill-tag">英語日常会話</span>
+              <span class="skill-tag">宜野湾港発着OK</span>
+            </div>
+
+            <div class="fl-slot-box">
+              <div class="fl-slot-row">
+                <span>稼働可能日程:</span>
+                <strong id="flDateSlot1">09/27(日) 終日可能 (宜野湾港OK)</strong>
+              </div>
+              <div class="fl-slot-row">
+                <span>希望日当:</span>
+                <strong style="color: #0284c7;">¥15,000 / 日 (半日 ¥9,000)</strong>
+              </div>
+              <div class="fl-slot-row">
+                <span>賠責保険期限:</span>
+                <span style="color: #059669; font-weight: 700;">2027/03/31 迄有効</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="fl-actions">
+            <button class="btn-offer-fl" onclick="openOfferModal('屋良 朝徳', 'PADI OWSI (体験ダイブ100回超)', '¥15,000/日')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              指名オファーを送信
+            </button>
+          </div>
+        </article>
+
+        <!-- Freelancer 2: Tamaki (Shop loaning) -->
+        <article class="freelancer-card" id="cardFl2">
+          <div>
+            <div class="fl-header">
+              <div class="fl-avatar-box">
+                <div class="fl-avatar" style="background: #173866;">玉城</div>
+                <div class="fl-name-col">
+                  <div class="fl-name">玉城 翔平</div>
+                  <div class="fl-pro-rank">ブルーオーシャン所属・応援枠 / MSDT</div>
+                </div>
+              </div>
+              <div class="compliance-shield">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                資格確認済 ✅
+              </div>
+            </div>
+
+            <div class="fl-skills" style="margin: 12px 0;">
+              <span class="skill-tag" style="background:#eff6ff; color:#1d4ed8;">粟国・渡名喜ドリフト</span>
+              <span class="skill-tag">ファン上級特化</span>
+              <span class="skill-tag">操船補助</span>
+            </div>
+
+            <div class="fl-slot-box">
+              <div class="fl-slot-row">
+                <span>稼働可能スロット:</span>
+                <strong id="flDateSlot2">09/27(日) 午前便のみ (08:00〜12:30)</strong>
+              </div>
+              <div class="fl-slot-row">
+                <span>希望日当:</span>
+                <strong style="color: #0284c7;">¥10,000 / 午前半日</strong>
+              </div>
+              <div class="fl-slot-row">
+                <span>所属店間相殺:</span>
+                <span style="color: #059669; font-weight: 700;">月末相殺対象</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="fl-actions">
+            <button class="btn-offer-fl" onclick="openOfferModal('玉城 翔平 (ブルーオーシャン所属)', 'PADI MSDT (ドリフト特化)', '¥10,000/午前')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              午前オファーを送信
+            </button>
+          </div>
+        </article>
+
+        <!-- Freelancer 3: Aragaki (Compliance Blocked) -->
+        <article class="freelancer-card suspended" id="cardFl3">
+          <div>
+            <div class="fl-header">
+              <div class="fl-avatar-box">
+                <div class="fl-avatar" style="background: #64748b;">新垣</div>
+                <div class="fl-name-col">
+                  <div class="fl-name">新垣 結衣</div>
+                  <div class="fl-pro-rank" style="color: var(--slate-500);">フリーランス / PADI DM</div>
+                </div>
+              </div>
+              <div class="compliance-shield alert">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                保険未更新 ❌
+              </div>
+            </div>
+
+            <div class="fl-skills" style="margin: 12px 0;">
+              <span class="skill-tag">スノーケル</span>
+              <span class="skill-tag">SUP</span>
+            </div>
+
+            <div class="fl-slot-box" style="background: #fef2f2; border-color: #fee2e2;">
+              <div style="font-size: 0.75rem; color: #b91c1c; font-weight: 700; line-height: 1.4;">
+                ⚠️ インストラクター賠償責任保険（プロメンバー保険）の当年更新証明書が未提出のため、安全基準に基づきオファー受付を停止しています。
+              </div>
+            </div>
+          </div>
+
+          <div class="fl-actions">
+            <button class="btn-offer-fl" disabled title="保険未更新のためオファーできません">
+              🔒 オファー不可（コンプライアンス保留）
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal 1: Loan Out Staff Modal -->
+  <div class="modal-backdrop" id="loanModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size: 1rem; font-weight: 800;">🤝 自社スタッフの港内「応援ガイド受付」公開</h3>
+        <button onclick="closeModal('loanModal')" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">対象スタッフ</label>
+          <input type="text" class="form-input" id="loanStaffName" value="宮城 亮 (MSDT)" readonly style="background: var(--slate-100);">
+        </div>
+        <div class="form-group">
+          <label class="form-label">公開する日程・スロット</label>
+          <input type="text" class="form-input" id="loanStaffDate" value="2026年9月28日(月) 終日" readonly style="background: var(--slate-100);">
+        </div>
+        <div class="form-group">
+          <label class="form-label">港内応援日当 (月末相殺)</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div>
+              <span style="font-size: 0.75rem; color: var(--slate-500);">終日日当</span>
+              <input type="number" class="form-input" value="15000" id="loanDayFee">
+            </div>
+            <div>
+              <span style="font-size: 0.75rem; color: var(--slate-500);">半日日当</span>
+              <input type="number" class="form-input" value="9000" id="loanHalfFee">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">対応可能業務の公開タグ</label>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked> ファンダイブ全般</label>
+            <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked> 体験ダイブ引率</label>
+            <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked> ドリフト上級</label>
+            <label style="font-size: 0.8rem; display: flex; align-items: center; gap: 4px;"><input type="checkbox" checked> 船上操船補助</label>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('loanModal')">キャンセル</button>
+        <button class="btn-primary" onclick="confirmLoanOut()">港内システム＆公募ボードへ受付公開</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2: Send Offer Modal -->
+  <div class="modal-backdrop" id="offerModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 style="font-size: 1rem; font-weight: 800;">📞 フリーランスガイドへ指名オファー送信</h3>
+        <button onclick="closeModal('offerModal')" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">オファー先ガイド</label>
+          <input type="text" class="form-input" id="offerGuideName" value="屋良 朝徳" readonly style="background: var(--slate-100);">
+        </div>
+        <div class="form-group">
+          <label class="form-label">依頼する稼働日・集合港</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <input type="date" class="form-input" value="2026-09-27">
+            <input type="text" class="form-input" value="宜野湾港 07:45 集合">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">依頼内容・チーム</label>
+          <select class="form-select" id="offerTaskSelect">
+            <option>🚢 美ら海丸 チームB 体験ダイビング引率 (2名・安全比率 1:2守備)</option>
+            <option>🚢 美ら海丸 チームA ファンダイブ中級 (5名・アシスタント)</option>
+            <option>🚤 第2黒潮丸 近海便ガイド</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">提示日当 (税別)</label>
+          <input type="text" class="form-input" id="offerFeeInput" value="¥15,000 (終日・ランチ支給)">
+        </div>
+        <div class="form-group">
+          <label class="form-label">メッセージ・注意事項</label>
+          <textarea class="form-input" rows="3">明日の体験ダイビング2名（初回）の引率をお願いできますでしょうか。器材は当社で積み込みます。</textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal('offerModal')">キャンセル</button>
+        <button class="btn-primary" onclick="confirmSendOffer()">オファーをLINE・SMSへ即時送信</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    <span id="toastMsg">更新しました</span>
+  </div>
+
+  <script>
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3500);
+    }
+
+    function selectDate(dateKey, fullDateStr) {
+      document.querySelectorAll('.shift-table th.col-date').forEach(th => th.classList.remove('selected'));
+      const activeTh = document.getElementById('thDate_' + dateKey);
+      if (activeTh) activeTh.classList.add('selected');
+
+      const badge = document.getElementById('poolDateBadge');
+      const shortageAlert = document.getElementById('shortageAlertBanner');
+      const shortageTitle = document.getElementById('shortageAlertTitle');
+
+      badge.textContent = '選択中の日程: ' + fullDateStr + ' 宜野湾港 稼働可能';
+
+      const slotFl1 = document.getElementById('flDateSlot1');
+      const slotFl2 = document.getElementById('flDateSlot2');
+
+      if (dateKey === '1001') {
+        // Shortage day
+        shortageAlert.style.display = 'flex';
+        shortageTitle.textContent = '⚠️ 10/01(木) ガイド手配アラート（1名不足）';
+        badge.style.background = '#fef3c7';
+        badge.style.color = '#b45309';
+        badge.style.borderColor = '#fde68a';
+        if (slotFl1) slotFl1.textContent = '10/01(木) 終日可能 (宜野湾港OK)';
+        if (slotFl2) slotFl2.textContent = '10/01(木) 午前便のみ (08:00〜12:30)';
+        showToast('⚠️ 10/01(木)のガイド手配状況を表示: 体験ダイブ専任ガイドが1名不足しています！');
+      } else {
+        shortageAlert.style.display = 'none';
+        badge.style.background = '#e0f2fe';
+        badge.style.color = '#0284c7';
+        badge.style.borderColor = '#bae6fd';
+        if (slotFl1) slotFl1.textContent = fullDateStr.split('(')[0] + ' 終日可能 (宜野湾港OK)';
+        if (slotFl2) slotFl2.textContent = fullDateStr.split('(')[0] + ' 午前便のみ (08:00〜12:30)';
+        showToast('📅 ' + fullDateStr + ' に稼働可能なフリーランス・応援ガイドプールを表示');
+      }
+    }
+
+    function switchSection(target) {
+      document.querySelectorAll('.pill-tab-btn').forEach(btn => btn.classList.remove('active'));
+      const secStaff = document.getElementById('sectionStaff');
+      const secPool = document.getElementById('sectionPool');
+
+      if (target === 'all') {
+        document.getElementById('tabBtn1').classList.add('active');
+        secStaff.style.display = 'block';
+        secPool.style.display = 'block';
+      } else if (target === 'staff') {
+        document.getElementById('tabBtn2').classList.add('active');
+        secStaff.style.display = 'block';
+        secPool.style.display = 'none';
+      } else if (target === 'pool') {
+        document.getElementById('tabBtn3').classList.add('active');
+        secStaff.style.display = 'none';
+        secPool.style.display = 'block';
+      }
+    }
+
+    function openLoanModal(staffName, date) {
+      document.getElementById('loanStaffName').value = staffName + ' (MSDT / 潜水士)';
+      document.getElementById('loanStaffDate').value = date + ' 終日 (宜野湾港発着)';
+      document.getElementById('loanModal').classList.add('active');
+    }
+
+    function openOfferModal(guideName, role, fee) {
+      document.getElementById('offerGuideName').value = guideName + ' [' + role + ']';
+      document.getElementById('offerFeeInput').value = fee + ' (月末相殺精算)';
+      document.getElementById('offerModal').classList.add('active');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+
+    function confirmLoanOut() {
+      closeModal('loanModal');
+      const cell = document.getElementById('slotMiyagiMon');
+      if (cell) {
+        cell.className = 'shift-slot-cell slot-loaned';
+        cell.innerHTML = `
+          <div>
+            <div class="slot-loaned-title">🤝 応援可能で受付中</div>
+            <div class="slot-loaned-desc">日当 ¥15,000 で公開</div>
+          </div>
+          <button class="btn-loan-out" style="background:#64748b;" onclick="showToast('受付を終了し自社保護へ戻しました')">
+            <span>受付終了</span>
+          </button>
+        `;
+      }
+      showToast('✅ 宮城 亮の 09/28(月) シフトを「港内応援ガイド可能」として公募ボードへ受付公開しました');
+    }
+
+    function confirmSendOffer() {
+      closeModal('offerModal');
+      showToast('📱 指名オファーを送信しました（先方の承諾・辞退通知を待機中）');
+    }
+  </script>
+</body>
+</html>

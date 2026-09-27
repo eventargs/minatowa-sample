@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>マイスケジュール＆オファー受付（フリーランス向け） | Minatowa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-900: #0a192f;
+      --navy-800: #0f2744;
+      --blue-600: #0284c7;
+      --blue-500: #0ea5e9;
+      --emerald-600: #059669;
+      --emerald-50: #ecfdf5;
+      --amber-600: #d97706;
+      --amber-50: #fffbeb;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+      --shadow-md: 0 8px 16px -2px rgb(0 0 0 / 0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: #0f172a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      color: var(--slate-800);
+      margin: 0;
+    }
+
+    /* Top Guidance Banner */
+    .role-guidance-banner {
+      width: 100%;
+      background: linear-gradient(135deg, #1e1b4b, #312e81);
+      color: white;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 2px solid #6366f1;
+      margin-bottom: 24px;
+    }
+    .role-guidance-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      max-width: 900px;
+      width: 100%;
+    }
+    .role-guidance-tag {
+      background: #4f46e5;
+      color: #e0e7ff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+    .role-guidance-text {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .role-guidance-desc {
+      font-size: 0.8rem;
+      color: #c7d2fe;
+    }
+    .nav-item {
+      color: #94a3b8;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .nav-item:hover { color: #fff; background-color: #1e293b; }
+    .nav-item.active { color: #fff; background-color: #0284c7; }
+
+    /* Mobile Frame Wrapper */
+    .mobile-frame {
+      width: 100%;
+      max-width: 440px;
+      background: #f1f5f9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+      position: relative;
+      padding-bottom: 70px;
+      margin-bottom: 40px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    /* App Header */
+    .app-header {
+      background: var(--navy-900);
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .brand-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-title span { color: var(--blue-500); }
+    .user-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.1);
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* Content Area */
+    .content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Section Card */
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      border: 1px solid var(--slate-200);
+    }
+    .card-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .card-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--slate-500);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge-confirmed {
+      background: var(--emerald-50);
+      color: var(--emerald-600);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      border: 1px solid #a7f3d0;
+    }
+
+    /* Tomorrow Work Details */
+    .job-card {
+      border: 2px solid var(--blue-600);
+      background: #f8fafc;
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .job-boat-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--navy-900);
+      margin-bottom: 4px;
+    }
+    .job-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.8rem;
+      color: var(--slate-600);
+      margin-bottom: 10px;
+    }
+    .job-fee-badge {
+      display: inline-block;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Guest Section for Freelancer */
+    .guest-sub-card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      margin-bottom: 8px;
+    }
+    .guest-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .guest-name {
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--slate-900);
+    }
+    .doc-ok-tag {
+      background: var(--emerald-50);
+      color: var(--emerald-600);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .guest-desc {
+      font-size: 0.75rem;
+      color: var(--slate-500);
+    }
+
+    /* Action Buttons in Job Card */
+    .job-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .btn-job-action {
+      background: white;
+      border: 1px solid var(--slate-300);
+      padding: 8px;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--slate-700);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .btn-job-action:active { background: var(--slate-100); }
+
+    /* New Offer Banner */
+    .offer-card {
+      border: 2px solid var(--amber-500);
+      background: var(--amber-50);
+      border-radius: var(--radius);
+      padding: 14px;
+      animation: pulseBorder 2s infinite;
+    }
+    @keyframes pulseBorder {
+      0%, 100% { border-color: var(--amber-500); }
+      50% { border-color: #fbbf24; }
+    }
+    .offer-title {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #92400e;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+    .offer-details {
+      font-size: 0.8rem;
+      color: #78350f;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .offer-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .btn-accept {
+      background: var(--emerald-600);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+    .btn-accept:active { background: #047857; }
+    .btn-decline {
+      background: white;
+      border: 1px solid #d1d5db;
+      color: var(--slate-600);
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    /* Calendar Day Slots */
+    .shift-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--slate-100);
+    }
+    .shift-row:last-child { border-bottom: none; }
+    .shift-date {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--slate-900);
+    }
+    .shift-toggle-btn {
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 1px solid var(--slate-300);
+      background: white;
+      color: var(--slate-600);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .shift-toggle-btn.active {
+      background: #ecfdf5;
+      color: #059669;
+      border-color: #a7f3d0;
+    }
+
+    /* Bottom Navigation Tab */
+    .tab-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: white;
+      border-top: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      z-index: 50;
+    }
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--slate-500);
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .tab-item.active { color: var(--blue-600); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Guidance Banner -->
+  <div class="role-guidance-banner">
+    <div class="role-guidance-left">
+      <span class="role-guidance-tag">サンプル画面プレビュー</span>
+      <div>
+        <div class="role-guidance-text">💡 この画面は、個人フリーランス・外部ガイド様がスマホ片手に明日の乗船先や仕事を管理するマイスケジュール画面です</div>
+        <div class="role-guidance-desc">ショップからの応援オファー（日当・担当ゲスト条件）のワンタップ承諾／辞退や、空き日の能動エントリー（「この日働けます」）、当日の集合場所・乗船先確認を完結させます。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Navigation for Reviewers -->
+  <div style="background:#0f172a; padding:10px 20px; display:flex; justify-content:center; border-bottom:1px solid #334155; margin-bottom:16px;">
+    <nav class="nav-links" style="display:flex; gap:6px; overflow-x:auto; white-space:nowrap; max-width:1200px; scrollbar-width:none;">
+      <a href="1-A_運航デッキ・乗船チーム編成ボード.html" class="nav-item">画面1-A: 運航デッキ</a>
+      <a href="1-B_月間配船＆ゲスト手配ダッシュボード.html" class="nav-item">画面1-B: 月間手配</a>
+      <a href="1-C_マイスケジュール＆オファー受付ボード.html" class="nav-item active">画面1-C: マイスケジュール</a>
+      <a href="2_港内シェア要請・公募ボード.html" class="nav-item">画面2: 港内シェア公募</a>
+      <a href="3_直前変更・二者間合意ロック管理.html" class="nav-item">画面3: 合意ロック</a>
+      <a href="4_予約カルテ・参加者書類提出台帳.html" class="nav-item">画面4: 予約台帳</a>
+      <a href="5_ボート運航ダイヤ＆段階的開放設定.html" class="nav-item">画面5: 運航ダイヤ・開放設定</a>
+      <a href="6_スタッフシフト＆フリーランス稼働管理.html" class="nav-item">画面6: スタッフ＆ガイド</a>
+      <a href="7_月末相殺・インボイス精算ダッシュボード.html" class="nav-item">画面7: 月末相殺・精算</a>
+      <a href="8_港・寄り合いガバナンス設定.html" class="nav-item">画面8: 港ガバナンス</a>
+      <a href="9_ゲスト専用_事前チェックイン・Web問診.html" class="nav-item" target="_blank" style="color:#34d399; border:1px solid rgba(52,211,153,0.3);">📱画面9: ゲスト問診 ↗</a>
+    </nav>
+  </div>
+
+  <div class="mobile-frame">
+
+    <!-- Header -->
+    <header class="app-header">
+      <a href="index.html" class="brand-title" style="text-decoration:none; color:inherit;" title="ポータルTOPへ">MINA<span>TOWA</span></a>
+      <div class="user-badge">
+        <span>👤 屋良 (フリーランス)</span>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- Tomorrow Work Card -->
+      <section class="card">
+        <div class="card-title-row">
+          <span class="card-title">📅 明日の現場 (9月27日 日曜)</span>
+          <span class="badge-confirmed">確定済</span>
+        </div>
+
+        <div class="job-card">
+          <div class="job-boat-name">🚢 美ら海丸 (北谷マリン様)</div>
+          <div class="job-meta-row">
+            <span>⏰ <strong>07:45</strong> 集合 (08:30出航)</span>
+            <span>📍 宜野湾港マリーナ 北側桟橋</span>
+            <span>🤿 <strong>体験ダイビング</strong> (チームB)</span>
+          </div>
+          <div class="job-fee-badge">日当報酬: ¥15,000 (月末精算)</div>
+
+          <div class="job-actions">
+            <button class="btn-job-action" onclick="alert('Googleマップを起動します: 宜野湾港マリーナ 北側ゲート')">
+              🗺️ 港の地図を見る
+            </button>
+            <button class="btn-job-action" onclick="alert('北谷マリン 船長 上原様に発信します: 090-XXXX-XXXX')">
+              📞 船長に電話する
+            </button>
+          </div>
+        </div>
+
+        <!-- Assigned Guests -->
+        <div style="font-size: 0.75rem; font-weight: 700; color: var(--slate-500); margin-bottom: 6px;">
+          担当ゲスト (2名引率・安全比率 1:2 クリア)
+        </div>
+
+        <div class="guest-sub-card">
+          <div class="guest-header">
+            <span class="guest-name">山田 太郎 様 (28歳)</span>
+            <span class="doc-ok-tag">✓ 書類適格</span>
+          </div>
+          <div class="guest-desc">体験ダイブ初回 / 病歴チェック問題なし / 175cm 68kg</div>
+        </div>
+
+        <div class="guest-sub-card">
+          <div class="guest-header">
+            <span class="guest-name">山田 花子 様 (26歳)</span>
+            <span class="doc-ok-tag">✓ 書類適格</span>
+          </div>
+          <div class="guest-desc">体験ダイブ初回 / 病歴チェック問題なし / 158cm 48kg</div>
+        </div>
+      </section>
+
+      <!-- Incoming Help Offer -->
+      <section class="offer-card" id="offerBanner">
+        <div class="offer-title">
+          <span>🔔 新着の応援オファーが届いています！</span>
+        </div>
+        <div class="offer-details">
+          <strong>9月28日(月) チービシ便 ガイド応援募集</strong><br>
+          ・依頼元: パシフィックダイブ 様<br>
+          ・業務: ファンダイブ初級引率 (4名・自社客)<br>
+          ・日当提示: <strong>¥14,000</strong> (ランチ支給)<br>
+          ・回答期限: <strong>本日 18:00 まで (あと1時間42分)</strong>
+        </div>
+        <div class="offer-buttons">
+          <button class="btn-accept" onclick="acceptOffer()">受ける (承諾)</button>
+          <button class="btn-decline" onclick="declineOffer()">今回は辞退</button>
+        </div>
+      </section>
+
+      <!-- Weekly Shifts Entry -->
+      <section class="card">
+        <div class="card-title-row">
+          <span class="card-title">🗓️ 稼働エントリー (空きシフト公開)</span>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--slate-500); margin-bottom: 10px;">
+          「空き登録」をタップすると、宜野湾港の全ショップにあなたの稼働可能日が共有され、オファーが届きやすくなります。
+        </p>
+
+        <div class="shift-row">
+          <span class="shift-date">09/29 (火)</span>
+          <button class="shift-toggle-btn active" onclick="toggleShift(this)">🟢 稼働募集中</button>
+        </div>
+        <div class="shift-row">
+          <span class="shift-date">09/30 (水)</span>
+          <button class="shift-toggle-btn" onclick="toggleShift(this)">⚪ 空き登録する</button>
+        </div>
+        <div class="shift-row">
+          <span class="shift-date">10/01 (木)</span>
+          <button class="shift-toggle-btn" style="background:#f1f5f9; color:#94a3b8;" onclick="toggleShift(this)">🔒 休日に設定</button>
+        </div>
+      </section>
+
+      <!-- Earnings Summary -->
+      <section class="card">
+        <div class="card-title-row">
+          <span class="card-title">💰 9月度 確定報酬サマリー</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end;">
+          <div>
+            <div style="font-size:0.75rem; color:var(--slate-500);">今月の稼働実績: <strong>9日間</strong></div>
+            <div style="font-size:1.35rem; font-weight:800; font-family:'JetBrains Mono'; color:var(--navy-900);">
+              ¥135,000
+            </div>
+          </div>
+          <span style="font-size:0.75rem; color:var(--blue-600); font-weight:600;">相殺・翌月末振込</span>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="tab-bar">
+      <div class="tab-item active">
+        <span>📋</span>
+        <span>仕事</span>
+      </div>
+      <div class="tab-item">
+        <span>📅</span>
+        <span>シフト</span>
+      </div>
+      <div class="tab-item">
+        <span>💰</span>
+        <span>報酬</span>
+      </div>
+      <div class="tab-item">
+        <span>⚙️</span>
+        <span>設定</span>
+      </div>
+    </nav>
+
+  </div>
+
+  <script>
+    function acceptOffer() {
+      document.getElementById('offerBanner').style.display = 'none';
+      alert('オファーを承諾しました！\n9月28日(月) パシフィックダイブ様のチービシ便が確定案件に登録されました。');
+    }
+    function declineOffer() {
+      document.getElementById('offerBanner').style.display = 'none';
+      alert('オファーを辞退しました。パシフィックダイブ様へ通知されました。');
+    }
+    function toggleShift(btn) {
+      if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        btn.innerText = '⚪ 空き登録する';
+      } else {
+        btn.classList.add('active');
+        btn.innerText = '🟢 稼働募集中';
+      }
+    }
+  </script>
+</body>
+</html>

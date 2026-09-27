@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ショップオーナー様向け 画面操作説明書 - Minatowa（ミナトワ）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --navy-950: #050d1a;
+      --navy-900: #0a192f;
+      --navy-800: #112240;
+      --navy-700: #1d3356;
+      --blue-500: #0ea5e9;
+      --blue-600: #0284c7;
+      --emerald-400: #34d399;
+      --amber-400: #fbbf24;
+      --coral-500: #f43f5e;
+      --slate-100: #f1f5f9;
+      --slate-200: #e2e8f0;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --slate-700: #334155;
+      --slate-800: #1e293b;
+      --white: #ffffff;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--navy-950);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(52, 211, 153, 0.08) 0px, transparent 50%);
+      color: var(--slate-100);
+      min-height: 100vh;
+      line-height: 1.8;
+      padding-bottom: 80px;
+    }
+
+    /* Header */
+    .header {
+      background-color: rgba(10, 25, 47, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 16px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .brand-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .brand-title span { color: var(--blue-500); }
+    .back-btn {
+      color: #fff;
+      background: var(--blue-600);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+    .back-btn:hover {
+      background: var(--blue-500);
+    }
+
+    /* Content Container */
+    .container {
+      max-width: 920px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+
+    .doc-card {
+      background: var(--navy-900);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--blue-500);
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .meta-box {
+      background: rgba(14, 165, 233, 0.1);
+      border-left: 4px solid var(--blue-500);
+      padding: 12px 18px;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: var(--slate-300);
+      margin-bottom: 36px;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding-bottom: 8px;
+      margin: 36px 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #bae6fd;
+      margin: 24px 0 10px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: var(--slate-300);
+    }
+
+    ul, ol {
+      margin-bottom: 20px;
+      padding-left: 24px;
+    }
+    li {
+      margin-bottom: 8px;
+      color: var(--slate-300);
+    }
+    li strong {
+      color: #fff;
+    }
+
+    .feature-box {
+      background: var(--navy-800);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .feature-box h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-bottom: 8px;
+    }
+
+    .action-btn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      color: var(--emerald-400);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .action-btn-link:hover {
+      text-decoration: underline;
+    }
+
+    .cta-banner {
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.25), rgba(16, 185, 129, 0.25));
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .cta-banner h3 {
+      color: #fff;
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <a href="index.html" class="brand">
+      <div class="brand-title">MINA<span>TOWA</span></div>
+    </a>
+    <a href="index.html" class="back-btn">
+      ◀ 画面ポータル（サンプル一覧）へ戻る
+    </a>
+  </header>
+
+  <!-- Container -->
+  <main class="container">
+    <article class="doc-card">
+
+      <h1>『Minatowa（ミナトワ）』画面操作説明書</h1>
+      <div class="subtitle">〜 宜野湾港 寄り合い協調プラットフォーム プロトタイプご確認ガイド 〜</div>
+      <div class="meta-box">
+        <strong>対象：</strong> ファーストユーザーのショップオーナー様・船長様・店長様
+      </div>
+
+      <h2>1. はじめに：『Minatowa（ミナトワ）』とは？</h2>
+      <p>いつも宜野湾港からの安全な運航とガイド業務、お疲れ様です。</p>
+      <p>『Minatowa（ミナトワ）』は、<strong>「港の仲間ショップ同士でボートの空席やガイドを助け合い、直前のトラブルを防ぎ、月末の面倒な振込作業をゼロにする」</strong> ために開発された、沖縄ダイビング専用の寄り合い協調システムです。</p>
+      
+      <ul>
+        <li><strong>ボートを持っているショップ様:</strong> 「明日のボートに空席がある」「急に体験ダイビングが増えて自社ガイドだけでは足りない」ときに、仲間からゲストを受け入れたり応援ガイドを呼ぶことができます。</li>
+        <li><strong>ボートを持っていないショップ様:</strong> 「繁忙期の連休にボート席を確実に先回りキープしたい」「予約が入った日の送迎や器材の段取りをスムーズにしたい」悩みを解決します。</li>
+        <li><strong>個人フリーランスのガイド様:</strong> スマホひとつで明日の集合場所・船名・日当を確認でき、空き日には港のショップから安心してオファーを受託できます。</li>
+      </ul>
+      <p>現在、実際の画面と同じように操作できる<strong>試作品（サンプル画面・全11画面）</strong>をご用意しました。パソコンやタブレット、スマートフォンのブラウザで実際にボタンを押しながら、現場の使い勝手をご確認いただけます。</p>
+
+      <h2>2. まずサンプルの開き方・移動方法</h2>
+      <p>ポータル画面（<a href="index.html" style="color:var(--blue-500); font-weight:700;">index.html</a>）を開いていただくと、全11画面が一覧で並んでいます。</p>
+      <ul>
+        <li><strong>上部のメニューバー（ナビゲーション）:</strong> どの画面を開いていても、一番上の青いバーから別の画面へワンクリックでジャンプできます。</li>
+        <li><strong>左上のロゴ（MINATOWA）:</strong> クリックすると、いつでも最初のポータル画面（index.html）に戻ることができます。</li>
+      </ul>
+
+      <h2>3. あなたの立場に合わせた「おすすめ見学コース」</h2>
+      <p>ショップの営業形態に合わせて、まずは以下の画面からご覧いただくのがおすすめです。</p>
+
+      <div class="feature-box">
+        <h4>コースA：自社ボートをお持ちのオーナー様・船長様</h4>
+        <p>毎朝の出航前の段取りと、自社船の稼働率アップを体感してください。</p>
+        <ol>
+          <li><a href="1-A_運航デッキ・乗船チーム編成ボード.html" style="color:#38bdf8; font-weight:700;">【画面1-A】運航デッキ・乗船チーム編成ボード</a>: 朝の出港前や夕方の段取り画面。どのボートにどのショップのゲストが乗り、誰が引率するかを直感的に編成。</li>
+          <li><a href="5_ボート運航ダイヤ＆段階的開放設定.html" style="color:#38bdf8; font-weight:700;">【画面5】ボート運航ダイヤ＆段階的開放設定</a>: 「30日前は自社予約用にキープ」「14日前になったら港の仲間に先行公開」「直前は全開放」など、空席を自動で埋める設定。</li>
+          <li><a href="2_港内シェア要請・公募ボード.html" style="color:#38bdf8; font-weight:700;">【画面2】港内シェア要請・公募ボード</a>: ボートの残席を埋めたいときや、急病・エンジントラブル時に他社ボートへ助けを求める画面。</li>
+        </ol>
+      </div>
+
+      <div class="feature-box">
+        <h4>コースB：自社ボートを持たずに乗り合いを利用するショップ様</h4>
+        <p>数ヶ月前の先回りキープから、日々の送迎・器材準備までを1画面で完結できます。</p>
+        <ol>
+          <li><a href="1-B_月間配船＆ゲスト手配ダッシュボード.html" style="color:#a5b4fc; font-weight:700;">【画面1-B】月間配船＆ゲスト手配ダッシュボード</a>: カレンダーで「自社の予約人数」と「確保したボート席」が一目でわかり、席不足日は赤字警告から即公募。</li>
+          <li><a href="4_予約カルテ・参加者書類提出台帳.html" style="color:#a5b4fc; font-weight:700;">【画面4】予約カルテ・参加者書類提出台帳</a>: 予約ごとのゲスト全員のメディカルチェック（問診回答や医師診断書）を一覧管理。</li>
+        </ol>
+      </div>
+
+      <div class="feature-box">
+        <h4>コースC：フリーランスのガイド・インストラクター様</h4>
+        <p>毎日のスマホ片手での現場確認と、オファーの受託画面です。</p>
+        <ol>
+          <li><a href="1-C_マイスケジュール＆オファー受付ボード.html" style="color:#5eead4; font-weight:700;">【画面1-C】マイスケジュール＆オファー受付ボード</a>: 「明日の現場（集合7:45、美ら海丸、日当15,000円）」が大きく表示され、集合場所の地図確認や船長連絡もワンタップ。</li>
+        </ol>
+      </div>
+
+      <h2>4. ぜひ触って試してほしい！「5つの便利機能」</h2>
+      
+      <div class="feature-box">
+        <h4>① 【安全比率の自動チェック】（画面1-Aで体験）</h4>
+        <p>体験ダイビングは「ガイド1人につきゲスト2人まで」、ファンダイビングは「ガイド1人につき4人まで」といった海の安全ルールが組み込まれています。人数をオーバーするチームを作ると、画面に<strong>赤い警告</strong>が出て「出航前アラート」が知らせてくれます。</p>
+        <a href="1-A_運航デッキ・乗船チーム編成ボード.html" class="action-btn-link">画面1-A で試す ➔</a>
+      </div>
+
+      <div class="feature-box">
+        <h4>② 【海上保安庁の乗船名簿が一発で出る】（画面1-Aで体験）</h4>
+        <p>画面右上の <strong>「🖨️ 海保・港湾提出名簿を出力」</strong> ボタンを押してみてください。自社ゲストと他社から預かったゲストが全員まとまり、住所・生年月日・緊急連絡先・当日の船長名が綺麗に整列した提出用名簿（印刷用・CSV）が即座に作成されます。手書きで書き写す手間がなくなります。</p>
+        <a href="1-A_運航デッキ・乗船チーム編成ボード.html" class="action-btn-link">画面1-A で名簿を出力してみる ➔</a>
+      </div>
+
+      <div class="feature-box">
+        <h4>③ 【お客さんがスマホで問診・サインを済ませてくる】（画面9で体験）</h4>
+        <p><strong>画面9</strong> は、お客さんが海に来る前の日や自宅で開くスマホ画面です。最新のダイバーメディカル（WRSTC様式）に沿っており、もし喘息や心臓疾患で「はい」を選んだ場合のみ、<strong>「医師の診断書写真アップロード」</strong> 枠が自動で開きます。画面上で指で手書きサインをして完了すると、当日の集合場所（Googleマップ）とQRコード付きのデジタル搭乗券が表示されます。</p>
+        <a href="9_ゲスト専用_事前チェックイン・Web問診.html" class="action-btn-link" target="_blank">画面9 スマホ問診を試す ↗</a>
+      </div>
+
+      <div class="feature-box">
+        <h4>④ 【「言った・言わない」を防ぐ前日18:00の合意ロック】（画面3で体験）</h4>
+        <p>前日夕方の締め切り（18:00）を過ぎた後の急な減員やキャンセルについて、双方のショップで合意を取る画面です。「海況が悪くて出航中止（台風など）」のときはキャンセル料0円、「お客さんの自己都合」のときは港のルールに従ったキャンセル料を自動計算し、二者間で電子承認ログを残します。</p>
+        <a href="3_直前変更・二者間合意ロック管理.html" class="action-btn-link">画面3 で合意ロックを試す ➔</a>
+      </div>
+
+      <div class="feature-box">
+        <h4>⑤ 【月末の現金のやり取りがゼロになる「自動相殺」】（画面7で体験）</h4>
+        <p>A店から受け取ったボート代と、A店に支払うガイド料などを、システムが自動で差し引き（相殺）します。<strong>「差額だけを1回振り込めばOK」</strong> になるため、月末に何件も振込手数料を払って往復送金する必要がなくなります。また、キャンセル違約金は法律（国税庁通達5-2-5）に則り「消費税がつかない不課税」として正しく自動仕分けされます。</p>
+        <a href="7_月末相殺・インボイス精算ダッシュボード.html" class="action-btn-link">画面7 で自動相殺を見る ➔</a>
+      </div>
+
+      <h2>5. 港のルール（ガバナンス）について</h2>
+      <p>『Minatowa』は、システムが勝手にルールを押し付けるものではありません。<a href="8_港・寄り合いガバナンス設定.html" style="color:var(--blue-500); font-weight:700;">【画面8】港・寄り合いガバナンス設定</a> で、宜野湾港のショップの皆様が話し合って決めたルールを自由に変更・調整できます。</p>
+      <ul>
+        <li>前日の公募締め切り時刻（例：昼12:00締切、夕方18:00運航確定）</li>
+        <li>ガイドの安全引率比率（例：体験1:2、ファン1:4）</li>
+        <li>港内での標準的な相殺手数料率</li>
+        <li>新しいショップが寄り合いに参加したいときの承認手続き</li>
+      </ul>
+
+      <div class="cta-banner">
+        <h3>ショップオーナー様へ：ご意見・ご要望をお聞かせください</h3>
+        <p>この試作品は、宜野湾港のダイビング事業者の皆様が「一番使いやすく、ストレスのない現場と経営」を実現するために作られています。</p>
+        <p>実際に画面を触ってみて、「うちの店ならもっとこうしたい」「ここが押しにくい」など、現場の率直な声をぜひお聞かせください。</p>
+        <a href="index.html" class="back-btn" style="display:inline-block; margin-top:14px;">
+          画面ポータルへ戻って操作してみる
+        </a>
+      </div>
+
+    </article>
+  </main>
+
+</body>
+</html>

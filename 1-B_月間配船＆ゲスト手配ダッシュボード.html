@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>月間予約＆先回りボート確保カレンダー（ボート非所有ショップ様向け） | Minatowa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-900: #0a192f;
+      --navy-800: #0f2744;
+      --navy-700: #1b3a5b;
+      --blue-600: #0284c7;
+      --blue-500: #0ea5e9;
+      --emerald-600: #059669;
+      --emerald-500: #10b981;
+      --emerald-50: #ecfdf5;
+      --amber-600: #d97706;
+      --amber-500: #f59e0b;
+      --amber-50: #fffbeb;
+      --crimson-600: #dc2626;
+      --crimson-500: #ef4444;
+      --crimson-50: #fef2f2;
+      --indigo-600: #4f46e5;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --radius-sm: 6px;
+      --radius: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+      --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: #f1f5f9;
+      color: var(--slate-800);
+      line-height: 1.5;
+      padding-bottom: 90px;
+    }
+
+    /* Top Guidance Banner */
+    .role-guidance-banner {
+      background: linear-gradient(135deg, #1e1b4b, #312e81);
+      color: white;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #6366f1;
+    }
+    .role-guidance-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .role-guidance-tag {
+      background: #4f46e5;
+      color: #e0e7ff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.05em;
+    }
+    .role-guidance-text {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    .role-guidance-desc {
+      font-size: 0.8rem;
+      color: #c7d2fe;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: var(--navy-900);
+      color: var(--white);
+      height: 64px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .brand-logo span { color: var(--blue-500); }
+    .port-badge {
+      background-color: var(--navy-700);
+      color: #93c5fd;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      margin: 0 16px;
+    }
+    .nav-links::-webkit-scrollbar {
+      display: none;
+    }
+    .nav-item {
+      color: #94a3b8;
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .nav-item:hover {
+      color: #fff;
+      background-color: #1e293b;
+    }
+    .nav-item.active {
+      color: #fff;
+      background-color: #0284c7;
+    }
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: rgba(255, 255, 255, 0.08);
+      padding: 6px 14px;
+      border-radius: 9999px;
+    }
+    .shop-type-tag {
+      background-color: #6366f1;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* Month Selector & Filter Subheader */
+    .subheader {
+      background: white;
+      border-bottom: 1px solid var(--slate-200);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .month-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .month-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      font-family: 'JetBrains Mono', 'Noto Sans JP', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .season-badge {
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid #fde68a;
+    }
+    .month-btn {
+      background: white;
+      border: 1px solid var(--slate-200);
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+    .month-btn:hover { background: var(--slate-100); }
+
+    .summary-strip {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 0.85rem;
+    }
+    .summary-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+    }
+    .summary-pill strong {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    /* Calendar Grid Table */
+    .calendar-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      border-collapse: collapse;
+    }
+    .cal-header-cell {
+      background: #f8fafc;
+      padding: 10px;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--slate-600);
+      border-bottom: 1px solid var(--slate-200);
+      border-right: 1px solid var(--slate-200);
+    }
+    .cal-header-cell:last-child { border-right: none; }
+    .cal-header-cell.sun { color: var(--crimson-600); }
+    .cal-header-cell.sat { color: var(--blue-600); }
+
+    .cal-day-cell {
+      min-height: 120px;
+      padding: 8px;
+      border-bottom: 1px solid var(--slate-200);
+      border-right: 1px solid var(--slate-200);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: white;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      position: relative;
+    }
+    .cal-day-cell:nth-child(7n) { border-right: none; }
+    .cal-day-cell:hover {
+      background: #f0f9ff;
+    }
+    .cal-day-cell.selected {
+      background: #eff6ff;
+      box-shadow: inset 0 0 0 2px var(--blue-600);
+    }
+    .cal-day-cell.shortage {
+      background: #fff8f8;
+    }
+    .cal-day-cell.shortage::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--crimson-500);
+    }
+
+    .day-num-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .day-num {
+      font-size: 0.95rem;
+      font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--slate-900);
+    }
+    .day-note {
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 1px 4px;
+      border-radius: 3px;
+    }
+    .note-holiday { background: #fee2e2; color: #b91c1c; }
+
+    .day-content-area {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.72rem;
+    }
+    .guest-count-badge {
+      font-weight: 700;
+      color: var(--slate-700);
+    }
+    .boat-booked-badge {
+      background: #f1f5f9;
+      padding: 2px 5px;
+      border-radius: 3px;
+      color: var(--slate-700);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 0.7rem;
+    }
+
+    .status-pill-mini {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 9999px;
+      margin-top: 4px;
+      width: fit-content;
+    }
+    .mini-ok { background: #ecfdf5; color: #059669; }
+    .mini-shortage {
+      background: #fef2f2;
+      color: #dc2626;
+      animation: pulse 1.5s infinite;
+    }
+    .mini-none { color: var(--slate-400); }
+
+    /* Selected Day Detail Drawer/Section */
+    .detail-panel {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+    .detail-header {
+      background: linear-gradient(to right, #0f2744, #1b3a5b);
+      color: white;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .detail-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .detail-body {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 900px) {
+      .detail-body { grid-template-columns: 1fr; }
+    }
+
+    .column-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .booking-card {
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      background: var(--slate-50);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      position: relative;
+    }
+    .booking-card:hover {
+      border-color: var(--blue-400);
+      box-shadow: var(--shadow-sm);
+      transform: translateY(-1px);
+    }
+    .booking-card.selected-group {
+      border: 2px solid var(--blue-600) !important;
+      background: #eff6ff !important;
+      box-shadow: 0 3px 10px rgba(2, 132, 199, 0.15);
+    }
+    .booking-card.unmatched {
+      border-color: var(--crimson-500);
+      background: #fff8f8;
+    }
+    .booking-card.unmatched.selected-group {
+      border: 2px solid var(--crimson-600) !important;
+      background: #fff1f2 !important;
+      box-shadow: 0 3px 10px rgba(220, 38, 38, 0.15);
+    }
+    .selected-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--blue-700);
+      background: #dbeafe;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    /* Available Boats List */
+    .boat-offer-box {
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      margin-bottom: 10px;
+      background: white;
+      transition: all 0.15s;
+    }
+    .boat-offer-box:hover {
+      border-color: var(--blue-500);
+      box-shadow: var(--shadow-sm);
+    }
+    .boat-offer-box.featured {
+      border: 2px solid var(--blue-600);
+      background: #f0f9ff;
+    }
+    .boat-offer-box.blocked {
+      background: #fafafa;
+      opacity: 0.8;
+    }
+
+    .btn-action {
+      background: var(--blue-600);
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-action:hover { background: #0369a1; }
+    .btn-secondary {
+      background: white;
+      border: 1px solid var(--slate-300);
+      color: var(--slate-700);
+      padding: 8px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+    .btn-secondary:hover { background: var(--slate-100); }
+  </style>
+</head>
+<body>
+
+  <!-- Top Guidance Banner -->
+  <div class="role-guidance-banner">
+    <div class="role-guidance-left">
+      <span class="role-guidance-tag">サンプル画面プレビュー</span>
+      <div>
+        <div class="role-guidance-text">💡 この画面は、ボート非所有のショップ様が数ヶ月先（トップシーズン）の予約とボート席を先回り確保する月間カレンダーです</div>
+        <div class="role-guidance-desc">「7月の連休、予約が入ったのに船が満席で乗れない」という事故を防ぐため、自社予約数と港の各船の空き枠をカレンダー上でリアルタイムに照合・先行ブロックします。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" class="brand-logo" title="ポータルTOPへ">MINA<span>TOWA</span></a>
+      <span class="port-badge">宜野湾港寄り合い</span>
+    </div>
+
+    <!-- Navigation between Screens -->
+    <nav class="nav-links">
+      <a href="1-A_運航デッキ・乗船チーム編成ボード.html" class="nav-item">画面1-A: 運航デッキ</a>
+      <a href="1-B_月間配船＆ゲスト手配ダッシュボード.html" class="nav-item active">画面1-B: 月間手配</a>
+      <a href="1-C_マイスケジュール＆オファー受付ボード.html" class="nav-item">画面1-C: マイスケジュール</a>
+      <a href="2_港内シェア要請・公募ボード.html" class="nav-item">画面2: 港内シェア公募</a>
+      <a href="3_直前変更・二者間合意ロック管理.html" class="nav-item">画面3: 合意ロック</a>
+      <a href="4_予約カルテ・参加者書類提出台帳.html" class="nav-item">画面4: 予約台帳</a>
+      <a href="5_ボート運航ダイヤ＆段階的開放設定.html" class="nav-item">画面5: 運航ダイヤ・開放設定</a>
+      <a href="6_スタッフシフト＆フリーランス稼働管理.html" class="nav-item">画面6: スタッフ＆ガイド</a>
+      <a href="7_月末相殺・インボイス精算ダッシュボード.html" class="nav-item">画面7: 月末相殺・精算</a>
+      <a href="8_港・寄り合いガバナンス設定.html" class="nav-item">画面8: 港ガバナンス</a>
+      <a href="9_ゲスト専用_事前チェックイン・Web問診.html" class="nav-item" target="_blank" style="color:#34d399; border:1px solid rgba(52,211,153,0.3);">📱画面9: ゲスト問診 ↗</a>
+    </nav>
+
+    <div class="user-pill">
+      <span class="shop-type-tag">ボート非所有ショップ様（乗合・ガイド利用）</span>
+      <span style="font-weight: 600; font-size: 0.85rem; color:white;">那覇マリン (担当: 比嘉)</span>
+    </div>
+  </header>
+
+  <!-- Subheader: Month Nav & Monthly Summary -->
+  <section class="subheader">
+    <div class="month-nav">
+      <button class="month-btn">◀</button>
+      <div class="month-title">
+        2026年 7月
+        <span class="season-badge">☀️ 夏期トップシーズン</span>
+      </div>
+      <button class="month-btn">▶</button>
+    </div>
+
+    <div class="summary-strip">
+      <div class="summary-pill">
+        <span>7月度 自社予約総数:</span>
+        <strong id="monthlyTotalGuests" style="color:var(--slate-900);">48</strong> 名
+      </div>
+      <div class="summary-pill">
+        <span>ボート確保済:</span>
+        <strong id="monthlyBookedSeats" style="color:var(--blue-600);">42</strong> 席
+      </div>
+      <div class="summary-pill" style="color:var(--crimson-600);">
+        <span>⚠️ 席不足（要手配）:</span>
+        <strong id="monthlyShortageSeats">6</strong> 名
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- Calendar Table Card -->
+    <div class="calendar-card">
+      <div class="calendar-grid">
+        <!-- Weekday Headers -->
+        <div class="cal-header-cell sun">日 (Sun)</div>
+        <div class="cal-header-cell">月 (Mon)</div>
+        <div class="cal-header-cell">火 (Tue)</div>
+        <div class="cal-header-cell">水 (Wed)</div>
+        <div class="cal-header-cell">木 (Thu)</div>
+        <div class="cal-header-cell">金 (Fri)</div>
+        <div class="cal-header-cell sat">土 (Sat)</div>
+
+        <!-- Row 1: 7/12 - 7/18 -->
+        <div class="cal-day-cell" onclick="selectDay(12)">
+          <div class="day-num-row">
+            <span class="day-num" style="color:var(--crimson-600);">12</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge">予約: 4名</span>
+            <span class="boat-booked-badge">🚢 美ら海丸 4席</span>
+          </div>
+          <span class="status-pill-mini mini-ok">✓ 充足 (手配済)</span>
+        </div>
+
+        <div class="cal-day-cell" onclick="selectDay(13)">
+          <div class="day-num-row">
+            <span class="day-num">13</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge" style="color:var(--slate-400);">予約: 0名</span>
+            <span style="font-size:0.7rem; color:var(--slate-400);">(休航・受付中)</span>
+          </div>
+          <span class="status-pill-mini mini-none">-</span>
+        </div>
+
+        <div class="cal-day-cell" onclick="selectDay(14)">
+          <div class="day-num-row">
+            <span class="day-num">14</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge">予約: 2名</span>
+            <span class="boat-booked-badge">🚢 誠海丸 2席</span>
+          </div>
+          <span class="status-pill-mini mini-ok">✓ 充足</span>
+        </div>
+
+        <div class="cal-day-cell" onclick="selectDay(15)">
+          <div class="day-num-row">
+            <span class="day-num">15</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge" style="color:var(--slate-400);">予約: 0名</span>
+          </div>
+          <span class="status-pill-mini mini-none">-</span>
+        </div>
+
+        <div class="cal-day-cell" onclick="selectDay(16)">
+          <div class="day-num-row">
+            <span class="day-num">16</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge">予約: 2名</span>
+            <span class="boat-booked-badge">🚢 美ら海丸 2席</span>
+          </div>
+          <span class="status-pill-mini mini-ok">✓ 充足</span>
+        </div>
+
+        <div class="cal-day-cell" onclick="selectDay(17)">
+          <div class="day-num-row">
+            <span class="day-num">17</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge">予約: 6名</span>
+            <span class="boat-booked-badge">🚢 美ら海丸 6席</span>
+          </div>
+          <span class="status-pill-mini mini-ok">✓ 充足</span>
+        </div>
+
+        <!-- 7/18 Saturday (連休初日・SHORTAGE) -->
+        <div class="cal-day-cell shortage selected" id="dayCell18" onclick="selectDay(18)">
+          <div class="day-num-row">
+            <span class="day-num" style="color:var(--blue-600);">18</span>
+            <span class="day-note note-holiday">連休初日</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge">予約: <strong>10名</strong></span>
+            <span class="boat-booked-badge">🚢 誠海丸 6席</span>
+          </div>
+          <span class="status-pill-mini mini-shortage" id="dayPill18">⚠️ 4席不足！</span>
+        </div>
+
+        <!-- Row 2: 7/19 - 7/25 -->
+        <div class="cal-day-cell" onclick="selectDay(19)">
+          <div class="day-num-row">
+            <span class="day-num" style="color:var(--crimson-600);">19</span>
+            <span class="day-note note-holiday">連休中</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge">予約: 12名</span>
+            <span class="boat-booked-badge">🚢 美ら海8 / 誠海4</span>
+          </div>
+          <span class="status-pill-mini mini-ok">✓ 満席充足 (12席)</span>
+        </div>
+
+        <div class="cal-day-cell" onclick="selectDay(20)">
+          <div class="day-num-row">
+            <span class="day-num" style="color:var(--crimson-600);">20</span>
+            <span class="day-note note-holiday">海の日</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge">予約: 8名</span>
+            <span class="boat-booked-badge">🚢 美ら海丸 8席</span>
+          </div>
+          <span class="status-pill-mini mini-ok">✓ 充足 (8席)</span>
+        </div>
+
+        <div class="cal-day-cell" onclick="selectDay(21)">
+          <div class="day-num-row">
+            <span class="day-num">21</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge">予約: 2名</span>
+            <span class="boat-booked-badge">🚢 美ら海丸 2席</span>
+          </div>
+          <span class="status-pill-mini mini-ok">✓ 充足</span>
+        </div>
+
+        <div class="cal-day-cell" onclick="selectDay(22)">
+          <div class="day-num-row">
+            <span class="day-num">22</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge">予約: 3名</span>
+            <span class="boat-booked-badge">🚢 誠海丸 3席</span>
+          </div>
+          <span class="status-pill-mini mini-ok">✓ 充足</span>
+        </div>
+
+        <div class="cal-day-cell" onclick="selectDay(23)">
+          <div class="day-num-row">
+            <span class="day-num">23</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge" style="color:var(--slate-400);">予約: 0名</span>
+          </div>
+          <span class="status-pill-mini mini-none">-</span>
+        </div>
+
+        <div class="cal-day-cell" onclick="selectDay(24)">
+          <div class="day-num-row">
+            <span class="day-num">24</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge">予約: 4名</span>
+            <span class="boat-booked-badge">🚢 美ら海丸 4席</span>
+          </div>
+          <span class="status-pill-mini mini-ok">✓ 充足</span>
+        </div>
+
+        <!-- 7/25 Saturday (SHORTAGE) -->
+        <div class="cal-day-cell shortage" onclick="selectDay(25)">
+          <div class="day-num-row">
+            <span class="day-num" style="color:var(--blue-600);">25</span>
+          </div>
+          <div class="day-content-area">
+            <span class="guest-count-badge">予約: 4名</span>
+            <span class="boat-booked-badge">🚢 誠海丸 2席</span>
+          </div>
+          <span class="status-pill-mini mini-shortage">⚠️ 2席不足！</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Selected Day Detail Section (1画面統合デッキ) -->
+    <section class="detail-panel" id="detailPanel">
+      <div class="detail-header">
+        <div class="detail-title">
+          <span>🔍 選択中の日付：<strong id="selectedDateTitle">2026年7月18日(土) 連休初日</strong></span>
+          <span class="season-badge" id="selectedDateSeasonBadge" style="background:#fee2e2; color:#b91c1c; border-color:#fca5a5;">連休ピーク</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div id="dayStatusBadge" style="background:#fef2f2; color:#dc2626; padding:4px 14px; border-radius:9999px; font-weight:700; font-size:0.8rem;">
+            ⚠️ 4名分のボート席が不足しています
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-body">
+        
+        <!-- Left Column: Current Bookings & Participants -->
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <div class="column-title" style="margin-bottom:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              自社の予約客（計10名）
+            </div>
+            <span style="font-size:0.75rem; color:var(--blue-600); background:#eff6ff; border:1px solid #bfdbfe; padding:2px 8px; border-radius:4px; font-weight:600;">
+              💡 カード選択で右側連動
+            </span>
+          </div>
+
+          <!-- Group A: Resolved -->
+          <div class="booking-card" id="groupACard" onclick="selectBookingGroup('groupA')" title="クリックして手配詳細と誠海丸の管理メニューを表示">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+              <div>
+                <strong style="font-size:0.9rem; color:var(--slate-800);">グループA: リピーター佐藤様ご一行 (6名)</strong>
+                <span class="selected-indicator" id="indicatorGroupA" style="display:none; margin-left:6px;">👈 選択中 (手配済)</span>
+              </div>
+              <span style="font-size:0.75rem; background:#ecfdf5; color:#059669; font-weight:700; padding:2px 6px; border-radius:4px;">手配済 ✅</span>
+            </div>
+            <div style="font-size:0.8rem; color:var(--slate-600); margin-bottom:6px;">
+              ファンダイブ中級 ｜ 自社スタッフ仲宗根がガイド同乗 ｜ 書類: 全員適格済
+            </div>
+            <div style="font-size:0.8rem; background:white; padding:6px 10px; border-radius:4px; border:1px solid var(--slate-200); display:flex; justify-content:space-between; align-items:center;">
+              <span>🚢 <strong>誠海丸 (マリンサポート様)</strong> 6席確保済 (ケラマ便 08:30発)</span>
+              <span style="font-size:0.75rem; color:var(--slate-500);">乗船料 ¥8,500/名</span>
+            </div>
+          </div>
+
+          <!-- Group B: Shortage (Default Active) -->
+          <div class="booking-card unmatched selected-group" id="groupBCard" onclick="selectBookingGroup('groupB')" title="クリックして手配候補ボートを表示">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+              <div>
+                <strong style="font-size:0.9rem; color:var(--crimson-600);">グループB: 新規Web予約・山田様ファミリー (4名)</strong>
+                <span class="selected-indicator" id="indicatorGroupB" style="margin-left:6px; background:#fee2e2; color:#b91c1c;">👈 選択中 (手配対象)</span>
+              </div>
+              <span style="font-size:0.75rem; background:#fee2e2; color:#dc2626; font-weight:700; padding:2px 6px; border-radius:4px;" id="groupBBadge">ボート未手配 ❌</span>
+            </div>
+            <div style="font-size:0.8rem; color:var(--slate-600); margin-bottom:6px;">
+              体験ダイビング ｜ ガイド不足のため【丸投げ委託】を希望 ｜ 書類: Web問診済(問題なし)
+            </div>
+            <div style="font-size:0.8rem; background:#fff0f0; padding:8px 10px; border-radius:4px; border:1px solid #fecaca; color:var(--crimson-600);" id="groupBStatusBox">
+              ❌ 連休初日のためボート席が未確保です。右側の空席一覧から先行確保してください。
+            </div>
+          </div>
+
+          <!-- Logistics & Transport Summary Inside Detail -->
+          <div style="margin-top:16px; border-top:1px solid var(--slate-200); padding-top:14px;">
+            <div class="column-title" style="margin-bottom:8px; font-size:0.85rem;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              当日の送迎・港集合サマリー（段取り計画）
+            </div>
+            <div style="background:#f8fafc; border:1px solid var(--slate-200); border-radius:6px; padding:10px; font-size:0.8rem; display:flex; flex-direction:column; gap:6px;">
+              <div>🚐 <strong>07:00 那覇ホテルお迎え</strong>: 山田様ファミリー (4名・ホテルコレクティブ) ── 送迎車1号</div>
+              <div>📍 <strong>07:45 宜野湾港現地集合</strong>: 佐藤様ご一行 (6名・レンタカー集合) ── 案内LINE送信用</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Port Boat Open Slots & Actions (連動エリア) -->
+        <div id="rightColContainer">
+          
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; gap:8px;">
+            <div>
+              <div class="column-title" id="rightColTitle" style="margin-bottom:2px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M20 12v8H4v-8"/><path d="m4 4 16 0"/><path d="m12 4v16"/></svg>
+                宜野湾港の空席状況 ➔ 【山田様ファミリー 4名】の配船手配
+              </div>
+              <div id="rightColSubtext" style="font-size:0.75rem; color:var(--slate-500);">
+                グループBの条件（4名・体験ダイビング丸投げ可能）に一致するボートを表示しています
+              </div>
+            </div>
+            <button class="btn-secondary" id="btnShowAllBoats" style="font-size:0.72rem; padding:4px 10px; white-space:nowrap;" onclick="selectBookingGroup(null)" title="予約客の選択を解除して港全体の全ボート状況を表示">
+              🌐 全ボート一覧表示
+            </button>
+          </div>
+
+          <!-- Dynamic View 1: When Group B (Unmatched) is selected -->
+          <div id="viewForGroupB">
+            <!-- Boat 1: Featured match (美ら海丸) -->
+            <div class="boat-offer-box featured" id="offerChuraumi">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+                <div>
+                  <strong style="font-size:1rem; color:var(--navy-900);">🚢 美ら海丸 (北谷マリン様)</strong>
+                  <span style="font-size:0.7rem; background:#dbeafe; color:#1d4ed8; padding:2px 6px; border-radius:3px; font-weight:700; margin-left:6px;">先行公開中</span>
+                  <span style="font-size:0.7rem; background:#dcfce7; color:#15803d; padding:2px 6px; border-radius:3px; font-weight:700; margin-left:4px;">最適マッチ 🎯</span>
+                </div>
+                <div style="font-size:0.85rem; font-weight:800; color:var(--blue-600);">
+                  残り空き 4席あり！
+                </div>
+              </div>
+              <div style="font-size:0.8rem; color:var(--slate-600); margin-bottom:10px; line-height:1.4;">
+                ケラマ2便 (08:30出航・ランチ有) ｜ <strong>体験ダイブ丸投げ受託可能 (専属ガイド付帯)</strong> ｜ 乗船料＋ガイド受託料 ¥13,000 / 席
+              </div>
+              <button class="btn-action" style="width:100%; justify-content:center;" id="btnBookChuraumi" onclick="bookSeatsForGroupB()">
+                🟢 この4席を今すぐ先行確保する (山田様ファミリー 4名を配船)
+              </button>
+            </div>
+
+            <!-- Boat 2: Full (誠海丸) -->
+            <div class="boat-offer-box blocked">
+              <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
+                <strong style="font-size:0.95rem; color:var(--slate-600);">🚢 誠海丸 (マリンサポート様)</strong>
+                <span style="font-size:0.75rem; color:var(--slate-500); font-weight:700;">【満席】 (自社グループAが6席確保済)</span>
+              </div>
+              <div style="font-size:0.75rem; color:var(--slate-400);">一般公開枠・自社枠ともに上限に達しています</div>
+            </div>
+
+            <!-- Boat 3: Blocked (潮風丸) -->
+            <div class="boat-offer-box">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+                <div>
+                  <strong style="font-size:0.95rem;">🚢 潮風丸 (オーシャンズ様)</strong>
+                  <span style="font-size:0.7rem; background:#f1f5f9; color:var(--slate-600); padding:2px 6px; border-radius:3px;">30日前未公開設定</span>
+                </div>
+                <span style="font-size:0.75rem; color:var(--slate-500);">非公開中</span>
+              </div>
+              <div style="font-size:0.75rem; color:var(--slate-600); margin-bottom:8px;">
+                現在自社枠キープ中ですが、先行リクエストを送ることで船長判断で席を解放してもらえる場合があります。
+              </div>
+              <button class="btn-secondary" style="width:100%;" onclick="alert('潮風丸の船長へ「7/18 体験4席 先行キープ希望」のリクエストメッセージを送信しました。')">
+                📩 潮風丸の船長へ先行キープをリクエストする
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic View 2: When Group A (Already Resolved) is selected -->
+          <div id="viewForGroupA" style="display:none;">
+            <div class="boat-offer-box" style="border:2px solid #10b981; background:#f0fdf4;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                <div>
+                  <span style="font-size:0.7rem; background:#dcfce7; color:#15803d; font-weight:700; padding:2px 6px; border-radius:3px;">配船確定済</span>
+                  <strong style="font-size:1.05rem; color:#064e3b; margin-left:6px;">🚢 誠海丸 (マリンサポート様)</strong>
+                </div>
+                <span style="font-size:0.85rem; font-weight:700; color:#059669;">確保枠: 6席</span>
+              </div>
+              <div style="font-size:0.8rem; color:#166534; line-height:1.6; margin-bottom:12px;">
+                ・<strong>運航便</strong>: ケラマ1便 08:30出航（07:45 宜野湾港集合・機材積込）<br>
+                ・<strong>自社同乗ガイド</strong>: 仲宗根（安全比率 1:6 適合済）<br>
+                ・<strong>費用</strong>: 乗船料 ¥8,500 × 6名 ＝ ¥51,000（月末自動相殺）
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn-action" style="background:#059669; font-size:0.78rem; flex:1; justify-content:center;" onclick="alert('誠海丸の乗船名簿PDF・事前Web問診データを照会します。全員適格済です。')">
+                  📄 乗船名簿・Web問診を確認
+                </button>
+                <button class="btn-secondary" style="font-size:0.78rem;" onclick="alert('配船変更・席数調整は前日17:00まで可能です。港内BtoB共通規定が適用されます。')">
+                  🔄 配船変更・席数調整
+                </button>
+              </div>
+            </div>
+
+            <div style="margin-top:14px; font-size:0.78rem; color:var(--slate-500); font-weight:600; margin-bottom:6px;">
+              その他の港内ボート（参考状況）
+            </div>
+            <div style="font-size:0.75rem; color:var(--slate-600); background:#f8fafc; border:1px solid var(--slate-200); border-radius:6px; padding:10px; display:flex; flex-direction:column; gap:6px;">
+              <div>・🚢 <strong>美ら海丸</strong> (北谷マリン様): 4席空き先行公開中 (体験受託可)</div>
+              <div>・🚢 <strong>潮風丸</strong> (オーシャンズ様): 30日前非公開設定中</div>
+            </div>
+          </div>
+
+          <!-- Dynamic View 3: When No Group is selected (General Overview) -->
+          <div id="viewGeneralPort" style="display:none;">
+            <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:6px; padding:10px 12px; font-size:0.8rem; color:#1e40af; margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+              <span style="font-size:1.1rem;">👈</span>
+              <span><strong>左側の予約客カードをクリック</strong>すると、そのグループの要件に合致したボートの絞り込みや、確定済み便の管理メニュー（乗船名簿・変更）が表示されます。</span>
+            </div>
+
+            <div class="boat-offer-box" style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <strong style="font-size:0.95rem;">🚢 美ら海丸 (北谷マリン様)</strong>
+                <span style="font-size:0.7rem; background:#dbeafe; color:#1d4ed8; padding:2px 6px; border-radius:3px; font-weight:700; margin-left:6px;">先行公開中</span>
+                <div style="font-size:0.75rem; color:var(--slate-600); margin-top:2px;">
+                  ケラマ2便 ｜ 残り空き <strong>4席</strong> ｜ 体験ダイブ丸投げ受託可能
+                </div>
+              </div>
+              <button class="btn-action" style="font-size:0.75rem; padding:6px 12px;" onclick="selectBookingGroup('groupB')">
+                山田様(4名)を配船 ➔
+              </button>
+            </div>
+
+            <div class="boat-offer-box blocked" style="display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <strong style="font-size:0.95rem; color:var(--slate-600);">🚢 誠海丸 (マリンサポート様)</strong>
+                <span style="font-size:0.7rem; background:#e2e8f0; color:var(--slate-600); padding:2px 6px; border-radius:3px; margin-left:6px;">満席</span>
+                <div style="font-size:0.75rem; color:var(--slate-500); margin-top:2px;">
+                  自社グループA（佐藤様ご一行6名）が確保済
+                </div>
+              </div>
+              <button class="btn-secondary" style="font-size:0.72rem; padding:4px 8px;" onclick="selectBookingGroup('groupA')">
+                手配内容を確認
+              </button>
+            </div>
+
+            <div class="boat-offer-box">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <strong style="font-size:0.95rem;">🚢 潮風丸 (オーシャンズ様)</strong>
+                  <span style="font-size:0.7rem; background:#f1f5f9; color:var(--slate-600); padding:2px 6px; border-radius:3px; margin-left:6px;">非公開中</span>
+                  <div style="font-size:0.75rem; color:var(--slate-600); margin-top:2px;">
+                    30日前未公開設定 ｜ 自社キープ枠あり（先行リクエスト対応）
+                  </div>
+                </div>
+                <button class="btn-secondary" style="font-size:0.72rem; padding:4px 8px;" onclick="alert('潮風丸の船長へリクエストを送信しました。')">
+                  リクエスト
+                </button>
+              </div>
+            </div>
+
+            <div class="boat-offer-box">
+              <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div>
+                  <strong style="font-size:0.95rem;">🚢 慶良間ブルー (シーガル様)</strong>
+                  <span style="font-size:0.7rem; background:#dcfce7; color:#15803d; padding:2px 6px; border-radius:3px; margin-left:6px;">空き8席</span>
+                  <div style="font-size:0.75rem; color:var(--slate-600); margin-top:2px;">
+                    慶良間ドリフト便 ｜ ファンダイブのみ受託可（体験不可）
+                  </div>
+                </div>
+                <span style="font-size:0.75rem; color:var(--slate-400);">条件不一致 (ファンのみ)</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    let currentSelectedGroup = 'groupB';
+    let groupBIsBooked = false;
+
+    function selectBookingGroup(groupId) {
+      currentSelectedGroup = groupId;
+      const cardA = document.getElementById('groupACard');
+      const cardB = document.getElementById('groupBCard');
+      const indA = document.getElementById('indicatorGroupA');
+      const indB = document.getElementById('indicatorGroupB');
+
+      const title = document.getElementById('rightColTitle');
+      const subtext = document.getElementById('rightColSubtext');
+
+      const viewA = document.getElementById('viewForGroupA');
+      const viewB = document.getElementById('viewForGroupB');
+      const viewGen = document.getElementById('viewGeneralPort');
+
+      // Clear all active classes
+      cardA.classList.remove('selected-group');
+      cardB.classList.remove('selected-group');
+      if (indA) indA.style.display = 'none';
+      if (indB) indB.style.display = 'none';
+
+      // Hide all dynamic views
+      viewA.style.display = 'none';
+      viewB.style.display = 'none';
+      viewGen.style.display = 'none';
+
+      if (groupId === 'groupB') {
+        cardB.classList.add('selected-group');
+        if (indB) indB.style.display = 'inline-flex';
+
+        if (groupBIsBooked) {
+          title.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M20 12v8H4v-8"/><path d="m4 4 16 0"/><path d="m12 4v16"/></svg>
+            【山田様ファミリー 4名】の手配管理（美ら海丸 確定済）
+          `;
+          subtext.innerText = '美ら海丸（北谷マリン様）にて4席確保済みです（体験ダイブ丸投げ委託）。';
+        } else {
+          title.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M20 12v8H4v-8"/><path d="m4 4 16 0"/><path d="m12 4v16"/></svg>
+            宜野湾港の空席状況 ➔ 【山田様ファミリー 4名】の配船手配
+          `;
+          subtext.innerText = 'グループBの条件（4名・体験ダイビング丸投げ可能）に一致するボートを表示しています';
+        }
+        viewB.style.display = 'block';
+      } else if (groupId === 'groupA') {
+        cardA.classList.add('selected-group');
+        if (indA) indA.style.display = 'inline-flex';
+
+        title.innerHTML = `
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M20 12v8H4v-8"/><path d="m4 4 16 0"/><path d="m12 4v16"/></svg>
+          【佐藤様ご一行 6名】の手配管理（誠海丸 確定済）
+        `;
+        subtext.innerText = '誠海丸（マリンサポート様）にて6席確保済みです。名簿照会や乗船調整が可能です。';
+        viewA.style.display = 'block';
+      } else {
+        // null => General port overview
+        title.innerHTML = `
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M20 12v8H4v-8"/><path d="m4 4 16 0"/><path d="m12 4v16"/></svg>
+          宜野湾港の各ボート 空席・先行公開状況 (7/18)
+        `;
+        subtext.innerText = '港全体の運航船空き状況一覧です。左側の予約客を選ぶと個別手配に連動します。';
+        viewGen.style.display = 'block';
+      }
+    }
+
+    function selectDay(day) {
+      document.querySelectorAll('.cal-day-cell').forEach(c => c.classList.remove('selected'));
+      const clicked = event.currentTarget;
+      if (clicked) clicked.classList.add('selected');
+
+      const dateTitle = `2026年7月${day}日(${getDayOfWeek(day)})`;
+      document.getElementById('selectedDateTitle').innerText = dateTitle;
+
+      if (day === 18) {
+        document.getElementById('dayStatusBadge').style.display = 'block';
+      } else {
+        document.getElementById('dayStatusBadge').style.background = '#ecfdf5';
+        document.getElementById('dayStatusBadge').style.color = '#059669';
+        document.getElementById('dayStatusBadge').innerText = '✓ ボート手配充足';
+      }
+    }
+
+    function getDayOfWeek(day) {
+      const days = ['日', '月', '火', '水', '木', '金', '土'];
+      const d = new Date(2026, 6, day);
+      return days[d.getDay()];
+    }
+
+    // ダブルクリックで直接その日の日次ダッシュボードへジャンプ
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.cal-day-cell').forEach(cell => {
+        cell.addEventListener('dblclick', () => {
+          window.location.href = './ボート非所有ショップ様向け_自社ゲスト手配ダッシュボード.html';
+        });
+        cell.title = "クリックで詳細表示 / ダブルクリックで日次配船ダッシュボードを開く";
+      });
+    });
+
+    function bookSeatsForGroupB() {
+      groupBIsBooked = true;
+
+      // Resolve 7/18 shortage
+      const cell = document.getElementById('dayCell18');
+      cell.classList.remove('shortage');
+
+      const pill = document.getElementById('dayPill18');
+      pill.className = 'status-pill-mini mini-ok';
+      pill.innerText = '✓ 満席充足 (10席)';
+
+      // Update Group B Card
+      const card = document.getElementById('groupBCard');
+      card.classList.remove('unmatched');
+
+      const badge = document.getElementById('groupBBadge');
+      badge.style.background = '#ecfdf5';
+      badge.style.color = '#059669';
+      badge.innerText = '手配済 (先行確保) ✅';
+
+      const indB = document.getElementById('indicatorGroupB');
+      if (indB) {
+        indB.style.background = '#dbeafe';
+        indB.style.color = '#1d4ed8';
+        indB.innerText = '👈 選択中 (手配済)';
+      }
+
+      const statusBox = document.getElementById('groupBStatusBox');
+      statusBox.style.background = 'white';
+      statusBox.style.borderColor = 'var(--slate-200)';
+      statusBox.style.color = 'var(--slate-800)';
+      statusBox.innerHTML = `🚢 <strong>美ら海丸 (北谷マリン様)</strong> 4席先行確保済 (体験丸投げ委託)`;
+
+      // Update Offer Box
+      const btn = document.getElementById('btnBookChuraumi');
+      btn.disabled = true;
+      btn.style.background = 'var(--slate-300)';
+      btn.style.cursor = 'default';
+      btn.innerText = '✓ 4席確保完了 (北谷マリン様へ通知済)';
+
+      // Update Summary Header
+      document.getElementById('monthlyBookedSeats').innerText = '46';
+      document.getElementById('monthlyShortageSeats').innerText = '2';
+
+      const dayBadge = document.getElementById('dayStatusBadge');
+      dayBadge.style.background = '#ecfdf5';
+      dayBadge.style.color = '#059669';
+      dayBadge.innerText = '✓ 7月18日の全予約（10名）の手配が完了しました';
+
+      // Update Title & Subtext
+      const title = document.getElementById('rightColTitle');
+      const subtext = document.getElementById('rightColSubtext');
+      title.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M20 12v8H4v-8"/><path d="m4 4 16 0"/><path d="m12 4v16"/></svg>
+        【山田様ファミリー 4名】の手配管理（美ら海丸 確定済）
+      `;
+      subtext.innerText = '美ら海丸（北谷マリン様）にて4席確保済みです（体験ダイブ丸投げ委託）。';
+
+      alert('美ら海丸（北谷マリン様）のケラマ便4席を先行確保しました！\n7月18日(土)の自社予約ゲスト全員のボート席が確定しました。');
+    }
+  </script>
+</body>
+</html>

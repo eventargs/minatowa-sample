@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>【画面9】事前チェックイン・Web問診 | Minatowa Check-in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --navy-950: #070e1b;
+      --navy-900: #0a192f;
+      --navy-800: #102a4e;
+      --emerald: #059669;
+      --emerald-bg: #ecfdf5;
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
+      --crimson: #dc2626;
+      --crimson-bg: #fef2f2;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: #f1f5f9;
+      color: var(--slate-800);
+      line-height: 1.5;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    /* Mobile Container Frame Simulation */
+    .mobile-wrapper {
+      width: 100%;
+      max-width: 480px;
+      background: white;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    /* Top Guidance Banner (Desktop/Tablet Notice) */
+    .role-guidance-banner {
+      background: linear-gradient(135deg, #0f2744, #1b3a5b);
+      color: white;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--primary);
+    }
+    .role-guidance-tag {
+      background: #0284c7;
+      color: #e0f2fe;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .role-guidance-desc {
+      font-size: 0.72rem;
+      color: #bae6fd;
+      line-height: 1.3;
+    }
+
+    /* App Header */
+    .guest-header {
+      background: var(--navy-900);
+      color: white;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .brand-logo span { color: #38bdf8; }
+    .secure-badge {
+      font-size: 0.72rem;
+      background: rgba(255,255,255,0.12);
+      padding: 3px 8px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #7dd3fc;
+    }
+
+    /* Booking Summary Strip */
+    .booking-summary-strip {
+      background: #f0f9ff;
+      border-bottom: 1px solid #bae6fd;
+      padding: 14px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .guest-welcome {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .booking-plan-text {
+      font-size: 0.8rem;
+      color: var(--slate-600);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Step Indicator Progress Bar */
+    .progress-track-bar {
+      display: flex;
+      padding: 12px 20px;
+      background: white;
+      border-bottom: 1px solid var(--slate-200);
+      gap: 6px;
+    }
+    .step-pill {
+      flex: 1;
+      height: 4px;
+      background: var(--slate-200);
+      border-radius: 9999px;
+      transition: background 0.3s;
+    }
+    .step-pill.active { background: var(--primary); }
+    .step-pill.completed { background: var(--emerald); }
+
+    /* Main Scrollable Content Area */
+    .form-content-area {
+      padding: 20px;
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 100px; /* space for fixed bottom bar */
+    }
+
+    .step-heading-group {
+      margin-bottom: 18px;
+    }
+    .step-badge {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .step-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.3;
+    }
+    .step-desc {
+      font-size: 0.78rem;
+      color: var(--slate-500);
+      margin-top: 4px;
+    }
+
+    /* Question Cards */
+    .question-card {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-sm);
+    }
+    .question-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--slate-800);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .radio-pill-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .radio-pill-label {
+      border: 1.5px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--slate-700);
+      transition: all 0.15s;
+    }
+    .radio-pill-label input { display: none; }
+    .radio-pill-label.selected-no {
+      border-color: var(--primary);
+      background: #f0f9ff;
+      color: var(--primary-dark);
+    }
+    .radio-pill-label.selected-yes {
+      border-color: var(--crimson);
+      background: var(--crimson-bg);
+      color: var(--crimson);
+    }
+
+    /* Doctor Upload Alert Box (Dynamic) */
+    .doctor-cert-alert-box {
+      background: #fffbeb;
+      border: 1.5px dashed #f59e0b;
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      margin-top: 12px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .alert-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #b45309;
+    }
+    .alert-body-text {
+      font-size: 0.75rem;
+      color: #92400e;
+      line-height: 1.5;
+    }
+    .btn-file-upload {
+      border: 1px solid #d97706;
+      background: white;
+      color: #b45309;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    /* Equipment Inputs */
+    .gear-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .input-field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .field-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--slate-700);
+    }
+    .field-input, .field-select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+    .field-input:focus, .field-select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* Signature Canvas Box */
+    .sig-canvas-container {
+      background: var(--slate-50);
+      border: 1.5px dashed var(--slate-300);
+      border-radius: var(--radius-sm);
+      margin: 12px 0;
+      position: relative;
+      touch-action: none;
+    }
+    canvas {
+      display: block;
+      width: 100%;
+      height: 140px;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      cursor: crosshair;
+    }
+    .sig-clear-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: white;
+      border: 1px solid var(--slate-300);
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      color: var(--slate-600);
+    }
+    .sig-placeholder-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--slate-400);
+      font-size: 0.8rem;
+      pointer-events: none;
+    }
+
+    /* Completion Ticket Pass */
+    .pass-ticket-card {
+      background: linear-gradient(135deg, #0a192f, #173866);
+      color: white;
+      border-radius: var(--radius-lg);
+      padding: 24px 20px;
+      text-align: center;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-lg);
+    }
+    .qr-box {
+      width: 150px;
+      height: 150px;
+      background: white;
+      margin: 16px auto;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+    }
+    .qr-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Fixed Bottom Action Bar */
+    .bottom-action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 480px;
+      background: white;
+      border-top: 1px solid var(--slate-200);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+      z-index: 50;
+    }
+    .btn-step-prev {
+      background: var(--slate-100);
+      color: var(--slate-700);
+      border: none;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-step-next {
+      flex: 1;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
+    }
+    .btn-step-next:hover { background: var(--primary-dark); }
+
+    /* Navigation switcher between screens (for review) */
+    .screen-nav-bar {
+      background: var(--navy-950);
+      padding: 6px 12px;
+      font-size: 0.72rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--slate-400);
+    }
+    .screen-nav-bar a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--slate-900);
+      color: white;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.82rem;
+      font-weight: 700;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    .toast.show { display: flex; animation: fadeIn 0.2s ease-out; }
+    @keyframes fadeIn {
+      from { transform: translate(-50%, -10px); opacity: 0; }
+      to { transform: translate(-50%, 0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="mobile-wrapper">
+
+    <!-- Screen Switcher Bar for Reviewer -->
+    <div class="screen-nav-bar">
+      <span>📱 ゲスト用スマホ画面 (Token URL)</span>
+      <div>
+        <a href="4_予約カルテ・参加者書類提出台帳.html">◀ 店舗台帳(画面4)</a>
+        <a href="index.html" style="margin-left: 10px; color: #38bdf8; text-decoration: none; font-weight: 700;">🏠 ポータルTOP</a>
+      </div>
+    </div>
+
+    <!-- Top Guidance Banner -->
+    <aside class="role-guidance-banner">
+      <span class="role-guidance-tag">ゲスト専用</span>
+      <div class="role-guidance-desc">
+        アプリ不要・ログイン不要。予約完了後に届くURLを開くだけで、最新WRSTC問診と電子署名が約3分で完了します。
+      </div>
+    </aside>
+
+    <!-- App Header -->
+    <header class="guest-header">
+      <div class="brand-logo">Mina<span>towa</span> Check-in</div>
+      <div class="secure-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        SSL暗号化通信
+      </div>
+    </header>
+
+    <!-- Booking Summary Strip -->
+    <section class="booking-summary-strip">
+      <div class="guest-welcome">
+        <span>山田 太郎 様</span>
+        <span style="font-size: 0.72rem; color: #0284c7; background: #e0f2fe; padding: 2px 7px; border-radius: 4px;">本人確認済</span>
+      </div>
+      <div class="booking-plan-text">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        2026年9月27日(日) ケラマ体験ダイビング (北谷マリン)
+      </div>
+    </section>
+
+    <!-- Step Progress Bar -->
+    <div class="progress-track-bar">
+      <div class="step-pill active" id="progPill1"></div>
+      <div class="step-pill" id="progPill2"></div>
+      <div class="step-pill" id="progPill3"></div>
+      <div class="step-pill" id="progPill4"></div>
+    </div>
+
+    <!-- Step 1: WRSTC Medical Questionnaire -->
+    <div class="form-content-area" id="stepView1">
+      <div class="step-heading-group">
+        <span class="step-badge">STEP 01 / 04</span>
+        <h2 class="step-title">ダイバーメディカル病歴問診</h2>
+        <p class="step-desc">安全に海を楽しんでいただくため、最新のWRSTC/UHMS様式に基づき健康状態をお答えください。</p>
+      </div>
+
+      <!-- Q1: Asthma / Respiratory -->
+      <div class="question-card">
+        <div class="question-title">Q1. 呼吸器の病気、息切れ、気胸、または過去に喘息（小児喘息含む）を発症したことがありますか？</div>
+        <div class="radio-pill-group">
+          <label class="radio-pill-label selected-no" id="lblQ1No" onclick="toggleRadio('Q1', false)">
+            <input type="radio" name="q1" value="no" checked>
+            いいえ（なし）
+          </label>
+          <label class="radio-pill-label" id="lblQ1Yes" onclick="toggleRadio('Q1', true)">
+            <input type="radio" name="q1" value="yes">
+            はい（該当あり）
+          </label>
+        </div>
+
+        <!-- Conditional Doctor Cert Upload -->
+        <div class="doctor-cert-alert-box" id="certBoxQ1">
+          <div class="alert-header">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            医師の評価・診断書が必要です
+          </div>
+          <div class="alert-body-text">
+            安全基準により、ダイビングに参加するには<strong>「医師による署名入りダイバーメディカル評価書」</strong>の提出が法令上必須となります。<br>
+            既にお持ちの場合は写真をアップロードしてください。
+          </div>
+          <button type="button" class="btn-file-upload" onclick="simulateUpload()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <span id="uploadBtnText">診断書PDFまたは写真をアップロード</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Q2: Cardiovascular / Blood Pressure -->
+      <div class="question-card">
+        <div class="question-title">Q2. 心臓疾患、高血圧、または血圧を下げる薬を日常的に服用していますか？</div>
+        <div class="radio-pill-group">
+          <label class="radio-pill-label selected-no" id="lblQ2No" onclick="toggleRadio('Q2', false)">
+            <input type="radio" name="q2" value="no" checked>
+            いいえ（なし）
+          </label>
+          <label class="radio-pill-label" id="lblQ2Yes" onclick="toggleRadio('Q2', true)">
+            <input type="radio" name="q2" value="yes">
+            はい（該当あり）
+          </label>
+        </div>
+      </div>
+
+      <!-- Q3: Ear, Sinus & Surgeries -->
+      <div class="question-card">
+        <div class="question-title">Q3. 耳や副鼻腔の病気、めまい、意識喪失、または過去12ヶ月以内に手術を受けましたか？</div>
+        <div class="radio-pill-group">
+          <label class="radio-pill-label selected-no" id="lblQ3No" onclick="toggleRadio('Q3', false)">
+            <input type="radio" name="q3" value="no" checked>
+            いいえ（なし）
+          </label>
+          <label class="radio-pill-label" id="lblQ3Yes" onclick="toggleRadio('Q3', true)">
+            <input type="radio" name="q3" value="yes">
+            はい（該当あり）
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: Equipment Size -->
+    <div class="form-content-area" id="stepView2" style="display: none;">
+      <div class="step-heading-group">
+        <span class="step-badge">STEP 02 / 04</span>
+        <h2 class="step-title">レンタル器材サイズ入力</h2>
+        <p class="step-desc">ボートにぴったり合う器材を事前積載するため、現在のサイズをご入力ください。</p>
+      </div>
+
+      <div class="question-card">
+        <div class="gear-grid">
+          <div class="input-field-group">
+            <label class="field-label">身長 (cm)</label>
+            <input type="number" class="field-input" value="175" id="inpHeight">
+          </div>
+          <div class="input-field-group">
+            <label class="field-label">体重 (kg)</label>
+            <input type="number" class="field-input" value="68" id="inpWeight">
+          </div>
+        </div>
+
+        <div class="gear-grid">
+          <div class="input-field-group">
+            <label class="field-label">足のサイズ (cm)</label>
+            <select class="field-select" id="inpShoe">
+              <option>24.0 cm</option>
+              <option>25.0 cm</option>
+              <option>26.0 cm</option>
+              <option selected>26.5 cm</option>
+              <option>27.0 cm</option>
+              <option>28.0 cm</option>
+            </select>
+          </div>
+          <div class="input-field-group">
+            <label class="field-label">普段の視力</label>
+            <select class="field-select">
+              <option selected>裸眼・コンタクト (通常マスク)</option>
+              <option>度付きマスク希望 (軽度 -2.0)</option>
+              <option>度付きマスク希望 (中度 -4.0)</option>
+              <option>度付きマスク希望 (強度 -6.0)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="input-field-group" style="margin-top: 8px;">
+          <label class="field-label">ライセンス（Cカード）有無</label>
+          <select class="field-select">
+            <option selected>未認定（体験ダイビング参加）</option>
+            <option>PADI オープン・ウォーター・ダイバー (OW)</option>
+            <option>PADI アドヴァンスド・オープン・ウォーター (AOW)</option>
+            <option>PADI レスキュー・ダイバー / プロ資格</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Liability & Signature -->
+    <div class="form-content-area" id="stepView3" style="display: none;">
+      <div class="step-heading-group">
+        <span class="step-badge">STEP 03 / 04</span>
+        <h2 class="step-title">危険告知および免責同意書</h2>
+        <p class="step-desc">内容をご確認の上、枠内に指先またはタッチペンでご署名ください。</p>
+      </div>
+
+      <div class="question-card" style="font-size: 0.76rem; color: var(--slate-600); max-height: 120px; overflow-y: auto; background: var(--slate-50); line-height: 1.6;">
+        <strong>【スクーバダイビング・リスクの引受け及び免責声明】</strong><br>
+        私はスクーバダイビング及びスノーケリングが身体的危険を伴う活動であり、高気圧障害・減圧症・溺水等の固有のリスクが存在することを理解しています。私はインストラクターの指示に常時従い、飲酒後や健康不良時の潜水を一切行わないことを誓約します。
+      </div>
+
+      <div class="question-card">
+        <div class="question-title">署名欄（指でサインしてください）</div>
+        <div class="sig-canvas-container">
+          <canvas id="sigCanvas"></canvas>
+          <div class="sig-placeholder-text" id="sigPlaceholder">ここに指でサイン</div>
+          <button type="button" class="sig-clear-btn" onclick="clearSignature()">書き直す</button>
+        </div>
+        <div style="font-size: 0.72rem; color: var(--slate-400); text-align: center;">
+          電子署名法に準拠し、タイムスタンプおよび端末情報が記録されます
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Completion & Digital Ticket Pass -->
+    <div class="form-content-area" id="stepView4" style="display: none;">
+      <div class="pass-ticket-card">
+        <div style="font-size: 0.8rem; font-weight: 700; color: #7dd3fc; margin-bottom: 4px;">
+          MINATOWA DIGITAL BOARDING PASS
+        </div>
+        <h3 style="font-size: 1.3rem; font-weight: 800;">事前チェックイン完了 ✅</h3>
+        <p style="font-size: 0.75rem; color: #bae6fd; margin-top: 4px;">
+          書類適格・健康問診確認済 ｜ 乗船準備完了
+        </p>
+
+        <!-- QR Code SVG -->
+        <div class="qr-box">
+          <svg class="qr-svg" viewBox="0 0 100 100" fill="#0f172a">
+            <rect x="0" y="0" width="30" height="30"/>
+            <rect x="5" y="5" width="20" height="20" fill="white"/>
+            <rect x="10" y="10" width="10" height="10"/>
+            
+            <rect x="70" y="0" width="30" height="30"/>
+            <rect x="75" y="5" width="20" height="20" fill="white"/>
+            <rect x="80" y="10" width="10" height="10"/>
+
+            <rect x="0" y="70" width="30" height="30"/>
+            <rect x="5" y="75" width="20" height="20" fill="white"/>
+            <rect x="10" y="80" width="10" height="10"/>
+
+            <rect x="40" y="10" width="10" height="10"/>
+            <rect x="55" y="20" width="10" height="20"/>
+            <rect x="40" y="45" width="20" height="10"/>
+            <rect x="70" y="50" width="10" height="25"/>
+            <rect x="45" y="70" width="15" height="15"/>
+            <rect x="80" y="80" width="15" height="15"/>
+          </svg>
+        </div>
+
+        <div style="font-size: 0.85rem; font-weight: 800; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em;">
+          PASS-ID: #MTW-20260927-YMD
+        </div>
+        <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 2px;">
+          山田 太郎 様 (体験ダイビング / 美ら海丸 チームB)
+        </div>
+      </div>
+
+      <div class="question-card" style="line-height: 1.6;">
+        <h4 style="font-size: 0.9rem; font-weight: 800; color: var(--slate-900); margin-bottom: 8px;">
+          📍 当日の集合案内
+        </h4>
+        <div style="font-size: 0.8rem; color: var(--slate-700);">
+          ・集合場所: <strong>宜野湾港マリーナ 北側ゲート</strong><br>
+          ・集合時刻: <strong>07:45 (厳守 / 出航08:30)</strong><br>
+          ・当日の持ち物: 水着着用、着替え、タオル、ビーチサンダル、酔い止め薬
+        </div>
+        <button class="btn-file-upload" style="margin-top: 12px; width: 100%;" onclick="showToast('Googleマップのルート案内を開きます')">
+          🗺️ 宜野湾港マリーナの場所をマップで確認
+        </button>
+      </div>
+    </div>
+
+    <!-- Fixed Bottom Action Bar -->
+    <div class="bottom-action-bar" id="bottomBar">
+      <button class="btn-step-prev" id="btnPrev" onclick="prevStep()" style="display: none;">戻る</button>
+      <button class="btn-step-next" id="btnNext" onclick="nextStep()">
+        <span>次へ（器材サイズ入力）</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    <span id="toastMsg">通知メッセージ</span>
+  </div>
+
+  <script>
+    let currentStep = 1;
+    let hasDoctorCert = false;
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3500);
+    }
+
+    function toggleRadio(qKey, isYes) {
+      const lblNo = document.getElementById('lbl' + qKey + 'No');
+      const lblYes = document.getElementById('lbl' + qKey + 'Yes');
+
+      if (isYes) {
+        lblYes.className = 'radio-pill-label selected-yes';
+        lblNo.className = 'radio-pill-label';
+        if (qKey === 'Q1') {
+          document.getElementById('certBoxQ1').style.display = 'flex';
+          showToast('⚠️ 医師の診断・評価書（原本または写真）の提出が必要です');
+        }
+      } else {
+        lblNo.className = 'radio-pill-label selected-no';
+        lblYes.className = 'radio-pill-label';
+        if (qKey === 'Q1') {
+          document.getElementById('certBoxQ1').style.display = 'none';
+        }
+      }
+    }
+
+    function simulateUpload() {
+      hasDoctorCert = true;
+      document.getElementById('uploadBtnText').textContent = '✅ 医師診断書_2026.pdf (アップロード完了)';
+      document.getElementById('uploadBtnText').parentElement.style.borderColor = '#059669';
+      document.getElementById('uploadBtnText').parentElement.style.color = '#059669';
+      showToast('📄 医師の評価書をアップロードしました。店舗側管理台帳へ即時同期されます。');
+    }
+
+    function updateStepUI() {
+      for (let i = 1; i <= 4; i++) {
+        document.getElementById('stepView' + i).style.display = (i === currentStep ? 'block' : 'none');
+        const pill = document.getElementById('progPill' + i);
+        if (i < currentStep) {
+          pill.className = 'step-pill completed';
+        } else if (i === currentStep) {
+          pill.className = 'step-pill active';
+        } else {
+          pill.className = 'step-pill';
+        }
+      }
+
+      const btnPrev = document.getElementById('btnPrev');
+      const btnNext = document.getElementById('btnNext');
+      const bottomBar = document.getElementById('bottomBar');
+
+      if (currentStep === 1) {
+        btnPrev.style.display = 'none';
+        btnNext.innerHTML = '<span>次へ（器材サイズ入力）</span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>';
+      } else if (currentStep === 2) {
+        btnPrev.style.display = 'block';
+        btnNext.innerHTML = '<span>次へ（同意書・電子署名）</span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>';
+      } else if (currentStep === 3) {
+        btnPrev.style.display = 'block';
+        btnNext.innerHTML = '<span>署名を確定して完了</span> <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+        setTimeout(initCanvas, 100);
+      } else if (currentStep === 4) {
+        bottomBar.style.display = 'none';
+        showToast('🎉 事前チェックインが完了しました！');
+      }
+      window.scrollTo(0, 0);
+    }
+
+    function nextStep() {
+      if (currentStep < 4) {
+        currentStep++;
+        updateStepUI();
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        updateStepUI();
+      }
+    }
+
+    // Signature Canvas Logic
+    let canvas, ctx, isDrawing = false;
+
+    function initCanvas() {
+      canvas = document.getElementById('sigCanvas');
+      if (!canvas) return;
+      ctx = canvas.getContext('2d');
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = 140;
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.strokeStyle = '#0f172a';
+
+      // Touch events
+      canvas.addEventListener('touchstart', (e) => {
+        isDrawing = true;
+        document.getElementById('sigPlaceholder').style.display = 'none';
+        const rect = canvas.getBoundingClientRect();
+        const touch = e.touches[0];
+        ctx.beginPath();
+        ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+        e.preventDefault();
+      });
+
+      canvas.addEventListener('touchmove', (e) => {
+        if (!isDrawing) return;
+        const rect = canvas.getBoundingClientRect();
+        const touch = e.touches[0];
+        ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+        ctx.stroke();
+        e.preventDefault();
+      });
+
+      canvas.addEventListener('touchend', () => { isDrawing = false; });
+
+      // Mouse events
+      canvas.addEventListener('mousedown', (e) => {
+        isDrawing = true;
+        document.getElementById('sigPlaceholder').style.display = 'none';
+        const rect = canvas.getBoundingClientRect();
+        ctx.beginPath();
+        ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+      });
+
+      canvas.addEventListener('mousemove', (e) => {
+        if (!isDrawing) return;
+        const rect = canvas.getBoundingClientRect();
+        ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+        ctx.stroke();
+      });
+
+      canvas.addEventListener('mouseup', () => { isDrawing = false; });
+    }
+
+    function clearSignature() {
+      if (canvas && ctx) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        document.getElementById('sigPlaceholder').style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>

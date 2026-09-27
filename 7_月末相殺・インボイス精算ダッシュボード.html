@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【画面7】月末相殺・インボイス精算ダッシュボード | Minatowa</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-950: #070e1b;
+      --navy-900: #0a192f;
+      --navy-850: #0d213f;
+      --navy-800: #102a4e;
+      --navy-700: #173866;
+      --blue-600: #0284c7;
+      --blue-500: #0ea5e9;
+      --blue-100: #e0f2fe;
+      --blue-50: #f0f9ff;
+      --emerald-600: #059669;
+      --emerald-500: #10b981;
+      --emerald-100: #d1fae5;
+      --emerald-50: #ecfdf5;
+      --amber-600: #d97706;
+      --amber-500: #f59e0b;
+      --amber-100: #fef3c7;
+      --amber-50: #fffbeb;
+      --crimson-600: #dc2626;
+      --crimson-500: #ef4444;
+      --crimson-100: #fee2e2;
+      --crimson-50: #fef2f2;
+      --purple-600: #7c3aed;
+      --purple-500: #8b5cf6;
+      --purple-100: #ede9fe;
+      --purple-50: #f5f3ff;
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+      --white: #ffffff;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+      --shadow-md: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: #f1f5f9;
+      color: var(--slate-800);
+      line-height: 1.5;
+      padding-bottom: 90px;
+    }
+
+    /* Top Guidance Banner */
+    .role-guidance-banner {
+      background: linear-gradient(135deg, #0f2744, #1b3a5b);
+      color: white;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #0284c7;
+    }
+    .role-guidance-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .role-guidance-tag {
+      background: #0284c7;
+      color: #e0f2fe;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+    }
+    .role-guidance-text {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .role-guidance-desc {
+      font-size: 0.8rem;
+      color: #bae6fd;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: var(--navy-900);
+      color: var(--white);
+      height: 64px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-logo {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .brand-logo span { color: var(--blue-500); }
+    .port-badge {
+      background-color: var(--navy-700);
+      color: #93c5fd;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .nav-item {
+      color: var(--slate-300);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .nav-item:hover {
+      color: var(--white);
+      background-color: var(--navy-800);
+    }
+    .nav-item.active {
+      color: var(--white);
+      background-color: var(--blue-600);
+    }
+
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* Controls Bar */
+    .period-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .period-selector {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 6px 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-sm);
+    }
+    .period-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .period-status-tag {
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    /* Summary Grid */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .summary-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      padding: 16px 20px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .summary-card.highlight {
+      background: linear-gradient(135deg, #0a192f, #173866);
+      color: white;
+      border: none;
+      box-shadow: var(--shadow-md);
+    }
+    .card-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--slate-500);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .summary-card.highlight .card-label {
+      color: #93c5fd;
+    }
+    .card-amount {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      line-height: 1.1;
+    }
+    .summary-card.highlight .card-amount {
+      color: #38bdf8;
+    }
+    .card-subtext {
+      font-size: 0.75rem;
+      color: var(--slate-500);
+    }
+    .summary-card.highlight .card-subtext {
+      color: #cbd5e1;
+    }
+
+    /* Section Title Strip */
+    .section-title-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--slate-900);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Shop Cards List */
+    .shop-settle-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+    .shop-settle-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+      transition: all 0.2s;
+    }
+    .shop-settle-card:hover {
+      border-color: var(--slate-300);
+    }
+
+    .shop-card-header {
+      padding: 16px 20px;
+      background: #fafafa;
+      border-bottom: 1px solid var(--slate-200);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      cursor: pointer;
+    }
+    .shop-identity {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .shop-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--slate-900);
+    }
+    .shop-t-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--slate-500);
+      background: var(--slate-200);
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .net-diff-box {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .net-diff-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--slate-500);
+    }
+    .net-diff-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.35rem;
+      font-weight: 800;
+    }
+    .net-diff-val.positive { color: #0284c7; } /* 当社受取超過 */
+    .net-diff-val.negative { color: #dc2626; } /* 当社支払超過 */
+
+    .agreement-pill {
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .agreement-pill.complete {
+      background: #ecfdf5;
+      color: #059669;
+      border: 1px solid #a7f3d0;
+    }
+    .agreement-pill.pending {
+      background: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    /* Card Body Accordion */
+    .shop-card-body {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 340px;
+      gap: 24px;
+    }
+
+    .column-box {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .column-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--slate-800);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--slate-200);
+      padding-bottom: 8px;
+    }
+    .item-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.8rem;
+    }
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      color: var(--slate-700);
+      line-height: 1.4;
+    }
+    .item-row .desc {
+      display: flex;
+      flex-direction: column;
+    }
+    .item-row .tag-tax {
+      font-size: 0.65rem;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-weight: 700;
+    }
+    .tag-tax.taxable { background: #e0f2fe; color: #0369a1; }
+    .tag-tax.non-tax { background: #fef3c7; color: #92400e; }
+    .item-row .amount {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+    }
+
+    /* Action & Status Column */
+    .action-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      border-left: 1px solid var(--slate-200);
+      padding-left: 20px;
+    }
+    .mutual-status-box {
+      background: white;
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+    }
+    .status-badge {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+    }
+    .status-badge.ok { background: #d1fae5; color: #065f46; }
+    .status-badge.wait { background: #fef3c7; color: #92400e; }
+
+    .btn-action-primary {
+      background: var(--blue-600);
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .btn-action-primary:hover { background: #0369a1; }
+    .btn-action-outline {
+      background: white;
+      border: 1px solid var(--slate-300);
+      color: var(--slate-700);
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn-action-outline:hover {
+      background: var(--slate-50);
+      border-color: var(--blue-500);
+      color: var(--blue-600);
+    }
+
+    /* Tax Category Summary Card */
+    .tax-summary-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--slate-200);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+    .tax-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 14px;
+    }
+    .tax-box {
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      font-size: 0.85rem;
+    }
+    .tax-box-title {
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: var(--slate-600);
+      margin-bottom: 8px;
+    }
+    .tax-val-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      color: var(--slate-700);
+    }
+    .tax-val-row strong {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Modal / Slide-in Drawer */
+    .drawer-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: flex-end;
+      z-index: 120;
+    }
+    .drawer-backdrop.active { display: flex; }
+    .drawer-panel {
+      width: 600px;
+      max-width: 90%;
+      height: 100%;
+      background: white;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      animation: slideLeft 0.25s ease-out;
+    }
+    @keyframes slideLeft {
+      from { transform: translateX(100%); }
+      to { transform: translateX(0); }
+    }
+    .drawer-header {
+      padding: 20px 24px;
+      background: var(--navy-900);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .drawer-body {
+      padding: 24px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--slate-900);
+      color: white;
+      padding: 12px 20px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.85rem;
+      font-weight: 600;
+      z-index: 200;
+      display: none;
+      align-items: center;
+      gap: 10px;
+    }
+    .toast.show { display: flex; animation: fadeIn 0.2s ease-out; }
+    @keyframes fadeIn {
+      from { transform: translateY(10px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Guidance Banner -->
+  <aside class="role-guidance-banner">
+    <div class="role-guidance-left">
+      <span class="role-guidance-tag">店舗オーナー・経理担当者向け</span>
+      <div>
+        <div class="role-guidance-text">【画面7】月末相殺・インボイス精算ダッシュボード（月次ネッティング＆適格請求）</div>
+        <div class="role-guidance-desc">
+          💡 港内ショップ間で発生したボート乗船料・ガイド料・B2Bキャンセル料の現金を往復送金せず、自動相殺して差額のみを電子合意します。<br>
+          インボイス制度（10%課税対象 / キャンセル損害金不課税）に完全対応し、適格相殺明細書PDFと仕訳CSVを出力します。
+        </div>
+      </div>
+    </div>
+    <div style="font-size: 0.75rem; color: #bae6fd; text-align: right;">
+      当月末締め / 翌月末支払期日<br>二者間電子承認ロック機構搭載
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <a href="index.html" class="brand-logo" title="ポータルTOPへ">Mina<span>towa</span></a>
+      <div class="port-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a4 4 0 0 0-4 4c0 2 2 3 4 6 2-3 4-4 4-6a4 4 0 0 0-4-4z"/><circle cx="12" cy="18" r="4"/></svg>
+        宜野湾港 寄り合い協議会
+      </div>
+    </div>
+
+    <!-- Navigation between Screens -->
+    <nav class="nav-links">
+      <a href="1-A_運航デッキ・乗船チーム編成ボード.html" class="nav-item">画面1-A: 運航デッキ</a>
+      <a href="1-B_月間配船＆ゲスト手配ダッシュボード.html" class="nav-item">画面1-B: 月間手配</a>
+      <a href="1-C_マイスケジュール＆オファー受付ボード.html" class="nav-item">画面1-C: マイスケジュール</a>
+      <a href="2_港内シェア要請・公募ボード.html" class="nav-item">画面2: 港内シェア公募</a>
+      <a href="3_直前変更・二者間合意ロック管理.html" class="nav-item">画面3: 合意ロック</a>
+      <a href="4_予約カルテ・参加者書類提出台帳.html" class="nav-item">画面4: 予約台帳</a>
+      <a href="5_ボート運航ダイヤ＆段階的開放設定.html" class="nav-item">画面5: 運航ダイヤ・開放設定</a>
+      <a href="6_スタッフシフト＆フリーランス稼働管理.html" class="nav-item">画面6: スタッフ＆ガイド</a>
+      <a href="7_月末相殺・インボイス精算ダッシュボード.html" class="nav-item active">画面7: 月末相殺・精算</a>
+      <a href="8_港・寄り合いガバナンス設定.html" class="nav-item">画面8: 港ガバナンス</a>
+      <a href="9_ゲスト専用_事前チェックイン・Web問診.html" class="nav-item" target="_blank" style="color:#34d399; border:1px solid rgba(52,211,153,0.3);">📱画面9: ゲスト問診 ↗</a>
+    </nav>
+  </header>
+
+  <!-- Container -->
+  <main class="container">
+
+    <!-- Controls Bar -->
+    <div class="period-bar">
+      <div class="period-selector">
+        <button class="btn-action-outline" style="padding: 4px 8px;" onclick="showToast('前月(8月度)を表示')">◀ 8月度</button>
+        <div class="period-title">2026年 9月度 精算実績</div>
+        <button class="btn-action-outline" style="padding: 4px 8px;" onclick="showToast('翌月(10月度速報)を表示')">10月度 ▶</button>
+        <span class="period-status-tag">確定締め作業中 (期日: 10/05)</span>
+      </div>
+
+      <div style="display: flex; gap: 10px;">
+        <button class="btn-action-outline" onclick="exportCSV()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          会計ソフト連携CSV (freee/MF)
+        </button>
+        <button class="btn-action-primary" onclick="showToast('全合意済み店舗の適格請求書を一括PDF出力しました')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          当月インボイス一括印刷 (PDF)
+        </button>
+      </div>
+    </div>
+
+    <!-- Summary KPI Grid -->
+    <div class="summary-grid">
+      <div class="summary-card">
+        <span class="card-label">自社の提供実績 (売掛総額)</span>
+        <div class="card-amount" style="color: #0284c7;">¥680,000</div>
+        <span class="card-subtext">ボート受入 48席 / 助っ人派遣 6日 / 保全 2件</span>
+      </div>
+
+      <div class="summary-card">
+        <span class="card-label">自社の利用実績 (買掛総額)</span>
+        <div class="card-amount" style="color: #dc2626;">¥420,000</div>
+        <span class="card-subtext">他社船利用 32席 / 応援受入 3日</span>
+      </div>
+
+      <div class="summary-card highlight">
+        <span class="card-label">当月相殺ネッティング純差額</span>
+        <div class="card-amount">＋¥260,000</div>
+        <span class="card-subtext">当社純受取超過（翌月末振込期日）</span>
+      </div>
+
+      <div class="summary-card">
+        <span class="card-label">港内店舗 電子合意進捗</span>
+        <div class="card-amount" style="color: #059669;" id="statAgreement">3 / 4 <span style="font-size: 1rem; color: var(--slate-500);">店舗</span></div>
+        <span class="card-subtext" id="statAgreementSub">サンライズダイブ様のみ承認待ち</span>
+      </div>
+    </div>
+
+    <!-- Shop Cards List -->
+    <section>
+      <div class="section-title-strip">
+        <div class="section-title">
+          <span>🏢 ショップ別 相殺内訳 ＆ 電子合意ステータス</span>
+          <span style="font-size: 0.75rem; background: var(--slate-200); padding: 2px 8px; border-radius: 9999px; font-weight: 700;">4店舗取引</span>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--slate-500);">
+          💡 双方の「承認」が揃うと金額がロックされ、適格請求書が確定します
+        </div>
+      </div>
+
+      <div class="shop-settle-list">
+
+        <!-- Shop 1: Sunrise Dive (Pending Partner Approval) -->
+        <article class="shop-settle-card" id="cardShop1">
+          <div class="shop-card-header" onclick="toggleDetails(1)">
+            <div class="shop-identity">
+              <div class="shop-name">サンライズダイブ 様</div>
+              <span class="shop-t-num">T1234567890123</span>
+              <span style="font-size: 0.75rem; color: var(--slate-500);">代表: 佐藤 隆 様</span>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 20px;">
+              <div class="net-diff-box">
+                <span class="net-diff-label">相殺純差額:</span>
+                <span class="net-diff-val positive">＋¥106,000</span>
+                <span style="font-size: 0.72rem; color: #0284c7; font-weight: 700;">(受取)</span>
+              </div>
+
+              <div class="agreement-pill pending" id="pillShop1">
+                <span style="width: 6px; height: 6px; border-radius: 50%; background: #d97706;"></span>
+                <span>⏳ 相手の承認待ち</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="shop-card-body" id="bodyShop1">
+            <!-- Col 1: Our Service (Receivable) -->
+            <div class="column-box">
+              <div class="column-title">
+                <span>当社からの提供 (売掛)</span>
+                <strong style="color: #0284c7;">¥146,000 (14件)</strong>
+              </div>
+              <ul class="item-list">
+                <li class="item-row">
+                  <div class="desc">
+                    <span>美ら海丸 乗船受入 (12名)</span>
+                    <span style="font-size: 0.7rem; color: var(--slate-400);">9/12, 9/18, 9/20 計4便</span>
+                  </div>
+                  <div>
+                    <span class="tag-tax taxable">10%対象</span>
+                    <span class="amount">¥120,000</span>
+                  </div>
+                </li>
+                <li class="item-row">
+                  <div class="desc">
+                    <span>B2B直前キャンセル保全 (2名)</span>
+                    <span style="font-size: 0.7rem; color: #dc2626;">9/25 前日午後取消 (画面3ロック済)</span>
+                  </div>
+                  <div>
+                    <span class="tag-tax non-tax" title="国税庁通達5-2-5: 役務提供を伴わない違約損害金のため消費税対象外(不課税)">不課税 ⓘ</span>
+                    <span class="amount">¥26,000</span>
+                  </div>
+                </li>
+              </ul>
+              <div style="font-size: 0.72rem; color: var(--slate-500); text-align: right;">
+                消費税額(10%): ¥10,909 込
+              </div>
+            </div>
+
+            <!-- Col 2: Their Service (Payable) -->
+            <div class="column-box">
+              <div class="column-title">
+                <span>当社への提供 (買掛)</span>
+                <strong style="color: #dc2626;">¥40,000 (4件)</strong>
+              </div>
+              <ul class="item-list">
+                <li class="item-row">
+                  <div class="desc">
+                    <span>サンライズ号 乗船利用 (4名)</span>
+                    <span style="font-size: 0.7rem; color: var(--slate-400);">9/15 近海ボート便</span>
+                  </div>
+                  <div>
+                    <span class="tag-tax taxable">10%対象</span>
+                    <span class="amount">¥40,000</span>
+                  </div>
+                </li>
+              </ul>
+              <div style="font-size: 0.72rem; color: var(--slate-500); text-align: right;">
+                消費税額(10%): ¥3,636 込
+              </div>
+            </div>
+
+            <!-- Col 3: Mutual Signoff & Action -->
+            <div class="action-col">
+              <div class="mutual-status-box">
+                <div style="font-size: 0.75rem; font-weight: 800; color: var(--slate-600); border-bottom: 1px solid var(--slate-200); padding-bottom: 4px;">
+                  二者間電子承認ステータス
+                </div>
+                <div class="status-row">
+                  <span>北谷マリン (当社):</span>
+                  <span class="status-badge ok">✅ 承認済 (10/01)</span>
+                </div>
+                <div class="status-row">
+                  <span>サンライズダイブ 様:</span>
+                  <span class="status-badge wait" id="partnerBadge1">⏳ 未確認 (送信済)</span>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <button class="btn-action-primary" id="btnRemind1" onclick="sendRemind(1)">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <span>相手方へ承認催促 (LINE/SMS)</span>
+                </button>
+                <button class="btn-action-outline" onclick="openDetailDrawer('サンライズダイブ 様', 146000, 40000, 106000)">
+                  <span>🔍 個別取引明細を展開 (18件)</span>
+                </button>
+                <button class="btn-action-outline" onclick="downloadInvoicePDF('サンライズダイブ 様')">
+                  <span>📄 適格相殺明細書PDF</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Shop 2: Marine Support (Agreed - We Pay) -->
+        <article class="shop-settle-card" id="cardShop2">
+          <div class="shop-card-header" onclick="toggleDetails(2)">
+            <div class="shop-identity">
+              <div class="shop-name">マリンサポート 様</div>
+              <span class="shop-t-num">T9876543210987</span>
+              <span style="font-size: 0.75rem; color: var(--slate-500);">代表: 金城 氏</span>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 20px;">
+              <div class="net-diff-box">
+                <span class="net-diff-label">相殺純差額:</span>
+                <span class="net-diff-val negative">－¥35,000</span>
+                <span style="font-size: 0.72rem; color: #dc2626; font-weight: 700;">(支払超過)</span>
+              </div>
+
+              <div class="agreement-pill complete">
+                <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981;"></span>
+                <span>✅ 双方合意完了・確定</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="shop-card-body" id="bodyShop2">
+            <div class="column-box">
+              <div class="column-title">
+                <span>当社からの提供 (売掛)</span>
+                <strong style="color: #0284c7;">¥45,000 (3件)</strong>
+              </div>
+              <ul class="item-list">
+                <li class="item-row">
+                  <span>ボート乗船受入 (3名)</span>
+                  <span class="amount">¥30,000</span>
+                </li>
+                <li class="item-row">
+                  <span>レンタル器材卸 (2セット)</span>
+                  <span class="amount">¥15,000</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="column-box">
+              <div class="column-title">
+                <span>当社への提供 (買掛)</span>
+                <strong style="color: #dc2626;">¥80,000 (8件)</strong>
+              </div>
+              <ul class="item-list">
+                <li class="item-row">
+                  <span>誠海丸 乗船利用 (8名)</span>
+                  <span class="amount">¥80,000</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="action-col">
+              <div class="mutual-status-box" style="background: #f0fdf4; border-color: #bbf7d0;">
+                <div style="font-size: 0.75rem; font-weight: 800; color: #166534;">
+                  振込先口座情報（電子合意によりロック開示済）
+                </div>
+                <div style="font-size: 0.78rem; color: #14532d; line-height: 1.5;">
+                  琉球銀行 宜野湾支店<br>
+                  普通 1234567<br>
+                  マリンサポート(カ<br>
+                  <strong>振込期日: 2026年10月31日</strong>
+                </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <button class="btn-action-primary" style="background: #059669;" onclick="showToast('振込完了報告を相手方へ通知しました')">
+                  <span>💳 振込完了を報告する</span>
+                </button>
+                <button class="btn-action-outline" onclick="downloadInvoicePDF('マリンサポート 様')">
+                  <span>📄 適格請求書PDF</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Shop 3: Naha Marine (Agreed - We Receive) -->
+        <article class="shop-settle-card" id="cardShop3">
+          <div class="shop-card-header" onclick="toggleDetails(3)">
+            <div class="shop-identity">
+              <div class="shop-name">那覇マリン 様</div>
+              <span class="shop-t-num">T5678901234567</span>
+              <span style="font-size: 0.75rem; color: var(--slate-500);">代表: 比嘉 氏</span>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 20px;">
+              <div class="net-diff-box">
+                <span class="net-diff-label">相殺純差額:</span>
+                <span class="net-diff-val positive">＋¥189,000</span>
+                <span style="font-size: 0.72rem; color: #0284c7; font-weight: 700;">(受取)</span>
+              </div>
+
+              <div class="agreement-pill complete">
+                <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981;"></span>
+                <span>✅ 双方合意完了・確定</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="shop-card-body" id="bodyShop3">
+            <div class="column-box">
+              <div class="column-title">
+                <span>当社からの提供 (売掛)</span>
+                <strong style="color: #0284c7;">¥289,000</strong>
+              </div>
+              <ul class="item-list">
+                <li class="item-row">
+                  <span>ボート乗船受入 (28名)</span>
+                  <span class="amount">¥238,000</span>
+                </li>
+                <li class="item-row">
+                  <span>助っ人イントラ派遣 (仲宗根 / 4回)</span>
+                  <span class="amount">¥51,000</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="column-box">
+              <div class="column-title">
+                <span>当社への提供 (買掛)</span>
+                <strong style="color: #dc2626;">¥100,000</strong>
+              </div>
+              <ul class="item-list">
+                <li class="item-row">
+                  <span>那覇発着ボート席利用 (10名)</span>
+                  <span class="amount">¥100,000</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="action-col">
+              <div class="mutual-status-box">
+                <div style="font-size: 0.78rem; color: var(--slate-700);">
+                  先方より「10/25に振込予定」とのメモあり。<br>
+                  <span style="color: #059669; font-weight: 700;">入金待機中</span>
+                </div>
+              </div>
+              <button class="btn-action-outline" onclick="downloadInvoicePDF('那覇マリン 様')">
+                <span>📄 適格相殺明細書PDF</span>
+              </button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Tax Category Summary Table -->
+    <section class="tax-summary-card">
+      <div class="section-title">
+        <span>📑 インボイス法定税率区分 集計表 (当社売掛分)</span>
+      </div>
+      <div class="tax-grid">
+        <div class="tax-box">
+          <div class="tax-box-title">10% 標準税率対象 (乗船料・ガイド料)</div>
+          <div class="tax-val-row">
+            <span>税抜金額:</span>
+            <strong>¥618,182</strong>
+          </div>
+          <div class="tax-val-row">
+            <span>消費税額 (10%):</span>
+            <strong style="color: #0284c7;">¥61,818</strong>
+          </div>
+          <div class="tax-val-row" style="border-top: 1px solid var(--slate-200); padding-top: 4px; margin-top: 4px;">
+            <span>税込合計:</span>
+            <strong>¥680,000</strong>
+          </div>
+        </div>
+
+        <div class="tax-box">
+          <div class="tax-box-title">不課税対象 (直前キャンセル違約保全金)</div>
+          <div class="tax-val-row">
+            <span>損害補償金額:</span>
+            <strong>¥26,000</strong>
+          </div>
+          <div class="tax-val-row">
+            <span>消費税額:</span>
+            <strong style="color: var(--slate-400);">¥0 (対象外)</strong>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--slate-500); margin-top: 6px;">
+            ※ 役務提供を伴わない違約損害金のため消費税法上不課税
+          </div>
+        </div>
+
+        <div class="tax-box" style="background: #f8fafc; border: 1.5px solid var(--slate-300);">
+          <div class="tax-box-title" style="color: var(--slate-900);">売掛金 総合計</div>
+          <div class="tax-val-row" style="font-size: 1.1rem; margin-top: 10px;">
+            <span>請求総額:</span>
+            <strong style="color: #0284c7;">¥706,000</strong>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--slate-500); margin-top: 6px;">
+            適格請求書発行事業者番号: T9876543210123
+          </div>
+        </div>
+      </div>
+
+      <!-- Legal & Tax Notice Box -->
+      <div style="margin-top: 16px; background: #f0f9ff; border: 1px solid #bae6fd; border-radius: var(--radius-sm); padding: 14px; font-size: 0.78rem; line-height: 1.6; color: #0369a1;">
+        <div style="font-weight: 800; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; color: #0284c7;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          💡 税務上の解説：なぜ「直前キャンセル料」は消費税がかからない（不課税）のか？
+        </div>
+        <div>
+          国税庁の「消費税法基本通達5-2-5（損害賠償金等）」に基づき、消費税は<strong>「資産の譲渡や役務（サービス）の提供の対価」</strong>にのみ課税されます。<br>
+          Minatowaの直前キャンセル料は、乗船サービスが行われず空席となったことによる<strong>「逸失利益の穴埋め・損害賠償金（ペナルティ）」</strong>の性質を持つため、<strong>不課税（消費税対象外）</strong>として適格請求書上でも課税売上から厳密に除外されます。<br>
+          ※ 一方で「解約に伴う事務手数料」のように実質的な事務手続きの対価とされるものは課税(10%)対象となります。Minatowaでは税務調査での否認リスクを避けるため、違約損害金と役務対価を明確に分離してインボイス出力します。
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Slide-in Drawer: Transaction Itemized Details -->
+  <div class="drawer-backdrop" id="detailDrawer">
+    <div class="drawer-panel">
+      <div class="drawer-header">
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 800;" id="drawerShopName">サンライズダイブ 様</h3>
+          <span style="font-size: 0.75rem; color: #bae6fd;">2026年9月度 全取引突合リスト (18件)</span>
+        </div>
+        <button onclick="closeDrawer()" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.3rem;">✕</button>
+      </div>
+
+      <div class="drawer-body">
+        <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: var(--radius-sm); padding: 12px; margin-bottom: 16px; font-size: 0.82rem;">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+            <span>当社売掛 (提供):</span>
+            <strong id="drawerReceivable">¥146,000</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+            <span>当社買掛 (利用):</span>
+            <strong id="drawerPayable">¥40,000</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; border-top: 1px solid var(--slate-200); padding-top: 6px; font-weight: 800; color: #0284c7;">
+            <span>相殺純差額:</span>
+            <span id="drawerNetDiff">＋¥106,000</span>
+          </div>
+        </div>
+
+        <h4 style="font-size: 0.85rem; font-weight: 800; margin-bottom: 8px; color: var(--slate-800);">取引ログ一覧</h4>
+        <div style="display: flex; flex-direction: column; gap: 8px;" id="drawerTxList">
+          <div style="border: 1px solid var(--slate-200); border-radius: var(--radius-sm); padding: 10px; font-size: 0.78rem;">
+            <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 2px;">
+              <span>9/25 美ら海丸 午後便 (キャンセル保全)</span>
+              <span style="color: #dc2626;">¥26,000 (不課税)</span>
+            </div>
+            <div style="color: var(--slate-500); font-size: 0.72rem;">
+              ゲスト: 佐藤 隆 様ほか1名 ｜ 前日15:00キャンセル (合意ロックID: #LK-9921)
+            </div>
+          </div>
+          <div style="border: 1px solid var(--slate-200); border-radius: var(--radius-sm); padding: 10px; font-size: 0.78rem;">
+            <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 2px;">
+              <span>9/20 美ら海丸 午前ケラマ便</span>
+              <span style="color: #0284c7;">¥40,000 (10%込)</span>
+            </div>
+            <div style="color: var(--slate-500); font-size: 0.72rem;">
+              ゲスト: 4名乗船受入 (乗船料 @¥10,000)
+            </div>
+          </div>
+          <div style="border: 1px solid var(--slate-200); border-radius: var(--radius-sm); padding: 10px; font-size: 0.78rem;">
+            <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 2px;">
+              <span>9/18 美ら海丸 午前ケラマ便</span>
+              <span style="color: #0284c7;">¥40,000 (10%込)</span>
+            </div>
+            <div style="color: var(--slate-500); font-size: 0.72rem;">
+              ゲスト: 4名乗船受入
+            </div>
+          </div>
+          <div style="border: 1px solid var(--slate-200); border-radius: var(--radius-sm); padding: 10px; font-size: 0.78rem;">
+            <div style="display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 2px;">
+              <span>9/15 サンライズ号 近海便</span>
+              <span style="color: #64748b;">-¥40,000 (買掛)</span>
+            </div>
+            <div style="color: var(--slate-500); font-size: 0.72rem;">
+              当社ゲスト4名利用
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    <span id="toastMsg">通知メッセージ</span>
+  </div>
+
+  <script>
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3500);
+    }
+
+    function toggleDetails(shopId) {
+      const body = document.getElementById('bodyShop' + shopId);
+      if (body.style.display === 'none') {
+        body.style.display = 'grid';
+      } else {
+        body.style.display = 'none';
+      }
+    }
+
+    function sendRemind(shopId) {
+      if (shopId === 1) {
+        showToast('📱 サンライズダイブ (佐藤様) 宛に承認リマインドSMSを送信しました');
+        setTimeout(() => {
+          // Simulate partner instant approval
+          const pill = document.getElementById('pillShop1');
+          const badge = document.getElementById('partnerBadge1');
+          const stat = document.getElementById('statAgreement');
+          const statSub = document.getElementById('statAgreementSub');
+          const btn = document.getElementById('btnRemind1');
+
+          pill.className = 'agreement-pill complete';
+          pill.innerHTML = `
+            <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981;"></span>
+            <span>✅ 双方合意完了・確定</span>
+          `;
+          badge.className = 'status-badge ok';
+          badge.textContent = '✅ 承認済 (たった今)';
+
+          stat.innerHTML = '4 / 4 <span style="font-size: 1rem; color: var(--slate-500);">店舗</span>';
+          statSub.textContent = '🎉 港内全店舗との合意が完了しました！';
+
+          btn.style.display = 'none';
+          showToast('🎉 サンライズダイブ様がオンライン承認を完了しました！相殺金額が確定ロックされました。');
+        }, 2000);
+      }
+    }
+
+    function openDetailDrawer(shopName, rec, pay, net) {
+      document.getElementById('drawerShopName').textContent = shopName;
+      document.getElementById('drawerReceivable').textContent = '¥' + rec.toLocaleString();
+      document.getElementById('drawerPayable').textContent = '¥' + pay.toLocaleString();
+      document.getElementById('drawerNetDiff').textContent = (net >= 0 ? '＋' : '－') + '¥' + Math.abs(net).toLocaleString();
+      document.getElementById('detailDrawer').classList.add('active');
+    }
+
+    function closeDrawer() {
+      document.getElementById('detailDrawer').classList.remove('active');
+    }
+
+    function downloadInvoicePDF(shopName) {
+      showToast('📄 ' + shopName + ' との【適格相殺明細書兼インボイス (PDF)】をダウンロードしました');
+    }
+
+    function exportCSV() {
+      showToast('🖨️ 9月度相殺仕訳CSV（freee・マネーフォワード形式）をエクスポートしました');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minatowa（ミナトワ）UIプロトタイプ・全画面ポータル</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --navy-950: #050d1a;
+      --navy-900: #0a192f;
+      --navy-800: #112240;
+      --navy-700: #1d3356;
+      --navy-600: #2a4773;
+      --blue-500: #0ea5e9;
+      --blue-600: #0284c7;
+      --emerald-400: #34d399;
+      --emerald-500: #10b981;
+      --amber-400: #fbbf24;
+      --coral-500: #f43f5e;
+      --purple-400: #c084fc;
+      --slate-100: #f1f5f9;
+      --slate-300: #cbd5e1;
+      --slate-400: #94a3b8;
+      --white: #ffffff;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --radius-sm: 6px;
+      --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 15px -3px rgba(14, 165, 233, 0.15);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--navy-950);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(52, 211, 153, 0.1) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(2, 132, 199, 0.08) 0px, transparent 60%);
+      color: var(--slate-100);
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+
+    /* Top Navbar */
+    .portal-header {
+      background-color: rgba(10, 25, 47, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+      padding: 18px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .portal-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .brand-title span { color: var(--blue-500); }
+    .portal-tag {
+      background: rgba(14, 165, 233, 0.15);
+      color: var(--blue-500);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      border: 1px solid rgba(14, 165, 233, 0.3);
+    }
+    .doc-link {
+      color: var(--slate-300);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--navy-800);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.2s;
+    }
+    .doc-link:hover {
+      color: var(--white);
+      background: var(--navy-700);
+      border-color: var(--blue-500);
+    }
+
+    /* Hero Section */
+    .hero {
+      max-width: 1280px;
+      margin: 40px auto 30px;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(2, 132, 199, 0.2), rgba(16, 185, 129, 0.2));
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: #7dd3fc;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #ffffff 40%, #bae6fd 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 1rem;
+      color: var(--slate-400);
+      max-width: 800px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+
+    /* System Stats Strip */
+    .stats-strip {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .stat-pill {
+      background: rgba(17, 34, 64, 0.7);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+      border-radius: var(--radius-md);
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+    }
+    .stat-pill strong {
+      color: var(--blue-500);
+      font-size: 1.1rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Category Group */
+    .group-section {
+      margin-bottom: 44px;
+    }
+    .group-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .group-icon {
+      font-size: 1.4rem;
+    }
+    .group-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .group-desc {
+      font-size: 0.85rem;
+      color: var(--slate-400);
+    }
+
+    /* Screen Grid */
+    .screen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+      gap: 20px;
+    }
+
+    /* Screen Card */
+    .screen-card {
+      background: var(--navy-800);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      text-decoration: none;
+      color: inherit;
+    }
+    .screen-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--blue-500);
+      background: var(--navy-700);
+      box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.5), 0 0 20px 0 rgba(14, 165, 233, 0.3);
+    }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    .screen-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.05em;
+    }
+    .badge-deck { background: rgba(14, 165, 233, 0.2); color: #38bdf8; border: 1px solid rgba(14, 165, 233, 0.4); }
+    .badge-dispatch { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.4); }
+    .badge-freelance { background: rgba(20, 184, 166, 0.2); color: #5eead4; border: 1px solid rgba(20, 184, 166, 0.4); }
+    .badge-market { background: rgba(245, 158, 11, 0.2); color: #fde047; border: 1px solid rgba(245, 158, 11, 0.4); }
+    .badge-lock { background: rgba(239, 68, 68, 0.2); color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.4); }
+    .badge-safety { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-settle { background: rgba(168, 85, 247, 0.2); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.4); }
+    .badge-guest { background: rgba(132, 204, 22, 0.2); color: #bef264; border: 1px solid rgba(132, 204, 22, 0.4); }
+
+    .role-badge {
+      font-size: 0.75rem;
+      color: var(--slate-400);
+      background: rgba(255,255,255,0.05);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--slate-300);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .feature-list {
+      list-style: none;
+      font-size: 0.78rem;
+      color: var(--slate-400);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .feature-list li::before {
+      content: "✓";
+      color: var(--emerald-400);
+      font-weight: 800;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 0.8rem;
+    }
+    .btn-launch {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--blue-500);
+      font-weight: 700;
+      transition: gap 0.2s;
+    }
+    .screen-card:hover .btn-launch {
+      gap: 10px;
+      color: var(--white);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--slate-400);
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="portal-header">
+    <div class="portal-brand">
+      <div class="brand-title">MINA<span>TOWA</span></div>
+      <span class="portal-tag">宜野湾港寄り合い協調基盤 UIプロトタイプ Suite</span>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <a href="manual.html" class="doc-link" style="background: #0284c7; color: #fff; border-color: #38bdf8;">
+        📗 ショップ様向け操作説明書 ↗
+      </a>
+      <a href="https://github.com/eventargs/minatowa-sample" class="doc-link" target="_blank">
+        📦 GitHub ↗
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">🌊 全9画面＋サブビュー＋共通ドロワー 完全実装済み</div>
+    <h1>Minatowa UI プロトタイプポータル</h1>
+    <p>
+      宜野湾港マリーナを中心とするダイビング事業者間の相互扶助（ボート相乗り・ガイド応援・急病レスキュー・月末相殺精算）を滑らかに連携させる協調プラットフォームの画面プロトタイプです。
+    </p>
+
+    <!-- Stats Strip -->
+    <div class="stats-strip">
+      <div class="stat-pill">
+        <span>全画面数:</span>
+        <strong>11 モック</strong>
+      </div>
+      <div class="stat-pill">
+        <span>業界業務適合:</span>
+        <strong>WRSTC最新様式 / 国税庁通達5-2-5準拠</strong>
+      </div>
+      <div class="stat-pill">
+        <span>港内ルール:</span>
+        <strong>前日12:00公募 / 18:00確定電磁ロック</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- Group 1: 立場別メイン画面（業務の起点） -->
+    <section class="group-section">
+      <div class="group-header">
+        <span class="group-icon">🧭</span>
+        <div>
+          <h2 class="group-title">1. 立場別メインダッシュボード（現場の起点）</h2>
+          <span class="group-desc">ボート所有店、非所有店、個人フリーランスそれぞれの視点に応じた毎日のメイン業務画面</span>
+        </div>
+      </div>
+
+      <div class="screen-grid">
+
+        <!-- 1-A -->
+        <a href="1-A_運航デッキ・乗船チーム編成ボード.html" class="screen-card">
+          <div>
+            <div class="card-top">
+              <span class="screen-num badge-deck">画面 1-A</span>
+              <span class="role-badge">ボート所有店・船長</span>
+            </div>
+            <h3 class="card-title">運航デッキ・乗船チーム編成ボード</h3>
+            <p class="card-desc">自社船の乗船定員と引率安全比率（1:4 / 1:2）をリアルタイムに同時監視し、当日の安全運航を保証する司令塔画面。</p>
+            <ul class="feature-list">
+              <li>ドラッグ＆ドロップによる座席・チーム編成</li>
+              <li>安全比率（体験1:2、ファン1:4）即時オーバー検知</li>
+              <li>海上保安庁・港湾局提出用名簿のワンクリックPDF/CSV印刷</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <span style="color:var(--slate-400);">毎朝出航前・夕方段取り時</span>
+            <span class="btn-launch">画面を開く ➔</span>
+          </div>
+        </a>
+
+        <!-- 1-B -->
+        <a href="1-B_月間配船＆ゲスト手配ダッシュボード.html" class="screen-card">
+          <div>
+            <div class="card-top">
+              <span class="screen-num badge-dispatch">画面 1-B</span>
+              <span class="role-badge">ボート非所有店・都市型店</span>
+            </div>
+            <h3 class="card-title">月間配船＆ゲスト手配ダッシュボード</h3>
+            <p class="card-desc">自社ボートを持たないショップが、月間の空きボート先行確保から日々の送迎・器材段取りまでを1画面で完結。</p>
+            <ul class="feature-list">
+              <li>上段月間カレンダー（自社客数 vs 確保席、不足日赤字警告）</li>
+              <li>下段手配デッキ（空きボート確保、送迎車配分、書類確認）</li>
+              <li>不足日からの1クリック港内公募ジャンプ</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <span style="color:var(--slate-400);">数ヶ月前〜日々の予約手配</span>
+            <span class="btn-launch">画面を開く ➔</span>
+          </div>
+        </a>
+
+        <!-- 1-C -->
+        <a href="1-C_マイスケジュール＆オファー受付ボード.html" class="screen-card">
+          <div>
+            <div class="card-top">
+              <span class="screen-num badge-freelance">画面 1-C</span>
+              <span class="role-badge">個人フリーランス・外部ガイド</span>
+            </div>
+            <h3 class="card-title">マイスケジュール＆オファー受付</h3>
+            <p class="card-desc">個人フリーランスがスマホ片手に明日の現場（集合時間・船名・日当）確認やショップからの応援オファーを承諾。</p>
+            <ul class="feature-list">
+              <li>スマホ最適化UI（明日の現場カード、集合場所地図連携）</li>
+              <li>応援オファーのワンタップ承諾／辞退（日当・条件確認）</li>
+              <li>空き日の能動的エントリー（「この日働けます」）</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <span style="color:var(--slate-400);">毎日（スマホ片手）</span>
+            <span class="btn-launch">画面を開く ➔</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Group 2: 港内BtoBマッチング＆契約保全 -->
+    <section class="group-section">
+      <div class="group-header">
+        <span class="group-icon">🤝</span>
+        <div>
+          <h2 class="group-title">2. 港内協調シェア＆直前契約保全</h2>
+          <span class="group-desc">席・ガイド・丸投げの相互融通と、前日締切後の言った言わないを防ぐ電磁ロック</span>
+        </div>
+      </div>
+
+      <div class="screen-grid">
+
+        <!-- 2 -->
+        <a href="2_港内シェア要請・公募ボード.html" class="screen-card">
+          <div>
+            <div class="card-top">
+              <span class="screen-num badge-market">画面 2</span>
+              <span class="role-badge">全ショップ・船長・ガイド</span>
+            </div>
+            <h3 class="card-title">港内シェア要請・公募ボード</h3>
+            <p class="card-desc">「席のみ」「ガイド応援」「丸投げ」の3形態を、早期手配から前日直前・当日緊急レスキューまで通年マッチング。</p>
+            <ul class="feature-list">
+              <li>ライフサイクル段階別タブ（早期手配 / 直前調整 / 当日緊急）</li>
+              <li>日付送り・カレンダー連動・スマート空き状況フィルター</li>
+              <li>1クリック応募・承認シミュレーション</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <span style="color:var(--slate-400);">数ヶ月前〜当日緊急時まで通年</span>
+            <span class="btn-launch">画面を開く ➔</span>
+          </div>
+        </a>
+
+        <!-- 3 -->
+        <a href="3_直前変更・二者間合意ロック管理.html" class="screen-card">
+          <div>
+            <div class="card-top">
+              <span class="screen-num badge-lock">画面 3</span>
+              <span class="role-badge">二者間担当者・船長</span>
+            </div>
+            <h3 class="card-title">直前変更・二者間合意ロック管理</h3>
+            <p class="card-desc">前日18:00確定ロック後の急な減員・海況悪化中止において、港共通キャンセル規定と電磁合意でトラブルを防止。</p>
+            <ul class="feature-list">
+              <li>18:00合意ロックカウントダウンタイマー</li>
+              <li>海況悪化シミュレーション（天災免責0円判定）</li>
+              <li>国税庁通達5-2-5準拠の不課税損害賠償自動算定＆電子署名</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <span style="color:var(--slate-400);">締め切り後の変更・キャンセル時</span>
+            <span class="btn-launch">画面を開く ➔</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Group 3: 予約・安全・カルテ管理 -->
+    <section class="group-section">
+      <div class="group-header">
+        <span class="group-icon">🤿</span>
+        <div>
+          <h2 class="group-title">3. 予約・安全・ゲストメディカルカルテ</h2>
+          <span class="group-desc">命を預かる海だからこそ、WRSTC問診・診断書・自社保証枠・スマホ事前チェックインを徹底</span>
+        </div>
+      </div>
+
+      <div class="screen-grid">
+
+        <!-- 4 -->
+        <a href="4_予約カルテ・参加者書類提出台帳.html" class="screen-card">
+          <div>
+            <div class="card-top">
+              <span class="screen-num badge-safety">画面 4</span>
+              <span class="role-badge">店舗スタッフ・予約担当</span>
+            </div>
+            <h3 class="card-title">予約カルテ・参加者書類提出台帳</h3>
+            <p class="card-desc">代表者予約と参加者全員のCカード・器材サイズ・WRSTC問診回答・医師診断書原本を網羅管理。</p>
+            <ul class="feature-list">
+              <li>書類提出ステータス（提出済・未提出・要診断書・自社保証）</li>
+              <li>【共通ドロワー4-D】右スライド個別カルテ（引き抜き防止マスキング）</li>
+              <li>ショップ自社保証枠バイパス（受託側の責任免責担保）</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <span style="color:var(--slate-400);">日常の予約受付・出航前確認</span>
+            <span class="btn-launch">画面を開く ➔</span>
+          </div>
+        </a>
+
+        <!-- 9 -->
+        <a href="9_ゲスト専用_事前チェックイン・Web問診.html" class="screen-card">
+          <div>
+            <div class="card-top">
+              <span class="screen-num badge-guest">画面 9</span>
+              <span class="role-badge">一般観光客ダイバー（スマホ専用）</span>
+            </div>
+            <h3 class="card-title">【ゲスト専用】事前チェックイン・Web問診</h3>
+            <p class="card-desc">観光客が来沖前の自宅やホテルからスマホで入力する専用画面（ログイン・アプリ不要のトークンURL）。</p>
+            <ul class="feature-list">
+              <li>最新WRSTCダイバーメディカル問診（喘息等Yes時の診断書UP）</li>
+              <li>レンタル器材サイズ（身長・体重・足・度付きマスク有無）</li>
+              <li>タッチ・マウス手書き署名Canvas＆集合場所Google Map QR搭乗券</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <span style="color:var(--slate-400);">乗船数日前〜前日</span>
+            <span class="btn-launch">画面を開く ➔</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Group 4: リソース供給設定 -->
+    <section class="group-section">
+      <div class="group-header">
+        <span class="group-icon">⚙️</span>
+        <div>
+          <h2 class="group-title">4. リソース供給設定（配船ダイヤ＆シフト）</h2>
+          <span class="group-desc">ボートの段階的座席開放（イールドマネジメント）と、自社スタッフのシフト・相互扶助公開</span>
+        </div>
+      </div>
+
+      <div class="screen-grid">
+
+        <!-- 5 -->
+        <a href="5_ボート運航ダイヤ＆段階的開放設定.html" class="screen-card">
+          <div>
+            <div class="card-top">
+              <span class="screen-num badge-deck">画面 5</span>
+              <span class="role-badge">船長・ボート所有店</span>
+            </div>
+            <h3 class="card-title">ボート運航ダイヤ＆段階的開放設定</h3>
+            <p class="card-desc">自社船の運航便（ケラマ/万座等）と、30日前キープ・14日前港内先行・直前開放の自動イールドマネジメント。</p>
+            <ul class="feature-list">
+              <li>4段階の座席配分スタックバー（自社・港内・一般・直前）</li>
+              <li>スライダーによる枠調整と「港内公募へ即時反映」</li>
+              <li>運航ダイヤ新規登録モーダル＆ワンクリックデッキ調整ジャンプ</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <span style="color:var(--slate-400);">週1回・月1回（ダイヤ改定時）</span>
+            <span class="btn-launch">画面を開く ➔</span>
+          </div>
+        </a>
+
+        <!-- 6 -->
+        <a href="6_スタッフシフト＆フリーランス稼働管理.html" class="screen-card">
+          <div>
+            <div class="card-top">
+              <span class="screen-num badge-freelance">画面 6</span>
+              <span class="role-badge">店舗マネージャー・スタッフ</span>
+            </div>
+            <h3 class="card-title">スタッフシフト＆フリーランス稼働管理</h3>
+            <p class="card-desc">自社スタッフのシフトを保護しつつ、手が空く日は「🤝応援可能で受付」として他店へ敬意ある応援派遣を公開。</p>
+            <ul class="feature-list">
+              <li>週間・月間シフトマトリクス（休日・乗船・店番・応援可能）</li>
+              <li>コンプライアンス（賠償責任保険・潜水士免許）自動盾ガード</li>
+              <li>日付クリックで該当日の公募ボードへジャンプ連携</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <span style="color:var(--slate-400);">予定確定時・空き日発生時</span>
+            <span class="btn-launch">画面を開く ➔</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Group 5: 月末精算＆ガバナンス -->
+    <section class="group-section">
+      <div class="group-header">
+        <span class="group-icon">⚖️</span>
+        <div>
+          <h2 class="group-title">5. 月末差額精算＆港寄り合いガバナンス</h2>
+          <span class="group-desc">現金の往復送金をゼロにする自動相殺インボイスと、港全体の安全・規約ルール設定</span>
+        </div>
+      </div>
+
+      <div class="screen-grid">
+
+        <!-- 7 -->
+        <a href="7_月末相殺・インボイス精算ダッシュボード.html" class="screen-card">
+          <div>
+            <div class="card-top">
+              <span class="screen-num badge-settle">画面 7</span>
+              <span class="role-badge">ショップオーナー・経理担当</span>
+            </div>
+            <h3 class="card-title">月末相殺・インボイス精算ダッシュボード</h3>
+            <p class="card-desc">港グループ内での売掛・買掛を完全自動相殺。送金手数料と経理工数を激減させ、電子承認・インボイス出力。</p>
+            <ul class="feature-list">
+              <li>差額相殺サマリー（売掛 ¥648,000 − 買掛 ¥412,000 ＝ 差引受取）</li>
+              <li><strong>国税庁通達5-2-5準拠</strong>: キャンセル料（不課税損害賠償）と役務（10%課税）の厳密区分</li>
+              <li>相手方ショップとの相互電子承認シミュレーション＆適格請求書出力</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <span style="color:var(--slate-400);">月末〜翌月初（月1回締め作業）</span>
+            <span class="btn-launch">画面を開く ➔</span>
+          </div>
+        </a>
+
+        <!-- 8 -->
+        <a href="8_港・寄り合いガバナンス設定.html" class="screen-card">
+          <div>
+            <div class="card-top">
+              <span class="screen-num badge-settle">画面 8</span>
+              <span class="role-badge">港寄り合い幹事・管理者</span>
+            </div>
+            <h3 class="card-title">港・寄り合いガバナンス設定</h3>
+            <p class="card-desc">港全体の共通ルール（12:00公募締切・18:00確定ロック、安全ガイド比率、相殺手数料、新規店審査）の統制管理。</p>
+            <ul class="feature-list">
+              <li>統一タイムライン（12:00公募締切 / 18:00配船確定ロック）設定</li>
+              <li>安全比率（体験1:2、ファン1:4）および相殺手数料率（15%）設定</li>
+              <li>新規加盟ショップ審査承認シミュレーション＆監査証跡ログ</li>
+            </ul>
+          </div>
+          <div class="card-footer">
+            <span style="color:var(--slate-400);">規約改定時（年数回）</span>
+            <span class="btn-launch">画面を開く ➔</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Minatowa (ミナトワ) - 宜野湾港寄り合いボート・ガイドシェア協調プラットフォーム プロトタイプ</p>
+    <p style="margin-top: 6px; font-size: 0.75rem; color: var(--slate-400);">
+      すべての画面間で相互リンクが担保されています。画面上部のナビゲーションバーより自由に行き来できます。
+    </p>
+  </footer>
+
+</body>
+</html>
