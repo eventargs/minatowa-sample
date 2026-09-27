@@ -1239,6 +1239,29 @@
       border-color: var(--blue-300);
       transform: translateX(2px);
     }
+  
+    .btn-portal-jump {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 6px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-portal-jump:hover {
+      color: #fff;
+      background: rgba(14, 165, 233, 0.2);
+      border-color: #0ea5e9;
+    }
+
   </style>
 </head>
 <body>
@@ -1264,20 +1287,12 @@
       <span class="port-badge">那覇北マリーナ寄り合い</span>
     </div>
 
-    <!-- Navigation between Screens -->
-    <nav class="nav-links">
-      <a href="1-A_運航デッキ・乗船チーム編成ボード.html" class="nav-item active">画面1-A: 運航デッキ</a>
-      <a href="1-B_月間配船＆ゲスト手配ダッシュボード.html" class="nav-item">画面1-B: 月間手配</a>
-      <a href="1-C_マイスケジュール＆オファー受付ボード.html" class="nav-item">画面1-C: マイスケジュール</a>
-      <a href="2_港内シェア要請・公募ボード.html" class="nav-item">画面2: 港内シェア公募</a>
-      <a href="3_直前変更・二者間合意ロック管理.html" class="nav-item">画面3: 合意ロック</a>
-      <a href="4_予約カルテ・参加者書類提出台帳.html" class="nav-item">画面4: 予約台帳</a>
-      <a href="5_ボート運航ダイヤ＆段階的開放設定.html" class="nav-item">画面5: 運航ダイヤ・開放設定</a>
-      <a href="6_スタッフシフト＆フリーランス稼働管理.html" class="nav-item">画面6: スタッフ＆ガイド</a>
-      <a href="7_月末相殺・インボイス精算ダッシュボード.html" class="nav-item">画面7: 月末相殺・精算</a>
-      <a href="8_港・寄り合いガバナンス設定.html" class="nav-item">画面8: 港ガバナンス</a>
-      <a href="9_ゲスト専用_事前チェックイン・Web問診.html" class="nav-item" target="_blank" style="color:#34d399; border:1px solid rgba(52,211,153,0.3);">📱画面9: ゲスト問診 ↗</a>
-    </nav>
+        <div class="nav-portal-btn">
+      <a href="index.html" class="btn-portal-jump" title="ポータル画面へ戻る">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>画面ポータル一覧</span>
+      </a>
+    </div>
 
     <div class="nav-user">
       <div class="user-pill">
@@ -2038,7 +2053,7 @@
           </div>
           <div class="drawer-data-row">
             <span class="drawer-label">沖縄滞在先ホテル</span>
-            <span class="drawer-val">ホテルムーンオーシャン宜野湾 (702号室)</span>
+            <span class="drawer-val">ホテルムーンオーシャン那覇北 (702号室)</span>
           </div>
           <div class="drawer-data-row">
             <span class="drawer-label">緊急連絡先氏名</span>
