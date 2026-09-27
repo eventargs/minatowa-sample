@@ -115,6 +115,9 @@
       display: flex;
       align-items: center;
       gap: 12px;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .brand-logo {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -122,6 +125,9 @@
       font-weight: 800;
       color: var(--white);
       text-decoration: none;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .brand-logo span { color: var(--blue-500); }
     .port-badge {
@@ -134,6 +140,9 @@
       display: flex;
       align-items: center;
       gap: 6px;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .nav-links {
       display: flex;
@@ -148,6 +157,9 @@
       font-size: 0.85rem;
       font-weight: 600;
       transition: all 0.15s;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .nav-item:hover {
       color: var(--white);
@@ -488,7 +500,7 @@
       <div>
         <div class="role-guidance-text">【画面8】港・寄り合いガバナンス設定（共通運航ルール＆安全レギュレーション統括）</div>
         <div class="role-guidance-desc">
-          💡 宜野湾港に加盟するショップ全体に適用される「前日締め切り時刻」「相互キャンセルポリシー」「安全引率比率」を一元管理します。<br>
+          💡 那覇北マリーナに加盟するショップ全体に適用される「前日締め切り時刻」「相互キャンセルポリシー」「安全引率比率」を一元管理します。<br>
           設定値は全画面（出航デッキ、直前合意ロック、月末相殺）の自動バリデーションへ即座にカスケード反映されます。
         </div>
       </div>
@@ -504,7 +516,7 @@
       <a href="index.html" class="brand-logo" title="ポータルTOPへ">Mina<span>towa</span></a>
       <div class="port-badge">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a4 4 0 0 0-4 4c0 2 2 3 4 6 2-3 4-4 4-6a4 4 0 0 0-4-4z"/><circle cx="12" cy="18" r="4"/></svg>
-        宜野湾港 寄り合い協議会
+        那覇北マリーナ 寄り合い協議会
       </div>
     </div>
 
@@ -531,11 +543,11 @@
     <div class="gov-header-card">
       <div class="gov-title-group">
         <div class="gov-title">
-          <span>🏛️ 宜野湾港寄り合い協議会 共通運航規約</span>
+          <span>🏛️ 那覇北マリーナ寄り合い協議会 共通運航規約</span>
           <span style="font-size: 0.75rem; background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; padding: 2px 8px; border-radius: 9999px; font-weight: 700;">規約発効中 (2026年度版)</span>
         </div>
         <div class="gov-meta">
-          <span>主宰幹事店: <strong>北谷マリン (代表: 上原)</strong></span>
+          <span>主宰幹事店: <strong>パラダイス倶楽部 (代表: 上原)</strong></span>
           <span>｜</span>
           <span>加盟店舗数: <strong>4店舗 (＋審査中 1店舗)</strong></span>
           <span>｜</span>
@@ -752,7 +764,7 @@
     <div class="shops-table-card">
       <div class="table-header-strip">
         <div style="font-weight: 800; font-size: 0.95rem; color: var(--slate-900);">
-          👥 宜野湾港寄り合い 加盟ショップ一覧 (全5店舗)
+          👥 那覇北マリーナ寄り合い 加盟ショップ一覧 (全5店舗)
         </div>
         <button class="btn-action-outline" style="font-size: 0.8rem;" onclick="openInviteModal()">
           ➕ 新規ショップを招待・追加
@@ -773,7 +785,7 @@
         </thead>
         <tbody>
           <tr>
-            <td><strong>北谷マリン 本店</strong></td>
+            <td><strong>パラダイス倶楽部 沖縄店</strong></td>
             <td><span class="role-badge leader">主宰幹事店</span></td>
             <td><code>T9876543210123</code></td>
             <td>美ら海丸 (25名), 第2黒潮丸 (15名)</td>
@@ -846,7 +858,7 @@
         <li class="audit-item">
           <span class="audit-date">2024/04/01</span>
           <div>
-            <strong>宜野湾港寄り合い協議会 発足:</strong> 北谷マリン、サンライズダイブ、マリンサポートの3社にて港内シェア規約を正式締結。
+            <strong>那覇北マリーナ寄り合い協議会 発足:</strong> パラダイス倶楽部、サンライズダイブ、マリンサポートの3社にて港内シェア規約を正式締結。
           </div>
         </li>
       </ul>
@@ -890,7 +902,7 @@
   <div class="modal-backdrop" id="inviteModal">
     <div class="modal-card">
       <div class="modal-header">
-        <h3 style="font-size: 1rem; font-weight: 800;">➕ 新規ショップを宜野湾港グループへ招待</h3>
+        <h3 style="font-size: 1rem; font-weight: 800;">➕ 新規ショップを那覇北マリーナグループへ招待</h3>
         <button onclick="closeModal('inviteModal')" style="background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;">✕</button>
       </div>
       <div class="modal-body">
@@ -973,7 +985,7 @@
         <td>2026/09/27 (本日)</td>
         <td><button class="btn-action-outline" style="padding:2px 8px; font-size:0.75rem;" onclick="showToast('アイランドブルーの設定を表示')">詳細</button></td>
       `;
-      showToast('🎉 アイランドブルー様の加盟を承認しました！宜野湾港寄り合いグループへ合流しました。');
+      showToast('🎉 アイランドブルー様の加盟を承認しました！那覇北マリーナ寄り合いグループへ合流しました。');
     }
   </script>
 </body>

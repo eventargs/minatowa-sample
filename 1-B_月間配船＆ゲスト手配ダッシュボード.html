@@ -103,6 +103,9 @@
       display: flex;
       align-items: center;
       gap: 12px;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .brand-logo {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -110,6 +113,9 @@
       font-weight: 800;
       color: var(--white);
       text-decoration: none;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .brand-logo span { color: var(--blue-500); }
     .port-badge {
@@ -119,14 +125,20 @@
       font-weight: 600;
       padding: 4px 10px;
       border-radius: 9999px;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .nav-links {
       display: flex;
       align-items: center;
       gap: 4px;
       overflow-x: auto;
+      min-width: 0;
+      flex: 1 1 auto;
       white-space: nowrap;
-      scrollbar-width: none;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(56, 189, 248, 0.3) transparent;
       margin: 0 16px;
     }
     .nav-links::-webkit-scrollbar {
@@ -140,6 +152,9 @@
       font-size: 0.8rem;
       font-weight: 600;
       transition: all 0.15s;
+      white-space: nowrap;
+    
+      flex-shrink: 0;
       white-space: nowrap;
     }
     .nav-item:hover {
@@ -157,6 +172,9 @@
       background-color: rgba(255, 255, 255, 0.08);
       padding: 6px 14px;
       border-radius: 9999px;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .shop-type-tag {
       background-color: #6366f1;
@@ -510,7 +528,7 @@
   <header class="navbar">
     <div class="nav-brand">
       <a href="index.html" class="brand-logo" title="ポータルTOPへ">MINA<span>TOWA</span></a>
-      <span class="port-badge">宜野湾港寄り合い</span>
+      <span class="port-badge">那覇北マリーナ寄り合い</span>
     </div>
 
     <!-- Navigation between Screens -->
@@ -809,7 +827,7 @@
             </div>
             <div style="background:#f8fafc; border:1px solid var(--slate-200); border-radius:6px; padding:10px; font-size:0.8rem; display:flex; flex-direction:column; gap:6px;">
               <div>🚐 <strong>07:00 那覇ホテルお迎え</strong>: 山田様ファミリー (4名・ホテルコレクティブ) ── 送迎車1号</div>
-              <div>📍 <strong>07:45 宜野湾港現地集合</strong>: 佐藤様ご一行 (6名・レンタカー集合) ── 案内LINE送信用</div>
+              <div>📍 <strong>07:45 那覇北マリーナ現地集合</strong>: 佐藤様ご一行 (6名・レンタカー集合) ── 案内LINE送信用</div>
             </div>
           </div>
         </div>
@@ -821,7 +839,7 @@
             <div>
               <div class="column-title" id="rightColTitle" style="margin-bottom:2px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M20 12v8H4v-8"/><path d="m4 4 16 0"/><path d="m12 4v16"/></svg>
-                宜野湾港の空席状況 ➔ 【山田様ファミリー 4名】の配船手配
+                那覇北マリーナの空席状況 ➔ 【山田様ファミリー 4名】の配船手配
               </div>
               <div id="rightColSubtext" style="font-size:0.75rem; color:var(--slate-500);">
                 グループBの条件（4名・体験ダイビング丸投げ可能）に一致するボートを表示しています
@@ -838,7 +856,7 @@
             <div class="boat-offer-box featured" id="offerChuraumi">
               <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
                 <div>
-                  <strong style="font-size:1rem; color:var(--navy-900);">🚢 美ら海丸 (北谷マリン様)</strong>
+                  <strong style="font-size:1rem; color:var(--navy-900);">🚢 美ら海丸 (パラダイス倶楽部様)</strong>
                   <span style="font-size:0.7rem; background:#dbeafe; color:#1d4ed8; padding:2px 6px; border-radius:3px; font-weight:700; margin-left:6px;">先行公開中</span>
                   <span style="font-size:0.7rem; background:#dcfce7; color:#15803d; padding:2px 6px; border-radius:3px; font-weight:700; margin-left:4px;">最適マッチ 🎯</span>
                 </div>
@@ -892,7 +910,7 @@
                 <span style="font-size:0.85rem; font-weight:700; color:#059669;">確保枠: 6席</span>
               </div>
               <div style="font-size:0.8rem; color:#166534; line-height:1.6; margin-bottom:12px;">
-                ・<strong>運航便</strong>: ケラマ1便 08:30出航（07:45 宜野湾港集合・機材積込）<br>
+                ・<strong>運航便</strong>: ケラマ1便 08:30出航（07:45 那覇北マリーナ集合・機材積込）<br>
                 ・<strong>自社同乗ガイド</strong>: 仲宗根（安全比率 1:6 適合済）<br>
                 ・<strong>費用</strong>: 乗船料 ¥8,500 × 6名 ＝ ¥51,000（月末自動相殺）
               </div>
@@ -910,7 +928,7 @@
               その他の港内ボート（参考状況）
             </div>
             <div style="font-size:0.75rem; color:var(--slate-600); background:#f8fafc; border:1px solid var(--slate-200); border-radius:6px; padding:10px; display:flex; flex-direction:column; gap:6px;">
-              <div>・🚢 <strong>美ら海丸</strong> (北谷マリン様): 4席空き先行公開中 (体験受託可)</div>
+              <div>・🚢 <strong>美ら海丸</strong> (パラダイス倶楽部様): 4席空き先行公開中 (体験受託可)</div>
               <div>・🚢 <strong>潮風丸</strong> (オーシャンズ様): 30日前非公開設定中</div>
             </div>
           </div>
@@ -924,7 +942,7 @@
 
             <div class="boat-offer-box" style="display:flex; justify-content:space-between; align-items:center;">
               <div>
-                <strong style="font-size:0.95rem;">🚢 美ら海丸 (北谷マリン様)</strong>
+                <strong style="font-size:0.95rem;">🚢 美ら海丸 (パラダイス倶楽部様)</strong>
                 <span style="font-size:0.7rem; background:#dbeafe; color:#1d4ed8; padding:2px 6px; border-radius:3px; font-weight:700; margin-left:6px;">先行公開中</span>
                 <div style="font-size:0.75rem; color:var(--slate-600); margin-top:2px;">
                   ケラマ2便 ｜ 残り空き <strong>4席</strong> ｜ 体験ダイブ丸投げ受託可能
@@ -1023,11 +1041,11 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M20 12v8H4v-8"/><path d="m4 4 16 0"/><path d="m12 4v16"/></svg>
             【山田様ファミリー 4名】の手配管理（美ら海丸 確定済）
           `;
-          subtext.innerText = '美ら海丸（北谷マリン様）にて4席確保済みです（体験ダイブ丸投げ委託）。';
+          subtext.innerText = '美ら海丸（パラダイス倶楽部様）にて4席確保済みです（体験ダイブ丸投げ委託）。';
         } else {
           title.innerHTML = `
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M20 12v8H4v-8"/><path d="m4 4 16 0"/><path d="m12 4v16"/></svg>
-            宜野湾港の空席状況 ➔ 【山田様ファミリー 4名】の配船手配
+            那覇北マリーナの空席状況 ➔ 【山田様ファミリー 4名】の配船手配
           `;
           subtext.innerText = 'グループBの条件（4名・体験ダイビング丸投げ可能）に一致するボートを表示しています';
         }
@@ -1046,7 +1064,7 @@
         // null => General port overview
         title.innerHTML = `
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M20 12v8H4v-8"/><path d="m4 4 16 0"/><path d="m12 4v16"/></svg>
-          宜野湾港の各ボート 空席・先行公開状況 (7/18)
+          那覇北マリーナの各ボート 空席・先行公開状況 (7/18)
         `;
         subtext.innerText = '港全体の運航船空き状況一覧です。左側の予約客を選ぶと個別手配に連動します。';
         viewGen.style.display = 'block';
@@ -1117,14 +1135,14 @@
       statusBox.style.background = 'white';
       statusBox.style.borderColor = 'var(--slate-200)';
       statusBox.style.color = 'var(--slate-800)';
-      statusBox.innerHTML = `🚢 <strong>美ら海丸 (北谷マリン様)</strong> 4席先行確保済 (体験丸投げ委託)`;
+      statusBox.innerHTML = `🚢 <strong>美ら海丸 (パラダイス倶楽部様)</strong> 4席先行確保済 (体験丸投げ委託)`;
 
       // Update Offer Box
       const btn = document.getElementById('btnBookChuraumi');
       btn.disabled = true;
       btn.style.background = 'var(--slate-300)';
       btn.style.cursor = 'default';
-      btn.innerText = '✓ 4席確保完了 (北谷マリン様へ通知済)';
+      btn.innerText = '✓ 4席確保完了 (パラダイス倶楽部様へ通知済)';
 
       // Update Summary Header
       document.getElementById('monthlyBookedSeats').innerText = '46';
@@ -1142,9 +1160,9 @@
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20"/><path d="M20 12v8H4v-8"/><path d="m4 4 16 0"/><path d="m12 4v16"/></svg>
         【山田様ファミリー 4名】の手配管理（美ら海丸 確定済）
       `;
-      subtext.innerText = '美ら海丸（北谷マリン様）にて4席確保済みです（体験ダイブ丸投げ委託）。';
+      subtext.innerText = '美ら海丸（パラダイス倶楽部様）にて4席確保済みです（体験ダイブ丸投げ委託）。';
 
-      alert('美ら海丸（北谷マリン様）のケラマ便4席を先行確保しました！\n7月18日(土)の自社予約ゲスト全員のボート席が確定しました。');
+      alert('美ら海丸（パラダイス倶楽部様）のケラマ便4席を先行確保しました！\n7月18日(土)の自社予約ゲスト全員のボート席が確定しました。');
     }
   </script>
 </body>

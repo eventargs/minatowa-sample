@@ -115,6 +115,9 @@
       display: flex;
       align-items: center;
       gap: 12px;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .brand-logo {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -122,6 +125,9 @@
       font-weight: 800;
       color: var(--white);
       text-decoration: none;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .brand-logo span { color: var(--blue-500); }
     .port-badge {
@@ -134,6 +140,9 @@
       display: flex;
       align-items: center;
       gap: 6px;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .nav-links {
       display: flex;
@@ -148,6 +157,9 @@
       font-size: 0.85rem;
       font-weight: 600;
       transition: all 0.15s;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .nav-item:hover {
       color: var(--white);
@@ -750,7 +762,7 @@
       <a href="index.html" class="brand-logo" title="ポータルTOPへ">Mina<span>towa</span></a>
       <div class="port-badge">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a4 4 0 0 0-4 4c0 2 2 3 4 6 2-3 4-4 4-6a4 4 0 0 0-4-4z"/><circle cx="12" cy="18" r="4"/></svg>
-        宜野湾港 寄り合い協議会
+        那覇北マリーナ 寄り合い協議会
       </div>
     </div>
 
@@ -801,7 +813,7 @@
       <div class="section-title-strip">
         <div class="section-title">
           <span>👥 自社スタッフ週間シフト ＆ 応援ガイド受付管理</span>
-          <span class="section-badge">北谷マリン (3名在籍)</span>
+          <span class="section-badge">パラダイス倶楽部 (3名在籍)</span>
         </div>
         <div style="font-size: 0.8rem; color: var(--slate-500);">
           💡 自社客がつかない出勤日は「他社サポート可能」として港の仲間へ受付公開できます
@@ -1075,7 +1087,7 @@
         <div class="section-title">
           <span>🙋 港内フリーランス・応援ガイドプール</span>
           <span class="section-badge" id="poolDateBadge" style="background: #e0f2fe; color: #0284c7; border-color: #bae6fd;">
-            選択中の日程: 2026年9月27日(日) 宜野湾港 稼働可能
+            選択中の日程: 2026年9月27日(日) 那覇北マリーナ 稼働可能
           </span>
         </div>
         <div style="font-size: 0.8rem; color: var(--slate-500);">
@@ -1120,13 +1132,13 @@
               <span class="skill-tag" style="background:#eff6ff; color:#1d4ed8;">体験ダイブ100回超</span>
               <span class="skill-tag">一眼水中カメラ</span>
               <span class="skill-tag">英語日常会話</span>
-              <span class="skill-tag">宜野湾港発着OK</span>
+              <span class="skill-tag">那覇北マリーナ発着OK</span>
             </div>
 
             <div class="fl-slot-box">
               <div class="fl-slot-row">
                 <span>稼働可能日程:</span>
-                <strong id="flDateSlot1">09/27(日) 終日可能 (宜野湾港OK)</strong>
+                <strong id="flDateSlot1">09/27(日) 終日可能 (那覇北マリーナOK)</strong>
               </div>
               <div class="fl-slot-row">
                 <span>希望日当:</span>
@@ -1297,7 +1309,7 @@
           <label class="form-label">依頼する稼働日・集合港</label>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <input type="date" class="form-input" value="2026-09-27">
-            <input type="text" class="form-input" value="宜野湾港 07:45 集合">
+            <input type="text" class="form-input" value="那覇北マリーナ 07:45 集合">
           </div>
         </div>
         <div class="form-group">
@@ -1350,7 +1362,7 @@
       const shortageAlert = document.getElementById('shortageAlertBanner');
       const shortageTitle = document.getElementById('shortageAlertTitle');
 
-      badge.textContent = '選択中の日程: ' + fullDateStr + ' 宜野湾港 稼働可能';
+      badge.textContent = '選択中の日程: ' + fullDateStr + ' 那覇北マリーナ 稼働可能';
 
       const slotFl1 = document.getElementById('flDateSlot1');
       const slotFl2 = document.getElementById('flDateSlot2');
@@ -1362,7 +1374,7 @@
         badge.style.background = '#fef3c7';
         badge.style.color = '#b45309';
         badge.style.borderColor = '#fde68a';
-        if (slotFl1) slotFl1.textContent = '10/01(木) 終日可能 (宜野湾港OK)';
+        if (slotFl1) slotFl1.textContent = '10/01(木) 終日可能 (那覇北マリーナOK)';
         if (slotFl2) slotFl2.textContent = '10/01(木) 午前便のみ (08:00〜12:30)';
         showToast('⚠️ 10/01(木)のガイド手配状況を表示: 体験ダイブ専任ガイドが1名不足しています！');
       } else {
@@ -1370,7 +1382,7 @@
         badge.style.background = '#e0f2fe';
         badge.style.color = '#0284c7';
         badge.style.borderColor = '#bae6fd';
-        if (slotFl1) slotFl1.textContent = fullDateStr.split('(')[0] + ' 終日可能 (宜野湾港OK)';
+        if (slotFl1) slotFl1.textContent = fullDateStr.split('(')[0] + ' 終日可能 (那覇北マリーナOK)';
         if (slotFl2) slotFl2.textContent = fullDateStr.split('(')[0] + ' 午前便のみ (08:00〜12:30)';
         showToast('📅 ' + fullDateStr + ' に稼働可能なフリーランス・応援ガイドプールを表示');
       }
@@ -1398,7 +1410,7 @@
 
     function openLoanModal(staffName, date) {
       document.getElementById('loanStaffName').value = staffName + ' (MSDT / 潜水士)';
-      document.getElementById('loanStaffDate').value = date + ' 終日 (宜野湾港発着)';
+      document.getElementById('loanStaffDate').value = date + ' 終日 (那覇北マリーナ発着)';
       document.getElementById('loanModal').classList.add('active');
     }
 

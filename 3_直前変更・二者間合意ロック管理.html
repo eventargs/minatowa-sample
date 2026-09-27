@@ -112,6 +112,9 @@
       display: flex;
       align-items: center;
       gap: 12px;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .brand-logo {
       font-family: 'Plus Jakarta Sans', sans-serif;
@@ -119,6 +122,9 @@
       font-weight: 800;
       color: var(--white);
       text-decoration: none;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .brand-logo span { color: var(--blue-500); }
     .port-badge {
@@ -131,6 +137,9 @@
       display: flex;
       align-items: center;
       gap: 6px;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .nav-links {
       display: flex;
@@ -145,6 +154,9 @@
       font-size: 0.85rem;
       font-weight: 600;
       transition: all 0.15s;
+    
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .nav-item:hover {
       color: var(--white);
@@ -578,7 +590,7 @@
       </div>
     </div>
     <div style="font-size: 0.75rem; color: #c7d2fe; text-align: right;">
-      宜野湾港 寄り合い協議会規約準拠<br>改ざん防止ハッシュログ自動記録
+      那覇北マリーナ 寄り合い協議会規約準拠<br>改ざん防止ハッシュログ自動記録
     </div>
   </aside>
 
@@ -588,7 +600,7 @@
       <a href="index.html" class="brand-logo" title="ポータルTOPへ">Mina<span>towa</span></a>
       <div class="port-badge">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a4 4 0 0 0-4 4c0 2 2 3 4 6 2-3 4-4 4-6a4 4 0 0 0-4-4z"/><circle cx="12" cy="18" r="4"/></svg>
-        宜野湾港 寄り合い協議会
+        那覇北マリーナ 寄り合い協議会
       </div>
     </div>
 
@@ -668,7 +680,7 @@
         <div class="parties-display">
           <span class="party-tag" style="background:#eff6ff; color:#1e40af; border-color:#bfdbfe;">委託元: サンライズダイブ (担当: 比嘉)</span>
           <span style="color:var(--slate-400);">──▶</span>
-          <span class="party-tag" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">受託先: 北谷マリン (ボート: 美ら海丸 / 船長: 金城)</span>
+          <span class="party-tag" style="background:#f0fdf4; color:#166534; border-color:#bbf7d0;">受託先: パラダイス倶楽部 (ボート: 美ら海丸 / 船長: 金城)</span>
         </div>
         <div style="font-family:'JetBrains Mono',monospace; color:var(--slate-600);">
           対象便: <strong>2026/09/27 (明日) ケラマ便</strong> | 元約定: 2名分 (¥26,000)
@@ -697,7 +709,7 @@
             適用される港共通BtoBキャンセル規定
           </div>
           <div class="clause-applied" id="clauseAppliedTitle">
-            【宜野湾港 寄り合い協議会 共通BtoB規約 第4条（前日午後〜当日取消）】
+            【那覇北マリーナ 寄り合い協議会 共通BtoB規約 第4条（前日午後〜当日取消）】
           </div>
           <div class="clause-formula" id="clauseFormulaText">
             申請時刻: <strong>前日 16:30（出航16時間前・前日午後区分）</strong> ➔ 適用料率: <strong style="color:var(--crimson-600);">100%（受託ボート売上全額保全）</strong><br>
@@ -737,7 +749,7 @@
           <!-- Total Calculation -->
           <div class="settlement-row total-row" style="background:#f8fafc;">
             <div>
-              <span>受託先（北谷マリン / 美ら海丸）請求額（売上全額確保）:</span>
+              <span>受託先（パラダイス倶楽部 / 美ら海丸）請求額（売上全額確保）:</span>
             </div>
             <div style="font-family:'JetBrains Mono'; font-size:1.25rem; color:var(--emerald-600);" id="valTotalPayout">
               ¥26,000
@@ -770,7 +782,7 @@
           <div class="sig-box" id="sigBoxB">
             <span class="sig-label">受託先 (ボート側責任者)</span>
             <div class="sig-user-row">
-              <span class="sig-name">北谷マリン (金城 恵 / 船長)</span>
+              <span class="sig-name">パラダイス倶楽部 (金城 恵 / 船長)</span>
               <span id="sigBStatusText" style="font-size:0.72rem; color:var(--amber-600); font-weight:700;">
                 ⏳ 合意確認待ち
               </span>
@@ -807,7 +819,7 @@
       <div class="sidebar-card">
         <div class="sidebar-title">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-          宜野湾港 共通BtoBキャンセル規定
+          那覇北マリーナ 共通BtoBキャンセル規定
         </div>
         
         <div class="policy-rule-item">
@@ -923,7 +935,7 @@
       log.style.borderLeftColor = 'var(--emerald-500)';
       log.innerHTML = `
         <div style="color:var(--slate-500); font-family:'JetBrains Mono';">09/26 16:35</div>
-        <div style="font-weight:700; color:var(--emerald-700);">北谷マリン合意 ➔ 電磁ロック締結完了</div>
+        <div style="font-weight:700; color:var(--emerald-700);">パラダイス倶楽部合意 ➔ 電磁ロック締結完了</div>
       `;
 
       showToast('二者間合意ロックが完了しました。言った言わないを防ぐ電磁記録が作成され、月末相殺に反映されました。');
@@ -949,7 +961,7 @@
           🌊 船長判断：台風接近に伴う海況悪化（美ら海丸 全便欠航決定）
         `;
         document.getElementById('changeDesc').innerHTML = `
-          気象庁波浪注意報および宜野湾港基準に基づき、船長判断により明日の運航を全便中止としました。<br>
+          気象庁波浪注意報および那覇北マリーナ基準に基づき、船長判断により明日の運航を全便中止としました。<br>
           <strong>不可抗力免責条項が適用され、受託料およびキャンセル料は全額0円となります。</strong>
         `;
 
@@ -985,7 +997,7 @@
           もう1名の「佐藤 隆 様」は予定通り明日乗船されます。
         `;
 
-        document.getElementById('clauseAppliedTitle').innerText = '【宜野湾港 寄り合い協議会 共通BtoB規約 第4条（前日午後〜当日取消）】';
+        document.getElementById('clauseAppliedTitle').innerText = '【那覇北マリーナ 寄り合い協議会 共通BtoB規約 第4条（前日午後〜当日取消）】';
         document.getElementById('clauseFormulaText').innerHTML = `
           申請時刻: <strong>前日 16:30（出航16時間前・前日午後区分）</strong> ➔ 適用料率: <strong style="color:var(--crimson-600);">100%（受託ボート売上全額保全）</strong><br>
           ※受託側（美ら海丸）は直前の他客埋め戻しが不可能なため、約定乗船料が全額キープされます。
